@@ -22,6 +22,14 @@ const demoSteps = [
   "Open backend: super users inspect ontology relationships and Fabric data model mapping."
 ];
 
+const presenterNotes = [
+  "Opening line: this demo shows how an ontology turns fragmented operational data into a live, explainable digital twin.",
+  "Point out that operators start with health and action, not tables or architecture.",
+  "Emphasize that familiar PI-style telemetry is still present, but now connected to assets, failure modes, and KPIs.",
+  "Use one scenario at a time. Let the customer see cause, impact, and recommended action change together.",
+  "Only move to backend screens if the audience asks how the model is implemented in Fabric."
+];
+
 function statusClass(status: Status) {
   return status.toLowerCase();
 }
@@ -394,17 +402,34 @@ function FabricView() {
   );
 }
 
-function DemoGuide({ step, setStep }: { step: number; setStep: (step: number) => void }) {
+function DemoGuide({
+  step,
+  setStep,
+  presentationMode,
+  autoAdvance,
+  setAutoAdvance,
+  resetDemo
+}: {
+  step: number;
+  setStep: (step: number) => void;
+  presentationMode: boolean;
+  autoAdvance: boolean;
+  setAutoAdvance: (enabled: boolean) => void;
+  resetDemo: () => void;
+}) {
   return (
     <section className="demoGuide">
       <div>
-        <strong>Guided customer demo</strong>
+        <strong>{presentationMode ? "Customer presentation mode" : "Guided customer demo"}</strong>
         <p>{demoSteps[step]}</p>
+        {presentationMode && <em>{presenterNotes[step]}</em>}
       </div>
       <div className="guideControls">
         <button onClick={() => setStep(Math.max(0, step - 1))}>Back</button>
         <span>{step + 1} / {demoSteps.length}</span>
         <button onClick={() => setStep(Math.min(demoSteps.length - 1, step + 1))}>Next</button>
+        {presentationMode && <button className={autoAdvance ? "active" : ""} onClick={() => setAutoAdvance(!autoAdvance)}>{autoAdvance ? "Pause auto" : "Auto-advance"}</button>}
+        {presentationMode && <button onClick={resetDemo}>Customer reset</button>}
       </div>
     </section>
   );
@@ -475,8 +500,56 @@ export default function App() {
   const [selectedAsset, setSelectedAsset] = useState("OPH-A-K101");
   const [demoStep, setDemoStep] = useState(0);
   const [presentationMode, setPresentationMode] = useState(false);
+  const [autoAdvance, setAutoAdvance] = useState(false);
   const tags = useLiveTags(scenario);
   const isOperationsScreen = screen === "control" || screen === "process";
+
+  useEffect(() => {
+    if (!presentationMode || !autoAdvance) return;
+    const id = window.setInterval(() => {
+      setDemoStep((step) => {
+        const next = step >= demoSteps.length - 1 ? 0 : step + 1;
+        if (next === 0) {
+          setScreen("control");
+          setScenario("normal");
+        } else if (next === 1) {
+          setScreen("control");
+          setScenario("compressor");
+        } else if (next === 2) {
+          setScreen("process");
+          setScenario("separator");
+        } else if (next === 3) {
+          setScreen("control");
+          setScenario("refinery");
+        } else {
+          setScreen("ontology");
+          setScenario("compressor");
+        }
+        return next;
+      });
+    }, 12000);
+    return () => window.clearInterval(id);
+  }, [presentationMode, autoAdvance]);
+
+  function resetDemo() {
+    setScreen("control");
+    setScenario("normal");
+    setSelectedAsset("OPH-A-K101");
+    setDemoStep(0);
+    setAutoAdvance(false);
+  }
+
+  function togglePresentationMode() {
+    const next = !presentationMode;
+    setPresentationMode(next);
+    if (next) {
+      setScreen("control");
+      setScenario("normal");
+      setDemoStep(0);
+    } else {
+      setAutoAdvance(false);
+    }
+  }
 
   return (
     <div className={`app ${presentationMode ? "presentation" : ""}`}>
@@ -495,7 +568,7 @@ export default function App() {
               <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
             ))}
           </div>
-          <div>
+          <div className="backendNav">
             <small>Backend / super users</small>
             {[["ontology", "Ontology browser"], ["fabric", "Fabric model"]].map(([id, label]) => (
               <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
@@ -505,7 +578,7 @@ export default function App() {
         <div className="live"><span /> LIVE {new Date().toLocaleTimeString()}</div>
       </header>
 
-      <DemoGuide step={demoStep} setStep={setDemoStep} />
+      <DemoGuide step={demoStep} setStep={setDemoStep} presentationMode={presentationMode} autoAdvance={autoAdvance} setAutoAdvance={setAutoAdvance} resetDemo={resetDemo} />
 
       {isOperationsScreen && (
         <section className="scenarioBar">
@@ -517,8 +590,8 @@ export default function App() {
             {(Object.keys(scenarios) as ScenarioId[]).map((id) => (
               <button key={id} className={scenario === id ? "active" : ""} onClick={() => setScenario(id)}>{scenarios[id].name}</button>
             ))}
-            <button onClick={() => setScenario("normal")}>Reset</button>
-            <button className={presentationMode ? "active" : ""} onClick={() => setPresentationMode(!presentationMode)}>Presentation mode</button>
+            <button onClick={resetDemo}>Reset</button>
+            <button className={presentationMode ? "active" : ""} onClick={togglePresentationMode}>{presentationMode ? "Exit presentation" : "Presentation mode"}</button>
           </div>
         </section>
       )}
