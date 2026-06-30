@@ -59,14 +59,17 @@ body {
   font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 button { font: inherit; }
-.app { min-height: 100vh; }
+.app {
+  min-height: 100vh;
+  background: var(--cp-bg);
+}
 .topbar {
   display: grid;
   grid-template-columns: minmax(320px, 1fr) minmax(340px, 440px) auto;
   gap: 16px;
   align-items: center;
-  padding: 14px 20px;
-  background: var(--cp-bg-elevated);
+  padding: 12px 20px;
+  background: var(--cp-surface);
   border-bottom: 1px solid var(--cp-border);
   position: sticky;
   top: 0;
@@ -80,8 +83,8 @@ button { font: inherit; }
   border: 1px solid var(--cp-border);
   display: grid;
   place-items: center;
-  color: var(--cp-accent);
-  background: var(--cp-accent-soft);
+  color: var(--cp-text);
+  background: var(--cp-surface-soft);
   font-weight: 700;
 }
 h1 { margin: 0; font-size: 18px; }
@@ -106,7 +109,7 @@ p { margin: 0; color: var(--cp-text-muted); }
   width: 100%;
   border: 1px solid var(--cp-border);
   border-radius: 0.625rem;
-  background: var(--cp-surface);
+  background: var(--cp-bg-elevated);
   color: var(--cp-text);
   padding: 9px 36px 9px 12px;
   font: inherit;
@@ -127,7 +130,7 @@ p { margin: 0; color: var(--cp-text-muted); }
 }
 .presentationToggle {
   border: 1px solid var(--cp-border);
-  background: var(--cp-surface);
+  background: var(--cp-bg-elevated);
   color: var(--cp-text);
   border-radius: 16px;
   padding: 8px 12px;
@@ -181,7 +184,7 @@ p { margin: 0; color: var(--cp-text-muted); }
 }
 .scenarioBar {
   margin: 20px;
-  padding: 14px 16px;
+  padding: 12px 16px;
   background: var(--cp-surface);
   border: 1px solid var(--cp-border);
   border-radius: 16px;
@@ -193,8 +196,8 @@ p { margin: 0; color: var(--cp-text-muted); }
 }
 .demoGuide {
   margin: 20px 20px 0;
-  padding: 14px 16px;
-  background: var(--cp-accent-soft);
+  padding: 12px 16px;
+  background: var(--cp-surface);
   border: 1px solid var(--cp-border);
   border-radius: 16px;
   display: flex;
@@ -216,7 +219,7 @@ p { margin: 0; color: var(--cp-text-muted); }
 }
 .guideControls button {
   border: 1px solid var(--cp-border);
-  background: var(--cp-surface);
+  background: var(--cp-bg-elevated);
   color: var(--cp-text);
   border-radius: 0.625rem;
   padding: 7px 10px;
@@ -230,7 +233,7 @@ p { margin: 0; color: var(--cp-text-muted); }
 .secondaryAction {
   border: 1px solid var(--cp-border);
   border-radius: 0.625rem;
-  background: var(--cp-surface);
+  background: var(--cp-bg-elevated);
   color: var(--cp-text);
   padding: 9px 12px;
   cursor: pointer;
@@ -263,6 +266,7 @@ main { padding: 0 20px 24px; }
   padding: 13px 15px;
   border-bottom: 1px solid var(--cp-border);
   font-weight: 650;
+  background: var(--cp-bg-elevated);
 }
 small { color: var(--cp-text-muted); font-size: 12px; font-weight: 400; }
 .metric { padding-bottom: 14px; }
@@ -315,7 +319,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
   border-left: 4px solid var(--cp-warning);
   border-radius: 0.625rem;
   padding: 10px;
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
 }
 .event.critical { border-left-color: var(--cp-danger); }
 .event.normal { border-left-color: var(--cp-success); }
@@ -355,7 +359,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
   position: relative;
   height: 360px;
   min-width: 820px;
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   border-top: 1px solid var(--cp-border);
 }
 .miniMimic .pipe { height: 4px; }
@@ -383,7 +387,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
   padding: 12px 16px;
   border-top: 1px solid var(--cp-border);
   border-bottom: 1px solid var(--cp-border);
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
 }
 .trendPlot i {
   flex: 1;
@@ -407,7 +411,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 .correlationGrid div {
   border: 1px solid var(--cp-border);
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   border-radius: 0.625rem;
   padding: 12px;
 }
@@ -429,7 +433,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
   height: 650px;
   min-width: 1500px;
   overflow: auto;
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   border: 1px solid var(--cp-border);
   border-top: 0;
   border-radius: 0 0 16px 16px;
@@ -523,7 +527,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .info {
   border: 1px solid var(--cp-border);
   border-radius: 0.625rem;
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   padding: 10px;
 }
 .info small, .info strong { display: block; }
@@ -537,7 +541,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .chips span, .tableGrid span {
   border: 1px solid var(--cp-border);
   border-radius: 999px;
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   padding: 6px 9px;
   font-size: 12px;
 }
@@ -550,7 +554,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .impactTrace div {
   border: 1px solid var(--cp-border);
   border-radius: 0.625rem;
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   padding: 10px;
 }
 .impactTrace strong, .impactTrace span {
@@ -570,7 +574,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 .graphEdge span {
   border: 1px solid var(--cp-border);
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   border-radius: 0.625rem;
   padding: 8px;
   font-family: Consolas, "Courier New", Courier, monospace;
@@ -626,7 +630,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 .promptGrid button, .copilotBody form button {
   border: 1px solid var(--cp-border);
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   color: var(--cp-text);
   border-radius: 0.625rem;
   padding: 8px 10px;
@@ -652,10 +656,10 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
   line-height: 1.45;
 }
 .chatMessage.assistant {
-  background: var(--cp-accent-soft);
+  background: var(--cp-bg-elevated);
 }
 .chatMessage.user {
-  background: var(--cp-surface-soft);
+  background: var(--cp-accent-soft);
 }
 .chatMessage strong {
   display: block;
@@ -669,7 +673,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 .copilotReset {
   border: 1px solid var(--cp-border);
-  background: var(--cp-surface-soft);
+  background: var(--cp-bg-elevated);
   color: var(--cp-text);
   border-radius: 999px;
   padding: 5px 9px;
@@ -696,8 +700,8 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
   box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
 }
 .presentation .topbar {
-  padding-top: 18px;
-  padding-bottom: 18px;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 .presentation .backendNav {
   display: none;
