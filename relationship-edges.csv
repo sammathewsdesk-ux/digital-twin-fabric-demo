@@ -1,0 +1,86 @@
+edge_id,source_asset_id,relationship_type,target_asset_id,relationship_context,description
+EDGE-0001,DEMO-ENERGY,contains,SEG-UPSTREAM,Hierarchy,Enterprise contains upstream business segment
+EDGE-0002,SEG-UPSTREAM,contains,REG-ALPHA,Hierarchy,Upstream segment contains offshore basin
+EDGE-0003,REG-ALPHA,contains,OPH-A,Hierarchy,Offshore basin contains offshore production hub
+EDGE-0004,OPH-A,contains,OPH-A-SUB,Hierarchy,Offshore hub contains subsurface asset domain
+EDGE-0005,OPH-A-SUB,contains,OPH-A-RES-ALPHA,Hierarchy,Subsurface domain contains reservoir
+EDGE-0006,OPH-A-RES-ALPHA,contains,OPH-A-ZONE-A,Hierarchy,Reservoir contains producing zone
+EDGE-0007,OPH-A-ZONE-A,contains,OPH-A-COMP-A1,Hierarchy,Reservoir zone contains compartment
+EDGE-0008,OPH-A,contains,OPH-A-WELLS,Hierarchy,Offshore hub contains wells domain
+EDGE-0009,OPH-A-WELLS,contains,OPH-A-W01,Hierarchy,Wells domain contains production well
+EDGE-0010,OPH-A-W01,contains,OPH-A-W01-B1,Hierarchy,Production well contains main wellbore
+EDGE-0011,OPH-A-W01-B1,contains,OPH-A-W01-C1,Hierarchy,Wellbore contains completion
+EDGE-0012,OPH-A-WELLS,contains,OPH-A-W11,Hierarchy,Wells domain contains water injection well
+EDGE-0013,OPH-A,contains,OPH-A-SURF,Hierarchy,Offshore hub contains surface production platform
+EDGE-0014,OPH-A-SURF,contains,OPH-A-INLET,Hierarchy,Surface platform contains inlet processing
+EDGE-0015,OPH-A-INLET,contains,OPH-A-V101,Hierarchy,Inlet processing contains inlet separator
+EDGE-0016,OPH-A-SURF,contains,OPH-A-OIL,Hierarchy,Surface platform contains oil processing
+EDGE-0017,OPH-A-OIL,contains,OPH-A-P101,Hierarchy,Oil processing contains oil export pump
+EDGE-0018,OPH-A-SURF,contains,OPH-A-GAS,Hierarchy,Surface platform contains gas processing
+EDGE-0019,OPH-A-GAS,contains,OPH-A-K101,Hierarchy,Gas processing contains gas compressor
+EDGE-0020,OPH-A-GAS,contains,OPH-A-M101,Hierarchy,Gas processing contains compressor driver
+EDGE-0021,OPH-A,contains,OPH-A-UTIL,Hierarchy,Offshore hub contains utilities
+EDGE-0022,OPH-A,contains,OPH-A-SAFE,Hierarchy,Offshore hub contains safety and control
+EDGE-0023,DEMO-ENERGY,contains,SEG-DOWNSTREAM,Hierarchy,Enterprise contains downstream business segment
+EDGE-0024,SEG-DOWNSTREAM,contains,REG-BETA,Hierarchy,Downstream segment contains industrial region
+EDGE-0025,REG-BETA,contains,ORC-B,Hierarchy,Industrial region contains refinery complex
+EDGE-0026,ORC-B,contains,ORC-B-RECV,Hierarchy,Refinery complex contains crude receiving
+EDGE-0027,ORC-B-RECV,contains,ORC-B-T101,Hierarchy,Crude receiving contains crude storage tank
+EDGE-0028,ORC-B-RECV,contains,ORC-B-P101,Hierarchy,Crude receiving contains crude charge pump
+EDGE-0029,ORC-B,contains,ORC-B-PRIMARY,Hierarchy,Refinery complex contains primary processing
+EDGE-0030,ORC-B-PRIMARY,contains,ORC-B-CDU101,Hierarchy,Primary processing contains crude distillation unit
+EDGE-0031,ORC-B-CDU101,contains,ORC-B-H101,Hierarchy,Crude distillation unit contains fired heater
+EDGE-0032,ORC-B-CDU101,contains,ORC-B-C101,Hierarchy,Crude distillation unit contains atmospheric column
+EDGE-0033,ORC-B,contains,ORC-B-CONV,Hierarchy,Refinery complex contains conversion area
+EDGE-0034,ORC-B-CONV,contains,ORC-B-FCC101,Hierarchy,Conversion area contains catalytic cracking unit
+EDGE-0035,ORC-B,contains,ORC-B-TREAT,Hierarchy,Refinery complex contains treating area
+EDGE-0036,ORC-B,contains,ORC-B-EXPORT,Hierarchy,Refinery complex contains blending and export
+EDGE-0037,ORC-B,contains,ORC-B-UTIL,Hierarchy,Refinery complex contains utilities
+EDGE-0038,ORC-B,contains,ORC-B-SAFE,Hierarchy,Refinery complex contains safety and control
+EDGE-0039,OPH-A-W01,locatedIn,OPH-A-RES-ALPHA,Subsurface,Production well is located in reservoir context
+EDGE-0040,OPH-A-W01-C1,producesFrom,OPH-A-COMP-A1,Subsurface,Completion produces from reservoir compartment
+EDGE-0041,OPH-A-W11,injectsInto,OPH-A-ZONE-A,Subsurface,Water injection well injects into producing zone
+EDGE-0042,OPH-A-W01,flowsTo,OPH-A-INLET,ProcessFlow,Produced fluids flow from production well to inlet processing
+EDGE-0043,OPH-A-INLET,flowsTo,OPH-A-V101,ProcessFlow,Inlet processing routes wellstream to inlet separator
+EDGE-0044,OPH-A-V101,flowsTo,OPH-A-OIL,ProcessFlow,Inlet separator sends liquid hydrocarbon stream to oil processing
+EDGE-0045,OPH-A-V101,flowsTo,OPH-A-GAS,ProcessFlow,Inlet separator sends gas stream to gas processing
+EDGE-0046,OPH-A-OIL,flowsTo,OPH-A-P101,ProcessFlow,Oil processing sends stabilized crude to export pump
+EDGE-0047,OPH-A-GAS,flowsTo,OPH-A-K101,ProcessFlow,Gas processing sends gas to export compressor
+EDGE-0048,OPH-A-K101,flowsTo,ORC-B-RECV,IntegratedValueChain,Export gas stream is represented as feeding downstream receiving context
+EDGE-0049,OPH-A-P101,flowsTo,ORC-B-RECV,IntegratedValueChain,Export crude stream is represented as feeding downstream receiving context
+EDGE-0050,OPH-A-M101,drives,OPH-A-K101,EquipmentRelationship,Compressor driver drives gas compressor
+EDGE-0051,OPH-A-SAFE,protects,OPH-A-INLET,Safety,Safety and control protects inlet processing
+EDGE-0052,OPH-A-SAFE,protects,OPH-A-K101,Safety,Safety and control protects gas compressor
+EDGE-0053,OPH-A-UTIL,feeds,OPH-A-M101,Utilities,Offshore utilities feed compressor driver
+EDGE-0054,ORC-B-T101,flowsTo,ORC-B-P101,ProcessFlow,Crude storage tank supplies crude charge pump
+EDGE-0055,ORC-B-P101,feeds,ORC-B-H101,ProcessFlow,Crude charge pump feeds fired heater
+EDGE-0056,ORC-B-H101,feeds,ORC-B-C101,ProcessFlow,Fired heater feeds atmospheric column
+EDGE-0057,ORC-B-C101,flowsTo,ORC-B-FCC101,ProcessFlow,Atmospheric column side streams flow to conversion unit
+EDGE-0058,ORC-B-C101,flowsTo,ORC-B-TREAT,ProcessFlow,Atmospheric column streams flow to treating area
+EDGE-0059,ORC-B-FCC101,flowsTo,ORC-B-TREAT,ProcessFlow,Conversion product streams flow to treating area
+EDGE-0060,ORC-B-TREAT,flowsTo,ORC-B-EXPORT,ProcessFlow,Treated products flow to blending and export
+EDGE-0061,ORC-B-UTIL,feeds,ORC-B-H101,Utilities,Refinery utilities provide fuel and services to fired heater
+EDGE-0062,ORC-B-SAFE,protects,ORC-B-H101,Safety,Safety and control protects fired heater
+EDGE-0063,ORC-B-SAFE,protects,ORC-B-CDU101,Safety,Safety and control protects crude distillation unit
+EDGE-0064,OPH-A-W01,hasTelemetry,TAG-OPH-A-W01-THP-PV,Telemetry,Production well has wellhead pressure telemetry
+EDGE-0065,OPH-A-W01,hasTelemetry,TAG-OPH-A-W01-CHOKE-POS,Telemetry,Production well has choke position telemetry
+EDGE-0066,OPH-A-W01,hasTelemetry,TAG-OPH-A-W01-FLOW-PV,Telemetry,Production well has flow telemetry
+EDGE-0067,OPH-A-V101,hasTelemetry,TAG-OPH-A-V101-PRESS-PV,Telemetry,Inlet separator has pressure telemetry
+EDGE-0068,OPH-A-V101,hasTelemetry,TAG-OPH-A-V101-LEVEL-PV,Telemetry,Inlet separator has level telemetry
+EDGE-0069,OPH-A-K101,hasTelemetry,TAG-OPH-A-K101-DP-PV,Telemetry,Gas compressor has discharge pressure telemetry
+EDGE-0070,OPH-A-K101,hasTelemetry,TAG-OPH-A-K101-VIB-PV,Telemetry,Gas compressor has vibration telemetry
+EDGE-0071,OPH-A-K101,hasTelemetry,TAG-OPH-A-K101-TEMP-PV,Telemetry,Gas compressor has bearing temperature telemetry
+EDGE-0072,OPH-A-M101,hasTelemetry,TAG-OPH-A-M101-POWER-PV,Telemetry,Compressor driver has power telemetry
+EDGE-0073,ORC-B-T101,hasTelemetry,TAG-ORC-B-T101-LEVEL-PV,Telemetry,Crude storage tank has level telemetry
+EDGE-0074,ORC-B-P101,hasTelemetry,TAG-ORC-B-P101-FLOW-PV,Telemetry,Crude charge pump has flow telemetry
+EDGE-0075,ORC-B-P101,hasTelemetry,TAG-ORC-B-P101-VIB-PV,Telemetry,Crude charge pump has vibration telemetry
+EDGE-0076,ORC-B-H101,hasTelemetry,TAG-ORC-B-H101-FUEL-PV,Telemetry,Fired heater has fuel gas flow telemetry
+EDGE-0077,ORC-B-H101,hasTelemetry,TAG-ORC-B-H101-TEMP-PV,Telemetry,Fired heater has outlet temperature telemetry
+EDGE-0078,ORC-B-C101,hasTelemetry,TAG-ORC-B-C101-TOP-TEMP,Telemetry,Atmospheric column has top temperature telemetry
+EDGE-0079,ORC-B-C101,hasTelemetry,TAG-ORC-B-C101-DP-PV,Telemetry,Atmospheric column has differential pressure telemetry
+EDGE-0080,OPH-A-K101,hasKPI,CompressionEfficiency,BusinessSemantics,Gas compressor contributes to compression efficiency KPI
+EDGE-0081,OPH-A,hasKPI,ProductionThroughput,BusinessSemantics,Offshore production hub contributes to production throughput KPI
+EDGE-0082,OPH-A,hasKPI,AssetAvailability,BusinessSemantics,Offshore production hub contributes to asset availability KPI
+EDGE-0083,ORC-B,hasKPI,RefineryUtilization,BusinessSemantics,Refinery complex contributes to refinery utilization KPI
+EDGE-0084,ORC-B-H101,hasKPI,EnergyIntensity,BusinessSemantics,Fired heater contributes to energy intensity KPI
+EDGE-0085,ORC-B,hasKPI,EmissionsIntensity,BusinessSemantics,Refinery complex contributes to emissions intensity KPI

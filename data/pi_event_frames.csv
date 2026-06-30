@@ -1,0 +1,6 @@
+event_id,asset_id,source_tag_id,event_type,severity,start_loop_second,end_loop_second,description
+EVT-OPH-A-K101-VIB-001,OPH-A-K101,TAG-OPH-A-K101-VIB-PV,HighVibration,High,9300,10800,Compressor vibration rises above normal band during synthetic degradation scenario.
+EVT-OPH-A-K101-TEMP-001,OPH-A-K101,TAG-OPH-A-K101-TEMP-PV,BearingTemperatureDrift,Medium,9900,10800,Compressor bearing temperature drifts upward alongside vibration.
+EVT-OPH-A-V101-LVL-001,OPH-A-V101,TAG-OPH-A-V101-LEVEL-PV,LevelInstability,Medium,13200,15300,Inlet separator liquid level oscillates during unstable inlet flow scenario.
+EVT-ORC-B-H101-EFF-001,ORC-B-H101,TAG-ORC-B-H101-FUEL-PV,HeaterEfficiencyDrift,Medium,17100,21600,Fired heater fuel demand increases without equivalent outlet temperature benefit.
+EVT-ORC-B-C101-DP-001,ORC-B-C101,TAG-ORC-B-C101-DP-PV,ColumnDifferentialPressureDrift,Low,18000,21600,Atmospheric column differential pressure trends upward during heater efficiency scenario.

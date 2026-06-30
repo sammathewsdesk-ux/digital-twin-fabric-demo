@@ -1,0 +1,6 @@
+event_id,impacted_asset_id,likely_failure_mode_id,impacted_kpis,business_impact_severity,operational_impact,recommended_action
+EVT-OPH-A-K101-VIB-001,OPH-A-K101,FM-COMP-001,GasExportReliability;CompressionEfficiency;ProductionThroughput,High,Potential gas export constraint and compressor trip risk,Inspect compressor bearing/lube oil condition; consider load reduction if vibration persists
+EVT-OPH-A-K101-TEMP-001,OPH-A-K101,FM-COMP-001,AssetHealthScore;CompressionEfficiency,Medium,Reduced compressor health and reliability margin,Correlate bearing temperature with vibration and driver power
+EVT-OPH-A-V101-LVL-001,OPH-A-V101,FM-SEP-001,SeparatorStability;ProductionThroughput,Medium,Liquid carryover risk and downstream gas compression upset,Review inlet slugging and level control loop response
+EVT-ORC-B-H101-EFF-001,ORC-B-H101,FM-HEAT-001,EnergyIntensity;EmissionsIntensity;RefineryUtilization,Medium,Higher fuel cost and emissions per unit throughput,Check burner balance and schedule fouling assessment
+EVT-ORC-B-C101-DP-001,ORC-B-C101,FM-COL-001,RefineryUtilization;EnergyIntensity,Low,Early indicator of column hydraulic constraint,Monitor differential pressure and side draw quality trends

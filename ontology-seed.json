@@ -1,0 +1,443 @@
+{
+  "ontologyId": "og-digital-twin-demo-ontology",
+  "version": "0.1.0",
+  "description": "An anonymized seed ontology for a mixed oil and gas Digital Twin demo spanning offshore production and onshore refinery operations.",
+  "anonymizationRules": [
+    "Do not use real operator, asset, field, platform, refinery, region, server, or tag names.",
+    "Use neutral operating names such as Offshore Production Hub A, Onshore Refinery Complex B, Reservoir Alpha, and Industrial Region Beta.",
+    "Use synthetic asset identifiers such as OPH-A-W01, K-101, P-101, V-101, T-101, and AI-101.",
+    "Avoid copying recognizable hierarchy paths, tag strings, or naming conventions from source systems."
+  ],
+  "hierarchyPattern": [
+    "Enterprise",
+    "BusinessSegment",
+    "OperatingRegion",
+    "AssetComplex",
+    "Domain",
+    "Area",
+    "ProcessUnit",
+    "System",
+    "Equipment",
+    "Component",
+    "Instrument",
+    "TelemetryTag"
+  ],
+  "businessSegments": [
+    {
+      "id": "SEG-UPSTREAM",
+      "name": "Upstream",
+      "description": "Subsurface, wells, offshore production, processing, export, utilities, and safety operations."
+    },
+    {
+      "id": "SEG-DOWNSTREAM",
+      "name": "Downstream",
+      "description": "Refinery receiving, primary processing, conversion, treating, blending, export, utilities, and safety operations."
+    }
+  ],
+  "domains": [
+    "Subsurface",
+    "Wells",
+    "SurfaceProduction",
+    "Refining",
+    "Utilities",
+    "SafetyAndControl",
+    "LogisticsAndExport"
+  ],
+  "classes": [
+    {
+      "id": "Enterprise",
+      "parentClass": null,
+      "description": "Top-level demo company boundary.",
+      "keyAttributes": ["enterpriseId", "name"]
+    },
+    {
+      "id": "BusinessSegment",
+      "parentClass": null,
+      "description": "Major value-chain segment such as upstream or downstream.",
+      "keyAttributes": ["segmentId", "name"]
+    },
+    {
+      "id": "OperatingRegion",
+      "parentClass": null,
+      "description": "An anonymized geography or operating basin.",
+      "keyAttributes": ["regionId", "name", "regionType"]
+    },
+    {
+      "id": "AssetComplex",
+      "parentClass": null,
+      "description": "A major operating asset such as an offshore hub or refinery complex.",
+      "keyAttributes": ["assetComplexId", "name", "assetComplexType", "operatorType"]
+    },
+    {
+      "id": "Reservoir",
+      "parentClass": "SubsurfaceAsset",
+      "description": "Subsurface hydrocarbon accumulation represented by zones and compartments.",
+      "keyAttributes": ["reservoirId", "name", "fluidType", "pressureRegime"]
+    },
+    {
+      "id": "ReservoirZone",
+      "parentClass": "SubsurfaceAsset",
+      "description": "Geological interval within a reservoir.",
+      "keyAttributes": ["zoneId", "name", "depthDatum", "formationType"]
+    },
+    {
+      "id": "ReservoirCompartment",
+      "parentClass": "SubsurfaceAsset",
+      "description": "Connected or partially isolated reservoir volume.",
+      "keyAttributes": ["compartmentId", "name", "connectivityClass"]
+    },
+    {
+      "id": "Well",
+      "parentClass": "PhysicalAsset",
+      "description": "Production, injection, observation, or appraisal well.",
+      "keyAttributes": ["wellId", "name", "wellType", "status", "service"]
+    },
+    {
+      "id": "Wellbore",
+      "parentClass": "PhysicalAsset",
+      "description": "Physical bore path associated with a well.",
+      "keyAttributes": ["wellboreId", "trajectoryType", "completionType"]
+    },
+    {
+      "id": "Completion",
+      "parentClass": "PhysicalAsset",
+      "description": "Completion assembly enabling flow between reservoir and wellbore.",
+      "keyAttributes": ["completionId", "completionType", "interval"]
+    },
+    {
+      "id": "ProductionFacility",
+      "parentClass": "AssetComplex",
+      "description": "Surface facility for processing produced fluids.",
+      "keyAttributes": ["facilityId", "facilityType", "designCapacity"]
+    },
+    {
+      "id": "RefineryComplex",
+      "parentClass": "AssetComplex",
+      "description": "Integrated downstream processing complex.",
+      "keyAttributes": ["refineryId", "configuration", "nameplateCapacity"]
+    },
+    {
+      "id": "ProcessArea",
+      "parentClass": null,
+      "description": "Logical operating area grouping related units.",
+      "keyAttributes": ["areaId", "name", "domain"]
+    },
+    {
+      "id": "ProcessUnit",
+      "parentClass": null,
+      "description": "Functional processing unit such as a separator train, compressor train, CDU, or hydrotreater.",
+      "keyAttributes": ["unitId", "name", "unitType", "criticality"]
+    },
+    {
+      "id": "System",
+      "parentClass": null,
+      "description": "Supporting system within a unit, such as lube oil, cooling, fuel gas, flare, or control.",
+      "keyAttributes": ["systemId", "name", "systemType"]
+    },
+    {
+      "id": "Equipment",
+      "parentClass": "PhysicalAsset",
+      "description": "Physical process or utility equipment.",
+      "keyAttributes": ["equipmentId", "name", "equipmentType", "criticality", "service"]
+    },
+    {
+      "id": "RotatingEquipment",
+      "parentClass": "Equipment",
+      "description": "Equipment with rotating components.",
+      "keyAttributes": ["equipmentId", "driverType", "ratedPower"]
+    },
+    {
+      "id": "StaticEquipment",
+      "parentClass": "Equipment",
+      "description": "Vessels, columns, tanks, exchangers, and other non-rotating equipment.",
+      "keyAttributes": ["equipmentId", "designPressure", "designTemperature"]
+    },
+    {
+      "id": "Component",
+      "parentClass": "PhysicalAsset",
+      "description": "Maintainable or monitorable sub-equipment component.",
+      "keyAttributes": ["componentId", "componentType", "maintainable"]
+    },
+    {
+      "id": "Instrument",
+      "parentClass": "PhysicalAsset",
+      "description": "Field instrument or analyzer associated with an asset or process variable.",
+      "keyAttributes": ["instrumentId", "instrumentType", "measuredVariable", "unitOfMeasure"]
+    },
+    {
+      "id": "TelemetryTag",
+      "parentClass": null,
+      "description": "Synthetic PI-style time-series point.",
+      "keyAttributes": ["tagId", "tagName", "sourceSystem", "sampleIntervalSeconds", "engineeringUnit"]
+    },
+    {
+      "id": "ControlLoop",
+      "parentClass": null,
+      "description": "Control relationship connecting measurement, controller, and actuator.",
+      "keyAttributes": ["loopId", "controlledVariable", "manipulatedVariable", "controlMode"]
+    },
+    {
+      "id": "Event",
+      "parentClass": null,
+      "description": "Operational event such as alarm, trip, shutdown, maintenance, or abnormal condition.",
+      "keyAttributes": ["eventId", "eventType", "severity", "startTime", "endTime"]
+    },
+    {
+      "id": "FailureMode",
+      "parentClass": null,
+      "description": "Known degradation or failure pattern for an asset class.",
+      "keyAttributes": ["failureModeId", "name", "detectability", "impactCategory"]
+    },
+    {
+      "id": "KPI",
+      "parentClass": null,
+      "description": "Operational or business metric derived from asset and telemetry semantics.",
+      "keyAttributes": ["kpiId", "name", "calculationMethod", "aggregationWindow"]
+    }
+  ],
+  "relationshipTypes": [
+    {
+      "id": "contains",
+      "inverse": "isPartOf",
+      "description": "Hierarchical composition from parent to child."
+    },
+    {
+      "id": "locatedIn",
+      "inverse": "hasLocationOf",
+      "description": "Physical or logical location relationship."
+    },
+    {
+      "id": "producesFrom",
+      "inverse": "producesTo",
+      "description": "Well or completion produces from a reservoir object."
+    },
+    {
+      "id": "injectsInto",
+      "inverse": "receivesInjectionFrom",
+      "description": "Injection well injects into reservoir zone or compartment."
+    },
+    {
+      "id": "flowsTo",
+      "inverse": "receivesFrom",
+      "description": "Process flow from one asset, unit, or equipment item to another."
+    },
+    {
+      "id": "feeds",
+      "inverse": "isFedBy",
+      "description": "Material, energy, or utility feed relationship."
+    },
+    {
+      "id": "drives",
+      "inverse": "isDrivenBy",
+      "description": "Driver-to-driven equipment relationship."
+    },
+    {
+      "id": "hasComponent",
+      "inverse": "componentOf",
+      "description": "Equipment-to-component composition."
+    },
+    {
+      "id": "measures",
+      "inverse": "isMeasuredBy",
+      "description": "Instrument or tag measures an asset, component, or process variable."
+    },
+    {
+      "id": "hasTelemetry",
+      "inverse": "telemetryFor",
+      "description": "Asset has one or more real-time telemetry points."
+    },
+    {
+      "id": "controls",
+      "inverse": "isControlledBy",
+      "description": "Control loop or actuator controls a process variable or asset state."
+    },
+    {
+      "id": "protects",
+      "inverse": "isProtectedBy",
+      "description": "Safety or control system protects an asset, area, or unit."
+    },
+    {
+      "id": "hasFailureMode",
+      "inverse": "failureModeOf",
+      "description": "Asset class or instance is associated with a possible failure mode."
+    },
+    {
+      "id": "hasKPI",
+      "inverse": "kpiFor",
+      "description": "Asset, unit, or business object contributes to a KPI."
+    },
+    {
+      "id": "generatesEvent",
+      "inverse": "generatedBy",
+      "description": "Telemetry, asset, or control condition generates an event."
+    }
+  ],
+  "allowedContainment": [
+    ["Enterprise", "BusinessSegment"],
+    ["BusinessSegment", "OperatingRegion"],
+    ["OperatingRegion", "AssetComplex"],
+    ["AssetComplex", "Domain"],
+    ["Domain", "ProcessArea"],
+    ["Domain", "Reservoir"],
+    ["Reservoir", "ReservoirZone"],
+    ["ReservoirZone", "ReservoirCompartment"],
+    ["ProcessArea", "ProcessUnit"],
+    ["ProcessUnit", "System"],
+    ["System", "Equipment"],
+    ["Equipment", "Component"],
+    ["Equipment", "Instrument"],
+    ["Instrument", "TelemetryTag"],
+    ["Well", "Wellbore"],
+    ["Wellbore", "Completion"],
+    ["Completion", "Instrument"],
+    ["Completion", "TelemetryTag"]
+  ],
+  "exampleHierarchyRoots": [
+    {
+      "id": "OPH-A",
+      "name": "Offshore Production Hub A",
+      "type": "ProductionFacility",
+      "children": [
+        "Subsurface Asset",
+        "Wells and Wellbores",
+        "Offshore Production Platform",
+        "Utilities",
+        "Safety and Control"
+      ]
+    },
+    {
+      "id": "ORC-B",
+      "name": "Onshore Refinery Complex B",
+      "type": "RefineryComplex",
+      "children": [
+        "Crude Receiving",
+        "Primary Processing",
+        "Conversion",
+        "Treating",
+        "Blending and Export",
+        "Utilities",
+        "Safety and Control"
+      ]
+    }
+  ],
+  "telemetryPattern": {
+    "tagNameFormat": "{assetId}.{systemCode}.{variableCode}.{measurementType}",
+    "examples": [
+      "OPH-A-K101.GAS.PRESSURE.PV",
+      "OPH-A-K101.VIB.VELOCITY.PV",
+      "ORC-B-CDU101.COL.TEMP.PV",
+      "ORC-B-P101.MTR.POWER.PV"
+    ],
+    "measurementTypes": ["PV", "SP", "OP", "STATUS", "ALARM", "TRIP"],
+    "commonVariables": ["PRESSURE", "TEMPERATURE", "FLOW", "LEVEL", "VIBRATION", "POWER", "SPEED", "POSITION", "QUALITY"]
+  },
+  "dataArtifacts": [
+    {
+      "file": "asset-classes.csv",
+      "description": "Ontology class catalog."
+    },
+    {
+      "file": "relationship-types.csv",
+      "description": "Semantic relationship type catalog."
+    },
+    {
+      "file": "example-assets.csv",
+      "description": "Anonymized seed asset instances."
+    },
+    {
+      "file": "telemetry-tag-patterns.csv",
+      "description": "Synthetic PI-style telemetry tag catalog."
+    },
+    {
+      "file": "relationship-edges.csv",
+      "description": "Graph-style semantic relationship edges across assets, telemetry, and KPIs."
+    },
+    {
+      "file": "data/pi_telemetry_loop.csv",
+      "description": "Loopable synthetic PI-style time-series telemetry values."
+    },
+    {
+      "file": "data/pi_event_frames.csv",
+      "description": "Synthetic event frames linked to telemetry tags and asset instances."
+    },
+    {
+      "file": "data/pi_replay_manifest.json",
+      "description": "Replay metadata describing loop length, scenarios, default replay behaviour, and generated files."
+    },
+    {
+      "file": "scripts/generate_synthetic_pi_data.js",
+      "description": "Generator for deterministic synthetic PI-style telemetry and event frames."
+    },
+    {
+      "file": "scripts/replay_pi_telemetry.js",
+      "description": "Local replay utility that loops and re-stamps telemetry to mimic real-time OT flow."
+    },
+    {
+      "file": "failure-modes.csv",
+      "description": "Realistic failure modes by asset class, detection pattern, operational impact, and recommended action."
+    },
+    {
+      "file": "kpi-definitions.csv",
+      "description": "Semantic KPI definitions and calculation intent."
+    },
+    {
+      "file": "data/asset-health-scores.csv",
+      "description": "Derived asset health scores and diagnostics for critical assets."
+    },
+    {
+      "file": "data/kpi-timeseries.csv",
+      "description": "Five-minute KPI time series derived from the synthetic telemetry loop."
+    },
+    {
+      "file": "data/event-impact-map.csv",
+      "description": "Mapping from event frames to likely failure modes, impacted KPIs, operational impact, and recommended actions."
+    },
+    {
+      "file": "scripts/generate_kpi_asset_health.js",
+      "description": "Generator for KPI definitions, failure modes, health scores, KPI time series, and event impact mapping."
+    },
+    {
+      "file": "og-digital-twin-operations-demo.html",
+      "description": "Self-contained two-screen visualization artifact with control room and PI Vision-style process overview screens."
+    },
+    {
+      "file": "fabric-data-model-mapping.md",
+      "description": "Microsoft Fabric Lakehouse, Warehouse, Real-Time Intelligence, and semantic model mapping."
+    },
+    {
+      "file": "fabric-table-schemas.csv",
+      "description": "Fabric-ready table and column schema catalog."
+    },
+    {
+      "file": "fabric-semantic-measures.csv",
+      "description": "Power BI / Direct Lake semantic model measure definitions."
+    },
+    {
+      "file": "fabric-realtime-flow.json",
+      "description": "Recommended Fabric Eventstream, Eventhouse, Lakehouse, Activator, and semantic model flow."
+    },
+    {
+      "file": "fabric-sql-ddl.sql",
+      "description": "SQL DDL starter script for creating Warehouse-compatible tables."
+    },
+    {
+      "file": "react-app",
+      "description": "Vite React application version of the Digital Twin demo with control room, PI Vision-style, ontology browser, scenario controls, and Fabric model views."
+    },
+    {
+      "file": "react-app/dist",
+      "description": "Production build output for the React Digital Twin demo application."
+    }
+  ],
+  "initialKpis": [
+    "AssetAvailability",
+    "ProductionThroughput",
+    "CompressionEfficiency",
+    "EnergyIntensity",
+    "RefineryUtilization",
+    "AbnormalEventCount",
+    "MaintenanceRiskScore",
+    "EmissionsIntensity",
+    "ExportReliability"
+  ]
+}

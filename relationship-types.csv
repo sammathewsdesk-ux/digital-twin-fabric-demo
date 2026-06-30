@@ -1,0 +1,16 @@
+relationship_id,inverse_relationship,description,example
+contains,isPartOf,Hierarchical composition from parent to child,Offshore Production Hub A contains Gas Processing Area
+locatedIn,hasLocationOf,Physical or logical location relationship,Production Well W01 locatedIn Reservoir Alpha
+producesFrom,producesTo,Well or completion produces from a reservoir object,Completion C01 producesFrom Reservoir Compartment A1
+injectsInto,receivesInjectionFrom,Injection well injects into reservoir zone or compartment,Water Injection Well W11 injectsInto Reservoir Zone Z1
+flowsTo,receivesFrom,Process flow from one asset unit or equipment item to another,Inlet Separator flowsTo Oil Processing Train
+feeds,isFedBy,Material energy or utility feed relationship,Crude Charge Pump feeds Fired Heater
+drives,isDrivenBy,Driver-to-driven equipment relationship,Electric Motor M101 drives Pump P101
+hasComponent,componentOf,Equipment-to-component composition,Compressor K101 hasComponent Bearing B1
+measures,isMeasuredBy,Instrument or tag measures an asset component or process variable,Pressure Sensor PT101 measures Separator Pressure
+hasTelemetry,telemetryFor,Asset has one or more real-time telemetry points,Compressor K101 hasTelemetry Discharge Pressure
+controls,isControlledBy,Control loop or actuator controls a process variable or asset state,Flow Controller FIC101 controls Control Valve FV101
+protects,isProtectedBy,Safety or control system protects an asset area or unit,Safety Instrumented System protects Fired Heater
+hasFailureMode,failureModeOf,Asset class or instance is associated with a possible failure mode,Pump P101 hasFailureMode Seal Leakage
+hasKPI,kpiFor,Asset unit or business object contributes to a KPI,Gas Compression Train hasKPI Compression Efficiency
+generatesEvent,generatedBy,Telemetry asset or control condition generates an event,High Vibration Tag generatesEvent Vibration Alarm

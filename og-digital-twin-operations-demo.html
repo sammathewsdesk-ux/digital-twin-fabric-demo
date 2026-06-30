@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>O&G Digital Twin Operations Demo</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--cp-border);
+      background: var(--cp-bg-elevated);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 280px;
+    }
+    .mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 0.625rem;
+      border: 1px solid var(--cp-border);
+      background: var(--cp-accent-soft);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: var(--cp-accent);
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 17px; font-weight: 650; }
+    .subtle { color: var(--cp-text-muted); font-size: 12px; }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .tab {
+      border: 1px solid var(--cp-border);
+      background: var(--cp-surface);
+      color: var(--cp-text);
+      border-radius: 0.625rem;
+      padding: 8px 12px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .tab.active {
+      background: var(--cp-accent);
+      color: var(--cp-accent-fg);
+      border-color: var(--cp-accent);
+    }
+    .live {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      min-width: 280px;
+      font-family: Consolas, "Courier New", Courier, monospace;
+      font-size: 12px;
+    }
+    .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--cp-success);
+      box-shadow: 0 0 0 4px var(--cp-accent-soft);
+    }
+    main { padding: 20px; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background: var(--cp-surface);
+      border: 1px solid var(--cp-border);
+      border-radius: 16px;
+      box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--cp-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 650;
+    }
+    .card-body { padding: 16px; }
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+    .metric-value {
+      font-size: 30px;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-top: 10px;
+    }
+    .unit {
+      font-size: 12px;
+      color: var(--cp-text-muted);
+      margin-left: 4px;
+      font-weight: 500;
+    }
+    .trend {
+      margin-top: 8px;
+      color: var(--cp-text-muted);
+      font-size: 12px;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--cp-border);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--cp-success);
+    }
+    .watch .dot { background: var(--cp-warning); }
+    .degraded .dot, .critical .dot { background: var(--cp-danger); }
+    .bar {
+      height: 8px;
+      background: var(--cp-surface-soft);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 12px;
+      border: 1px solid var(--cp-border);
+    }
+    .fill {
+      height: 100%;
+      width: var(--value);
+      background: var(--cp-success);
+    }
+    .watch .fill { background: var(--cp-warning); }
+    .degraded .fill, .critical .fill { background: var(--cp-danger); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--cp-border);
+      vertical-align: top;
+    }
+    th {
+      color: var(--cp-text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 650;
+    }
+    .mono {
+      font-family: Consolas, "Courier New", Courier, monospace;
+      font-size: 12px;
+    }
+    .event-list {
+      display: grid;
+      gap: 10px;
+    }
+    .event {
+      border: 1px solid var(--cp-border);
+      border-left: 4px solid var(--cp-warning);
+      background: var(--cp-surface-soft);
+      border-radius: 0.625rem;
+      padding: 10px;
+    }
+    .event.high { border-left-color: var(--cp-danger); }
+    .event.low { border-left-color: var(--cp-success); }
+    .event-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 650;
+      margin-bottom: 4px;
+    }
+    .process-shell {
+      background: var(--cp-bg-elevated);
+      border: 1px solid var(--cp-border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+    }
+    .vision-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--cp-surface);
+      border-bottom: 1px solid var(--cp-border);
+    }
+    .vision-tabs {
+      display: flex;
+      gap: 8px;
+      color: var(--cp-text-muted);
+      font-size: 12px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .vision-tab {
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      padding: 4px 8px;
+      background: var(--cp-surface-soft);
+    }
+    .mimic {
+      position: relative;
+      min-height: 650px;
+      background: var(--cp-surface-soft);
+      overflow: auto;
+    }
+    .canvas {
+      position: relative;
+      width: 1500px;
+      height: 650px;
+      padding: 34px;
+    }
+    .canvas-title {
+      position: absolute;
+      top: 22px;
+      left: 620px;
+      font-size: 18px;
+      letter-spacing: .04em;
+    }
+    .legend {
+      position: absolute;
+      top: 22px;
+      right: 36px;
+      background: var(--cp-panel-strong);
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0.625rem;
+      padding: 10px;
+      font-size: 11px;
+      display: grid;
+      gap: 5px;
+    }
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .legend-chip {
+      width: 18px;
+      height: 8px;
+      background: var(--cp-success);
+      border-radius: 999px;
+    }
+    .legend-row:nth-child(2) .legend-chip { background: var(--cp-warning); }
+    .legend-row:nth-child(3) .legend-chip { background: var(--cp-danger); }
+    .pipe {
+      position: absolute;
+      height: 2px;
+      background: var(--cp-border-strong);
+      transform-origin: left center;
+    }
+    .pipe.vertical {
+      width: 2px;
+      height: auto;
+    }
+    .pipe.livepipe {
+      height: 4px;
+      background: var(--cp-success);
+    }
+    .pipe.warnpipe {
+      height: 4px;
+      background: var(--cp-warning);
+    }
+    .pipe.badpipe {
+      height: 4px;
+      background: var(--cp-danger);
+    }
+    .vessel, .pump, .compressor, .heater, .column, .tank {
+      position: absolute;
+      border: 2px solid var(--cp-border-strong);
+      background: var(--cp-surface);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 11px;
+      color: var(--cp-text);
+    }
+    .vessel {
+      width: 82px;
+      height: 48px;
+      border-radius: 999px;
+    }
+    .tank {
+      width: 76px;
+      height: 92px;
+      border-radius: 0.625rem;
+    }
+    .column {
+      width: 58px;
+      height: 170px;
+      border-radius: 999px;
+    }
+    .pump {
+      width: 56px;
+      height: 38px;
+      border-radius: 0.625rem;
+    }
+    .compressor {
+      width: 74px;
+      height: 48px;
+      border-radius: 0.625rem;
+    }
+    .heater {
+      width: 72px;
+      height: 64px;
+      border-radius: 0.625rem;
+    }
+    .level {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 8px;
+      height: var(--level);
+      background: var(--cp-accent);
+      border-radius: 999px;
+    }
+    .tag {
+      position: absolute;
+      background: var(--cp-surface);
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0.625rem;
+      padding: 3px 6px;
+      min-width: 72px;
+      font-family: Consolas, "Courier New", Courier, monospace;
+      font-size: 11px;
+      text-align: center;
+      box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+    }
+    .tag .value {
+      color: var(--cp-success);
+      font-weight: 700;
+      display: block;
+    }
+    .tag.warn .value { color: var(--cp-warning); }
+    .tag.bad .value { color: var(--cp-danger); }
+    .side-panel {
+      position: absolute;
+      right: 36px;
+      bottom: 30px;
+      width: 310px;
+      background: var(--cp-panel-strong);
+      border: 1px solid var(--cp-border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .insight {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .insight div {
+      padding: 8px;
+      border: 1px solid var(--cp-border);
+      border-radius: 0.625rem;
+      background: var(--cp-surface-soft);
+      font-size: 12px;
+    }
+    .footer-time {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background: var(--cp-surface);
+      border-top: 1px solid var(--cp-border);
+      font-size: 12px;
+      color: var(--cp-text-muted);
+      font-family: Consolas, "Courier New", Courier, monospace;
+    }
+    @media (max-width: 1100px) {
+      .span-3, .span-4, .span-5, .span-7, .span-8 { grid-column: span 12; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .live, .brand { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">DT</div>
+        <div>
+          <h1>O&G Digital Twin Operations Demo</h1>
+          <p class="subtle">Anonymized offshore production + onshore refinery semantic model</p>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="Screens">
+        <button class="tab active" data-screen="control">Control room</button>
+        <button class="tab" data-screen="vision">PI Vision-style process</button>
+      </nav>
+      <div class="live">
+        <span class="pulse"></span>
+        <span>LIVE REPLAY</span>
+        <span id="clock"></span>
+      </div>
+    </header>
+
+    <main>
+      <section id="control" class="screen active">
+        <div class="grid">
+          <article class="card span-3 normal">
+            <div class="card-header"><span class="card-title">Portfolio health</span><span class="status"><span class="dot"></span>Normal</span></div>
+            <div class="card-body">
+              <div class="metric-value"><span id="portfolioHealth">89.4</span><span class="unit">/100</span></div>
+              <div class="bar"><div class="fill" id="portfolioHealthBar" style="--value:89%"></div></div>
+              <p class="trend">Semantic roll-up across critical offshore and refinery assets</p>
+            </div>
+          </article>
+          <article class="card span-3 normal">
+            <div class="card-header"><span class="card-title">Production throughput</span><span class="status"><span class="dot"></span>Normal</span></div>
+            <div class="card-body">
+              <div class="metric-value"><span id="throughput">7,420</span><span class="unit">boe/d</span></div>
+              <div class="bar"><div class="fill" style="--value:74%"></div></div>
+              <p class="trend">Well W01 flow translated to production KPI</p>
+            </div>
+          </article>
+          <article class="card span-3 watch">
+            <div class="card-header"><span class="card-title">Gas export reliability</span><span class="status watch"><span class="dot"></span>Watch</span></div>
+            <div class="card-body">
+              <div class="metric-value"><span id="gasReliability">81.7</span><span class="unit">%</span></div>
+              <div class="bar"><div class="fill" id="gasReliabilityBar" style="--value:82%"></div></div>
+              <p class="trend">Compressor K101 health affects export confidence</p>
+            </div>
+          </article>
+          <article class="card span-3 degraded">
+            <div class="card-header"><span class="card-title">Refinery constraint risk</span><span class="status degraded"><span class="dot"></span>Degraded</span></div>
+            <div class="card-body">
+              <div class="metric-value"><span id="constraintRisk">66.2</span><span class="unit">/100</span></div>
+              <div class="bar"><div class="fill" style="--value:66%"></div></div>
+              <p class="trend">Column C101 differential pressure trend</p>
+            </div>
+          </article>
+
+          <article class="card span-7">
+            <div class="card-header">
+              <span class="card-title">Critical asset health</span>
+              <span class="subtle">Derived from telemetry envelopes + failure-mode semantics</span>
+            </div>
+            <div class="card-body">
+              <table>
+                <thead>
+                  <tr><th>Asset</th><th>Area</th><th>Health</th><th>Status</th><th>Diagnostic</th></tr>
+                </thead>
+                <tbody id="healthRows"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card span-5">
+            <div class="card-header">
+              <span class="card-title">Current operational impacts</span>
+              <span class="subtle">Event frames mapped to business KPIs</span>
+            </div>
+            <div class="card-body">
+              <div class="event-list">
+                <div class="event high">
+                  <div class="event-title"><span>High vibration: OPH-A-K101</span><span class="mono">High</span></div>
+                  <p class="subtle">Potential gas export constraint and compressor trip risk. Impacts gas export reliability, compression efficiency, and throughput.</p>
+                </div>
+                <div class="event">
+                  <div class="event-title"><span>Heater efficiency drift: ORC-B-H101</span><span class="mono">Medium</span></div>
+                  <p class="subtle">Fuel demand rising without equivalent outlet temperature benefit. Impacts energy and emissions intensity.</p>
+                </div>
+                <div class="event low">
+                  <div class="event-title"><span>Column DP drift: ORC-B-C101</span><span class="mono">Low</span></div>
+                  <p class="subtle">Early indicator of hydraulic constraint. Watch refinery utilization and energy intensity.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card span-12">
+            <div class="card-header">
+              <span class="card-title">Semantic interpretation</span>
+              <span class="subtle">Why ontology matters</span>
+            </div>
+            <div class="card-body">
+              <table>
+                <thead>
+                  <tr><th>Telemetry condition</th><th>Semantic relationship path</th><th>Operational meaning</th><th>Recommended action</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mono">K101 vibration + bearing temperature rising</td>
+                    <td>Tag → Compressor → Gas Processing → Offshore Hub → Gas Export Reliability</td>
+                    <td>Likely bearing degradation reducing compressor reliability margin.</td>
+                    <td>Inspect bearing/lube oil condition; review load reduction threshold.</td>
+                  </tr>
+                  <tr>
+                    <td class="mono">V101 level oscillation</td>
+                    <td>Tag → Separator → Inlet Processing → Oil/Gas split → Downstream units</td>
+                    <td>Potential liquid carryover and compression upset if instability persists.</td>
+                    <td>Review level control loop and inlet slugging behaviour.</td>
+                  </tr>
+                  <tr>
+                    <td class="mono">H101 fuel flow rising + C101 DP rising</td>
+                    <td>Heater → CDU → Column → Refinery Utilization → Energy Intensity</td>
+                    <td>Developing fired heater/column efficiency constraint.</td>
+                    <td>Check burner balance, fouling, and column hydraulic envelope.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="vision" class="screen">
+        <div class="process-shell">
+          <div class="vision-toolbar">
+            <div>
+              <strong>PI Vision-style Process Overview</strong>
+              <span class="subtle">Synthetic live replay | Offshore Production Hub A + Onshore Refinery Complex B</span>
+            </div>
+            <div class="vision-tabs">
+              <span class="vision-tab">TH Process Overview</span>
+              <span class="vision-tab">Gas Compression</span>
+              <span class="vision-tab">Crude Unit</span>
+              <span class="vision-tab">Asset Health</span>
+            </div>
+          </div>
+          <div class="mimic">
+            <div class="canvas">
+              <div class="canvas-title">PROCESS OVERVIEW</div>
+              <div class="legend">
+                <div class="legend-row"><span class="legend-chip"></span><span>Normal / Open</span></div>
+                <div class="legend-row"><span class="legend-chip"></span><span>Watch / Travel</span></div>
+                <div class="legend-row"><span class="legend-chip"></span><span>Degraded / Alarm</span></div>
+              </div>
+
+              <div class="pipe livepipe" style="left:90px;top:180px;width:220px"></div>
+              <div class="pipe livepipe" style="left:310px;top:180px;width:150px"></div>
+              <div class="pipe livepipe" style="left:460px;top:180px;width:160px"></div>
+              <div class="pipe warnpipe" style="left:620px;top:180px;width:190px"></div>
+              <div class="pipe livepipe" style="left:460px;top:260px;width:170px"></div>
+              <div class="pipe livepipe" style="left:630px;top:260px;width:180px"></div>
+              <div class="pipe livepipe" style="left:810px;top:260px;width:160px"></div>
+              <div class="pipe livepipe" style="left:970px;top:260px;width:140px"></div>
+              <div class="pipe warnpipe" style="left:1015px;top:380px;width:170px"></div>
+              <div class="pipe badpipe" style="left:1185px;top:380px;width:160px"></div>
+              <div class="pipe livepipe" style="left:1170px;top:220px;width:190px"></div>
+
+              <div class="vessel" style="left:250px;top:156px">INLET<br>SEP V101<span class="level" id="v101LevelFill" style="--level:60%"></span></div>
+              <div class="pump" style="left:610px;top:242px">OIL<br>P101</div>
+              <div class="compressor" style="left:790px;top:154px">GAS<br>K101</div>
+              <div class="compressor" style="left:890px;top:154px">MTR<br>M101</div>
+              <div class="tank" style="left:980px;top:214px">CRUDE<br>T101<span class="level" style="--level:70%"></span></div>
+              <div class="pump" style="left:1100px;top:242px">CHG<br>P101</div>
+              <div class="heater" style="left:1230px;top:220px">HEATER<br>H101</div>
+              <div class="column" style="left:1360px;top:150px">ATM<br>C101<span class="level" style="--level:52%"></span></div>
+
+              <div class="tag" style="left:76px;top:132px"><span class="value" id="w01Pressure">151.2</span>barg<br>W01 THP</div>
+              <div class="tag" style="left:155px;top:212px"><span class="value" id="w01Flow">7420</span>boe/d<br>W01 FLOW</div>
+              <div class="tag" style="left:240px;top:95px"><span class="value" id="v101Pressure">31.4</span>barg<br>V101 PRESS</div>
+              <div class="tag" style="left:330px;top:145px"><span class="value" id="v101Level">62.1</span>%<br>V101 LEVEL</div>
+              <div class="tag warn" style="left:770px;top:90px"><span class="value" id="k101Vib">4.8</span>mm/s<br>K101 VIB</div>
+              <div class="tag warn" style="left:850px;top:220px"><span class="value" id="k101Temp">86.4</span>degC<br>K101 BRG</div>
+              <div class="tag" style="left:880px;top:90px"><span class="value" id="m101Power">6730</span>kW<br>M101 LOAD</div>
+              <div class="tag" style="left:980px;top:150px"><span class="value" id="t101Level">69.2</span>%<br>T101 LVL</div>
+              <div class="tag" style="left:1080px;top:300px"><span class="value" id="orcFlow">706</span>m3/h<br>P101 FLOW</div>
+              <div class="tag warn" style="left:1210px;top:165px"><span class="value" id="h101Fuel">3580</span>kg/h<br>H101 FUEL</div>
+              <div class="tag" style="left:1280px;top:295px"><span class="value" id="h101Temp">346</span>degC<br>H101 OUT</div>
+              <div class="tag bad" style="left:1340px;top:95px"><span class="value" id="c101Dp">79.4</span>kPa<br>C101 DP</div>
+
+              <div class="side-panel">
+                <h3>Live semantic alert context</h3>
+                <p class="subtle">The mimic shows tag values, but the ontology explains the operating impact.</p>
+                <div class="insight">
+                  <div><strong>K101:</strong> vibration + bearing temperature indicate likely bearing degradation.</div>
+                  <div><strong>H101/C101:</strong> energy intensity and column DP suggest emerging refinery constraint.</div>
+                  <div><strong>Action:</strong> prioritize compressor reliability review and CDU efficiency check.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-time">
+            <span>Replay window: 6h synthetic PI loop | Speed: accelerated</span>
+            <span id="visionTime"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const assets = [
+      ["Production Well W01", "Offshore Production Hub A", 100, "Normal", "Stable producer; monitor tubing pressure and choke-flow relationship."],
+      ["Inlet Separator V101", "Inlet Processing", 100, "Normal", "Recovered from level instability; monitor level controller performance."],
+      ["Gas Compressor K101", "Gas Processing", 79.4, "Watch", "Vibration and bearing temperature trend indicates degradation."],
+      ["Oil Export Pump P101", "Oil Processing", 91.2, "Normal", "Operating inside expected export envelope."],
+      ["Crude Charge Pump P101", "Crude Receiving", 76, "Watch", "Flow and vibration are within operating envelope."],
+      ["Fired Heater H101", "Crude Distillation Unit", 100, "Normal", "Fuel demand drift suggests reduced thermal efficiency."],
+      ["Atmospheric Column C101", "Crude Distillation Unit", 66.2, "Degraded", "Differential pressure trend indicates developing hydraulic constraint."]
+    ];
+
+    function cls(status) {
+      return status.toLowerCase();
+    }
+
+    function renderHealth() {
+      const body = document.getElementById("healthRows");
+      body.innerHTML = assets.map(([name, area, score, status, diagnostic]) => `
+        <tr class="${cls(status)}">
+          <td><strong>${name}</strong></td>
+          <td>${area}</td>
+          <td>
+            <span class="mono">${score.toFixed(1)}</span>
+            <div class="bar"><div class="fill" style="--value:${score}%"></div></div>
+          </td>
+          <td><span class="status ${cls(status)}"><span class="dot"></span>${status}</span></td>
+          <td>${diagnostic}</td>
+        </tr>
+      `).join("");
+    }
+
+    function setText(id, value, digits = 1) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = typeof value === "number" ? value.toLocaleString(undefined, { maximumFractionDigits: digits, minimumFractionDigits: digits }) : value;
+    }
+
+    function tick() {
+      const now = new Date();
+      const t = now.getTime() / 1000;
+      document.getElementById("clock").textContent = now.toLocaleTimeString();
+      document.getElementById("visionTime").textContent = now.toLocaleString();
+
+      const vib = 4.7 + Math.sin(t / 5) * 0.45 + Math.sin(t / 17) * 0.2;
+      const temp = 86 + Math.sin(t / 8) * 2.2;
+      const flow = 7420 + Math.sin(t / 11) * 460;
+      const pressure = 151 + Math.sin(t / 7) * 6;
+      const sepLevel = 62 + Math.sin(t / 3) * 7;
+      const sepPressure = 31 + Math.sin(t / 5) * 1.6;
+      const fuel = 3580 + Math.sin(t / 13) * 120;
+      const outTemp = 346 + Math.sin(t / 9) * 4;
+      const dp = 79 + Math.sin(t / 10) * 4;
+      const reliability = Math.max(72, 87 - vib * 1.8 + Math.sin(t / 10) * 1.5);
+      const portfolio = Math.max(82, 91 - (vib - 4.5) * 1.8 - Math.max(0, dp - 78) * 0.25);
+
+      setText("portfolioHealth", portfolio, 1);
+      document.getElementById("portfolioHealthBar").style.setProperty("--value", `${portfolio}%`);
+      setText("throughput", flow, 0);
+      setText("gasReliability", reliability, 1);
+      document.getElementById("gasReliabilityBar").style.setProperty("--value", `${reliability}%`);
+      setText("constraintRisk", Math.max(58, 72 - Math.max(0, dp - 74) * 0.8), 1);
+
+      setText("w01Pressure", pressure, 1);
+      setText("w01Flow", flow, 0);
+      setText("v101Pressure", sepPressure, 1);
+      setText("v101Level", sepLevel, 1);
+      setText("k101Vib", vib, 1);
+      setText("k101Temp", temp, 1);
+      setText("m101Power", 6730 + Math.sin(t / 12) * 260, 0);
+      setText("t101Level", 69 + Math.sin(t / 19) * 5, 1);
+      setText("orcFlow", 706 + Math.sin(t / 14) * 42, 0);
+      setText("h101Fuel", fuel, 0);
+      setText("h101Temp", outTemp, 0);
+      setText("c101Dp", dp, 1);
+      document.getElementById("v101LevelFill").style.setProperty("--level", `${Math.max(18, Math.min(86, sepLevel))}%`);
+    }
+
+    document.querySelectorAll(".tab").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
+        document.querySelectorAll(".screen").forEach((screen) => screen.classList.remove("active"));
+        button.classList.add("active");
+        document.getElementById(button.dataset.screen).classList.add("active");
+      });
+    });
+
+    renderHealth();
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>

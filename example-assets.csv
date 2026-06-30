@@ -1,0 +1,40 @@
+asset_id,name,class_id,parent_asset_id,domain,description
+DEMO-ENERGY,Demo Energy Company,Enterprise,,Corporate,Anonymized enterprise root
+SEG-UPSTREAM,Upstream Business,BusinessSegment,DEMO-ENERGY,Corporate,Upstream mixed oil and gas operations
+REG-ALPHA,Offshore Basin Alpha,OperatingRegion,SEG-UPSTREAM,Corporate,Anonymized offshore operating basin
+OPH-A,Offshore Production Hub A,ProductionFacility,REG-ALPHA,SurfaceProduction,Anonymized offshore production hub
+OPH-A-SUB,Subsurface Asset,ProcessArea,OPH-A,Subsurface,Subsurface domain for reservoir and geological context
+OPH-A-RES-ALPHA,Reservoir Alpha,Reservoir,OPH-A-SUB,Subsurface,Synthetic mixed hydrocarbon reservoir
+OPH-A-ZONE-A,Reservoir Zone A,ReservoirZone,OPH-A-RES-ALPHA,Subsurface,Synthetic producing zone
+OPH-A-COMP-A1,Reservoir Compartment A1,ReservoirCompartment,OPH-A-ZONE-A,Subsurface,Synthetic reservoir compartment
+OPH-A-WELLS,Wells and Wellbores,ProcessArea,OPH-A,Wells,Well stock and completions
+OPH-A-W01,Production Well W01,Well,OPH-A-WELLS,Wells,Synthetic oil and gas producer
+OPH-A-W01-B1,Main Wellbore W01-B1,Wellbore,OPH-A-W01,Wells,Primary production wellbore
+OPH-A-W01-C1,Completion W01-C1,Completion,OPH-A-W01-B1,Wells,Producing completion interval
+OPH-A-W11,Water Injection Well W11,Well,OPH-A-WELLS,Wells,Synthetic water injection well
+OPH-A-SURF,Offshore Production Platform,ProcessArea,OPH-A,SurfaceProduction,Surface process facilities
+OPH-A-INLET,Inlet Processing,ProcessUnit,OPH-A-SURF,SurfaceProduction,Wellstream receipt and inlet separation
+OPH-A-V101,Inlet Separator V101,StaticEquipment,OPH-A-INLET,SurfaceProduction,Three-phase inlet separator
+OPH-A-OIL,Oil Processing,ProcessUnit,OPH-A-SURF,SurfaceProduction,Oil separation treatment and export
+OPH-A-P101,Oil Export Pump P101,RotatingEquipment,OPH-A-OIL,SurfaceProduction,Crude export pump
+OPH-A-GAS,Gas Processing,ProcessUnit,OPH-A-SURF,SurfaceProduction,Gas compression dehydration and export
+OPH-A-K101,Gas Compressor K101,RotatingEquipment,OPH-A-GAS,SurfaceProduction,Main gas export compressor
+OPH-A-M101,Compressor Driver M101,RotatingEquipment,OPH-A-GAS,SurfaceProduction,Electric motor driver for compressor K101
+OPH-A-UTIL,Utilities,ProcessArea,OPH-A,Utilities,Offshore utilities systems
+OPH-A-SAFE,Safety and Control,ProcessArea,OPH-A,SafetyAndControl,Control safety and protection systems
+SEG-DOWNSTREAM,Downstream Business,BusinessSegment,DEMO-ENERGY,Corporate,Downstream refining operations
+REG-BETA,Industrial Region Beta,OperatingRegion,SEG-DOWNSTREAM,Corporate,Anonymized industrial region
+ORC-B,Onshore Refinery Complex B,RefineryComplex,REG-BETA,Refining,Anonymized onshore refinery complex
+ORC-B-RECV,Crude Receiving,ProcessArea,ORC-B,Refining,Crude receipt storage and charge systems
+ORC-B-T101,Crude Storage Tank T101,StaticEquipment,ORC-B-RECV,Refining,Synthetic crude storage tank
+ORC-B-P101,Crude Charge Pump P101,RotatingEquipment,ORC-B-RECV,Refining,Crude charge pump to primary processing
+ORC-B-PRIMARY,Primary Processing,ProcessArea,ORC-B,Refining,Crude and vacuum distillation
+ORC-B-CDU101,Crude Distillation Unit CDU101,ProcessUnit,ORC-B-PRIMARY,Refining,Primary atmospheric distillation unit
+ORC-B-H101,Fired Heater H101,StaticEquipment,ORC-B-CDU101,Refining,Crude fired heater
+ORC-B-C101,Atmospheric Column C101,StaticEquipment,ORC-B-CDU101,Refining,Atmospheric distillation column
+ORC-B-CONV,Conversion,ProcessArea,ORC-B,Refining,Conversion units
+ORC-B-FCC101,Fluid Catalytic Cracking Unit FCC101,ProcessUnit,ORC-B-CONV,Refining,Synthetic conversion unit
+ORC-B-TREAT,Treating,ProcessArea,ORC-B,Refining,Treating and sulfur handling
+ORC-B-EXPORT,Blending and Export,ProcessArea,ORC-B,LogisticsAndExport,Product blending metering and export
+ORC-B-UTIL,Utilities,ProcessArea,ORC-B,Utilities,Refinery utilities systems
+ORC-B-SAFE,Safety and Control,ProcessArea,ORC-B,SafetyAndControl,Control safety and protection systems

@@ -1,0 +1,85 @@
+table_name,column_name,data_type,is_key,is_nullable,source_file,description
+DimAssetClass,class_id,string,true,false,asset-classes.csv,Ontology class identifier
+DimAssetClass,parent_class,string,false,true,asset-classes.csv,Parent ontology class
+DimAssetClass,domain,string,false,true,asset-classes.csv,Domain such as Subsurface or Refining
+DimAssetClass,description,string,false,true,asset-classes.csv,Class description
+DimAssetClass,key_attributes,string,false,true,asset-classes.csv,Semicolon-delimited key attributes
+DimAsset,asset_id,string,true,false,example-assets.csv,Asset instance identifier
+DimAsset,name,string,false,false,example-assets.csv,Anonymized asset name
+DimAsset,class_id,string,false,false,example-assets.csv,Ontology class reference
+DimAsset,parent_asset_id,string,false,true,example-assets.csv,Parent asset in hierarchy
+DimAsset,domain,string,false,true,example-assets.csv,Asset domain
+DimAsset,description,string,false,true,example-assets.csv,Asset description
+DimRelationshipType,relationship_id,string,true,false,relationship-types.csv,Relationship type identifier
+DimRelationshipType,inverse_relationship,string,false,true,relationship-types.csv,Inverse relationship type
+DimRelationshipType,description,string,false,true,relationship-types.csv,Relationship definition
+BridgeAssetRelationship,edge_id,string,true,false,relationship-edges.csv,Relationship edge identifier
+BridgeAssetRelationship,source_asset_id,string,false,false,relationship-edges.csv,Source node id
+BridgeAssetRelationship,relationship_type,string,false,false,relationship-edges.csv,Relationship type id
+BridgeAssetRelationship,target_asset_id,string,false,false,relationship-edges.csv,Target node id which may be asset tag or KPI
+BridgeAssetRelationship,relationship_context,string,false,true,relationship-edges.csv,Relationship grouping context
+BridgeAssetRelationship,description,string,false,true,relationship-edges.csv,Relationship description
+DimTelemetryTag,tag_id,string,true,false,telemetry-tag-patterns.csv,Telemetry tag identifier
+DimTelemetryTag,tag_name,string,false,false,telemetry-tag-patterns.csv,Synthetic PI-style tag name
+DimTelemetryTag,asset_id,string,false,false,telemetry-tag-patterns.csv,Owning asset id
+DimTelemetryTag,asset_class,string,false,true,telemetry-tag-patterns.csv,Owning asset class
+DimTelemetryTag,variable,string,false,true,telemetry-tag-patterns.csv,Measured variable
+DimTelemetryTag,measurement_type,string,false,true,telemetry-tag-patterns.csv,PV SP OP STATUS ALARM or TRIP
+DimTelemetryTag,engineering_unit,string,false,true,telemetry-tag-patterns.csv,Engineering unit
+DimTelemetryTag,sample_interval_seconds,int,false,false,telemetry-tag-patterns.csv,Nominal sample interval
+DimTelemetryTag,normal_min,decimal,false,true,telemetry-tag-patterns.csv,Normal low bound
+DimTelemetryTag,normal_max,decimal,false,true,telemetry-tag-patterns.csv,Normal high bound
+FactTelemetry,sequence,bigint,true,false,data/pi_telemetry_loop.csv,Telemetry sequence number
+FactTelemetry,event_time,datetime,false,false,data/pi_telemetry_loop.csv,Source event timestamp
+FactTelemetry,loop_second,int,false,false,data/pi_telemetry_loop.csv,Second within replay loop
+FactTelemetry,tag_id,string,false,false,data/pi_telemetry_loop.csv,Telemetry tag reference
+FactTelemetry,tag_name,string,false,false,data/pi_telemetry_loop.csv,Telemetry tag name
+FactTelemetry,asset_id,string,false,false,data/pi_telemetry_loop.csv,Asset reference
+FactTelemetry,value,decimal,false,false,data/pi_telemetry_loop.csv,Telemetry value
+FactTelemetry,engineering_unit,string,false,true,data/pi_telemetry_loop.csv,Engineering unit
+FactTelemetry,quality,string,false,true,data/pi_telemetry_loop.csv,Quality indicator
+FactTelemetry,scenario,string,false,true,data/pi_telemetry_loop.csv,Active synthetic scenario
+FactEventFrame,event_id,string,true,false,data/pi_event_frames.csv,Event identifier
+FactEventFrame,asset_id,string,false,false,data/pi_event_frames.csv,Impacted asset reference
+FactEventFrame,source_tag_id,string,false,true,data/pi_event_frames.csv,Source tag reference
+FactEventFrame,event_type,string,false,false,data/pi_event_frames.csv,Event type
+FactEventFrame,severity,string,false,false,data/pi_event_frames.csv,Event severity
+FactEventFrame,start_loop_second,int,false,false,data/pi_event_frames.csv,Event start second within loop
+FactEventFrame,end_loop_second,int,false,false,data/pi_event_frames.csv,Event end second within loop
+FactEventFrame,description,string,false,true,data/pi_event_frames.csv,Event description
+DimFailureMode,failure_mode_id,string,true,false,failure-modes.csv,Failure mode identifier
+DimFailureMode,asset_class,string,false,false,failure-modes.csv,Applicable asset class
+DimFailureMode,name,string,false,false,failure-modes.csv,Failure mode name
+DimFailureMode,description,string,false,true,failure-modes.csv,Failure mode description
+DimFailureMode,detection_pattern,string,false,true,failure-modes.csv,Telemetry detection pattern
+DimFailureMode,operational_impact,string,false,true,failure-modes.csv,Operational impact
+DimFailureMode,recommended_action,string,false,true,failure-modes.csv,Recommended action
+DimKPI,kpi_id,string,true,false,kpi-definitions.csv,KPI identifier
+DimKPI,name,string,false,false,kpi-definitions.csv,KPI display name
+DimKPI,unit,string,false,false,kpi-definitions.csv,KPI unit
+DimKPI,semantic_definition,string,false,true,kpi-definitions.csv,Semantic definition
+DimKPI,applies_to,string,false,true,kpi-definitions.csv,Scope of KPI
+DimKPI,aggregation_window,string,false,true,kpi-definitions.csv,Aggregation window
+FactKPITimeSeries,timestamp,datetime,false,false,data/kpi-timeseries.csv,KPI timestamp
+FactKPITimeSeries,loop_second,int,false,false,data/kpi-timeseries.csv,Second within replay loop
+FactKPITimeSeries,kpi_id,string,false,false,data/kpi-timeseries.csv,KPI reference
+FactKPITimeSeries,asset_id,string,false,false,data/kpi-timeseries.csv,Asset reference
+FactKPITimeSeries,value,decimal,false,false,data/kpi-timeseries.csv,KPI value
+FactKPITimeSeries,unit,string,false,true,data/kpi-timeseries.csv,KPI unit
+FactKPITimeSeries,status,string,false,true,data/kpi-timeseries.csv,KPI status
+FactAssetHealth,asset_id,string,true,false,data/asset-health-scores.csv,Asset reference
+FactAssetHealth,asset_name,string,false,false,data/asset-health-scores.csv,Asset display name
+FactAssetHealth,asset_class,string,false,false,data/asset-health-scores.csv,Asset class
+FactAssetHealth,area,string,false,true,data/asset-health-scores.csv,Area
+FactAssetHealth,health_score,decimal,false,false,data/asset-health-scores.csv,Health score 0-100
+FactAssetHealth,status,string,false,false,data/asset-health-scores.csv,Health status
+FactAssetHealth,diagnostic_summary,string,false,true,data/asset-health-scores.csv,Diagnostic summary
+FactAssetHealth,dominant_condition,string,false,true,data/asset-health-scores.csv,Dominant condition
+FactAssetHealth,recommended_action,string,false,true,data/asset-health-scores.csv,Recommended action
+BridgeEventImpact,event_id,string,false,false,data/event-impact-map.csv,Event reference
+BridgeEventImpact,impacted_asset_id,string,false,false,data/event-impact-map.csv,Impacted asset reference
+BridgeEventImpact,likely_failure_mode_id,string,false,false,data/event-impact-map.csv,Likely failure mode reference
+BridgeEventImpact,impacted_kpis,string,false,true,data/event-impact-map.csv,Semicolon-delimited impacted KPI ids
+BridgeEventImpact,business_impact_severity,string,false,true,data/event-impact-map.csv,Business impact severity
+BridgeEventImpact,operational_impact,string,false,true,data/event-impact-map.csv,Operational impact
+BridgeEventImpact,recommended_action,string,false,true,data/event-impact-map.csv,Recommended action

@@ -1,0 +1,19 @@
+measure_name,home_table,dax_expression,format_string,description
+Latest Telemetry Value,FactTelemetry,"VAR LatestTime = MAX(FactTelemetry[event_time]) RETURN CALCULATE(AVERAGE(FactTelemetry[value]), FactTelemetry[event_time] = LatestTime)",#,Latest telemetry value in current filter context
+Telemetry Points,FactTelemetry,"COUNTROWS(FactTelemetry)","#,0",Telemetry point count
+Questionable Points,FactTelemetry,"CALCULATE(COUNTROWS(FactTelemetry), FactTelemetry[quality] = ""Questionable"")","#,0",Count of telemetry points outside normal envelope
+Questionable Rate,FactTelemetry,"DIVIDE([Questionable Points], [Telemetry Points])","0.0%",Share of telemetry points outside normal envelope
+Average Asset Health,FactAssetHealth,"AVERAGE(FactAssetHealth[health_score])","0.0",Average health score for selected assets
+Assets At Risk,FactAssetHealth,"CALCULATE(COUNTROWS(FactAssetHealth), FactAssetHealth[status] IN { ""Watch"", ""Degraded"", ""Critical"" })","#,0",Count of watch/degraded/critical assets
+Critical Asset Count,FactAssetHealth,"CALCULATE(COUNTROWS(FactAssetHealth), FactAssetHealth[status] IN { ""Degraded"", ""Critical"" })","#,0",Count of degraded or critical assets
+Latest KPI Value,FactKPITimeSeries,"VAR LatestTime = MAX(FactKPITimeSeries[timestamp]) RETURN CALCULATE(AVERAGE(FactKPITimeSeries[value]), FactKPITimeSeries[timestamp] = LatestTime)",#,Latest KPI value in current KPI and asset context
+Production Throughput,FactKPITimeSeries,"CALCULATE([Latest KPI Value], DimKPI[kpi_id] = ""ProductionThroughput"")","#,0 boe/d",Latest offshore production throughput
+Gas Export Reliability,FactKPITimeSeries,"CALCULATE([Latest KPI Value], DimKPI[kpi_id] = ""GasExportReliability"")","0.0%",Latest gas export reliability proxy
+Compression Efficiency,FactKPITimeSeries,"CALCULATE([Latest KPI Value], DimKPI[kpi_id] = ""CompressionEfficiency"")","0.0%",Latest compression efficiency proxy
+Separator Stability,FactKPITimeSeries,"CALCULATE([Latest KPI Value], DimKPI[kpi_id] = ""SeparatorStability"")","0.0%",Latest separator stability proxy
+Refinery Utilization,FactKPITimeSeries,"CALCULATE([Latest KPI Value], DimKPI[kpi_id] = ""RefineryUtilization"")","0.0%",Latest refinery utilization proxy
+Energy Intensity,FactKPITimeSeries,"CALCULATE([Latest KPI Value], DimKPI[kpi_id] = ""EnergyIntensity"")","0.00 kg/m3",Latest fired-heater energy intensity proxy
+Emissions Intensity,FactKPITimeSeries,"CALCULATE([Latest KPI Value], DimKPI[kpi_id] = ""EmissionsIntensity"")","0.00 kgCO2e/m3",Latest emissions intensity proxy
+Open Event Frames,FactEventFrame,"COUNTROWS(FactEventFrame)","#,0",Count of event frames in selected context
+High Severity Events,FactEventFrame,"CALCULATE(COUNTROWS(FactEventFrame), FactEventFrame[severity] = ""High"")","#,0",Count of high severity event frames
+Relationship Edges,BridgeAssetRelationship,"COUNTROWS(BridgeAssetRelationship)","#,0",Count of semantic relationship edges

@@ -1,0 +1,81 @@
+{
+  "flowId": "og-digital-twin-realtime-flow",
+  "description": "Recommended Fabric Real-Time Intelligence flow for the synthetic PI-style telemetry replay.",
+  "source": {
+    "name": "Synthetic PI Replay",
+    "script": "scripts/replay_pi_telemetry.js",
+    "format": "jsonl",
+    "defaultCommand": "node scripts/replay_pi_telemetry.js --speed 300 --duration-seconds 120 --loop",
+    "payloadSchema": [
+      { "name": "timestamp", "type": "datetime" },
+      { "name": "source_loop_second", "type": "int" },
+      { "name": "tag_id", "type": "string" },
+      { "name": "tag_name", "type": "string" },
+      { "name": "asset_id", "type": "string" },
+      { "name": "value", "type": "real" },
+      { "name": "engineering_unit", "type": "string" },
+      { "name": "quality", "type": "string" },
+      { "name": "scenario", "type": "string" }
+    ]
+  },
+  "fabricComponents": [
+    {
+      "component": "Eventstream",
+      "role": "Ingest replayed telemetry events and route to hot and cold paths.",
+      "input": "Synthetic PI Replay JSONL or local/websocket/API adapter",
+      "outputs": ["Eventhouse.TelemetryHot", "Lakehouse.FactTelemetry"]
+    },
+    {
+      "component": "Eventhouse",
+      "role": "Hot time-series store for live control room and PI Vision-style screens.",
+      "tables": ["TelemetryHot", "CurrentTelemetrySnapshot"],
+      "retentionRecommendation": "1-7 days for demo hot path"
+    },
+    {
+      "component": "Lakehouse",
+      "role": "Persistent medallion storage for ontology, telemetry, event, KPI, and health tables.",
+      "tables": [
+        "DimAssetClass",
+        "DimAsset",
+        "DimRelationshipType",
+        "BridgeAssetRelationship",
+        "DimTelemetryTag",
+        "FactTelemetry",
+        "FactEventFrame",
+        "DimFailureMode",
+        "DimKPI",
+        "FactKPITimeSeries",
+        "FactAssetHealth",
+        "BridgeEventImpact"
+      ]
+    },
+    {
+      "component": "Data Activator",
+      "role": "Optional rules for live anomaly and action triggers.",
+      "exampleRules": [
+        "If TAG-OPH-A-K101-VIB-PV > 5.0 mm/s for 10 minutes then raise Compressor Degradation watch event.",
+        "If TAG-ORC-B-C101-DP-PV > 78 kPa and EnergyIntensity is rising then raise CDU Constraint watch event.",
+        "If AssetHealthScore < 70 then create reliability review action."
+      ]
+    },
+    {
+      "component": "Semantic model",
+      "role": "Direct Lake / Power BI model for KPI rollups, asset drilldown, and relationship-driven analytics.",
+      "measuresFile": "fabric-semantic-measures.csv"
+    }
+  ],
+  "demoModes": [
+    {
+      "mode": "Static lakehouse replay",
+      "description": "Use data/pi_telemetry_loop.csv as a six-hour loop for analytics and scenario playback."
+    },
+    {
+      "mode": "Live event replay",
+      "description": "Run replay script and route JSONL into Eventstream/Eventhouse with current timestamps."
+    },
+    {
+      "mode": "Hybrid app mode",
+      "description": "React app reads curated dimension/KPI tables and subscribes to hot telemetry snapshot."
+    }
+  ]
+}

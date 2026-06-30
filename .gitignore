@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+react-app/node_modules/
+
+# Build outputs
+react-app/dist/
+dist/
+
+# Runtime replay outputs
+data/live_pi_stream.jsonl
+data/live_pi_latest_snapshot.json
+
+# Local environment
+.env
+.env.*
+*.log
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

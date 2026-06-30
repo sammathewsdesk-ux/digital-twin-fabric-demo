@@ -1,0 +1,17 @@
+tag_id,tag_name,asset_id,asset_class,variable,measurement_type,engineering_unit,sample_interval_seconds,normal_min,normal_max,description
+TAG-OPH-A-W01-THP-PV,OPH-A-W01.WHD.PRESSURE.PV,OPH-A-W01,Well,Pressure,PV,barg,5,80,220,Wellhead tubing pressure
+TAG-OPH-A-W01-CHOKE-POS,OPH-A-W01.CHK.POSITION.PV,OPH-A-W01,Well,Position,PV,percent,5,10,85,Production choke opening
+TAG-OPH-A-W01-FLOW-PV,OPH-A-W01.WHD.FLOW.PV,OPH-A-W01,Well,Flow,PV,boe_per_day,10,1000,12000,Estimated well production rate
+TAG-OPH-A-V101-PRESS-PV,OPH-A-V101.SEP.PRESSURE.PV,OPH-A-V101,StaticEquipment,Pressure,PV,barg,5,15,45,Inlet separator operating pressure
+TAG-OPH-A-V101-LEVEL-PV,OPH-A-V101.SEP.LEVEL.PV,OPH-A-V101,StaticEquipment,Level,PV,percent,5,35,70,Inlet separator liquid level
+TAG-OPH-A-K101-DP-PV,OPH-A-K101.GAS.DISCHARGE_PRESSURE.PV,OPH-A-K101,RotatingEquipment,Pressure,PV,barg,5,80,160,Compressor discharge pressure
+TAG-OPH-A-K101-VIB-PV,OPH-A-K101.VIB.VELOCITY.PV,OPH-A-K101,RotatingEquipment,Vibration,PV,mm_per_s,1,0,6,Compressor vibration velocity
+TAG-OPH-A-K101-TEMP-PV,OPH-A-K101.BRG.TEMPERATURE.PV,OPH-A-K101,RotatingEquipment,Temperature,PV,degC,5,45,95,Compressor bearing temperature
+TAG-OPH-A-M101-POWER-PV,OPH-A-M101.MTR.POWER.PV,OPH-A-M101,RotatingEquipment,Power,PV,kW,5,500,8500,Compressor driver power draw
+TAG-ORC-B-T101-LEVEL-PV,ORC-B-T101.TNK.LEVEL.PV,ORC-B-T101,StaticEquipment,Level,PV,percent,30,20,90,Crude storage tank level
+TAG-ORC-B-P101-FLOW-PV,ORC-B-P101.PMP.FLOW.PV,ORC-B-P101,RotatingEquipment,Flow,PV,m3_per_hour,5,100,1200,Crude charge pump flow
+TAG-ORC-B-P101-VIB-PV,ORC-B-P101.VIB.VELOCITY.PV,ORC-B-P101,RotatingEquipment,Vibration,PV,mm_per_s,1,0,5,Crude charge pump vibration
+TAG-ORC-B-H101-FUEL-PV,ORC-B-H101.FUEL_GAS.FLOW.PV,ORC-B-H101,StaticEquipment,Flow,PV,kg_per_hour,5,500,5000,Fired heater fuel gas flow
+TAG-ORC-B-H101-TEMP-PV,ORC-B-H101.OUTLET.TEMPERATURE.PV,ORC-B-H101,StaticEquipment,Temperature,PV,degC,5,280,390,Fired heater outlet temperature
+TAG-ORC-B-C101-TOP-TEMP,ORC-B-C101.COL.TOP_TEMPERATURE.PV,ORC-B-C101,StaticEquipment,Temperature,PV,degC,5,80,150,Atmospheric column top temperature
+TAG-ORC-B-C101-DP-PV,ORC-B-C101.COL.DIFFERENTIAL_PRESSURE.PV,ORC-B-C101,StaticEquipment,Pressure,PV,kPa,5,10,80,Atmospheric column differential pressure

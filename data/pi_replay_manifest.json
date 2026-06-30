@@ -1,0 +1,47 @@
+{
+  "datasetId": "synthetic-pi-telemetry-loop",
+  "description": "Loopable synthetic PI-style telemetry for the O&G Digital Twin demo.",
+  "loopHours": 6,
+  "loopSeconds": 21600,
+  "sourceStartTimeUtc": "2026-06-30T08:00:00.000Z",
+  "rowCount": 97936,
+  "tagCount": 16,
+  "eventFrameCount": 5,
+  "defaultReplay": {
+    "mode": "loop",
+    "speedMultiplier": 60,
+    "timestampMode": "restamp_to_current_utc",
+    "outputFormat": "jsonl"
+  },
+  "scenarios": [
+    {
+      "id": "normal_operations",
+      "start_loop_second": 0,
+      "end_loop_second": 21600,
+      "description": "Stable operating conditions with normal process noise and daily variation."
+    },
+    {
+      "id": "compressor_vibration_degradation",
+      "start_loop_second": 7200,
+      "end_loop_second": 10800,
+      "description": "Gradual vibration and bearing temperature increase on offshore gas compressor K101."
+    },
+    {
+      "id": "separator_level_instability",
+      "start_loop_second": 13200,
+      "end_loop_second": 15300,
+      "description": "Oscillating separator level caused by unstable inlet flow and control response."
+    },
+    {
+      "id": "refinery_heater_efficiency_drift",
+      "start_loop_second": 15600,
+      "end_loop_second": 21600,
+      "description": "Fired heater fuel use increases while outlet temperature control becomes less efficient."
+    }
+  ],
+  "files": {
+    "telemetryLoop": "data/pi_telemetry_loop.csv",
+    "eventFrames": "data/pi_event_frames.csv",
+    "replayScript": "scripts/replay_pi_telemetry.js"
+  }
+}

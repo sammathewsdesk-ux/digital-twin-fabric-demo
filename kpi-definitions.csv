@@ -1,0 +1,9 @@
+kpi_id,name,unit,semantic_definition,applies_to,aggregation_window
+AssetHealthScore,Asset health score,0-100,Weighted score derived from current telemetry against normal operating envelopes and known degradation patterns.,Asset,5 minutes
+ProductionThroughput,Production throughput,boe/d,Synthetic well flow converted to production throughput for the offshore hub.,Offshore hub,5 minutes
+GasExportReliability,Gas export reliability,percent,"Reliability proxy from compressor health, vibration, discharge pressure, and driver power.",Gas processing,5 minutes
+CompressionEfficiency,Compression efficiency,percent,"Proxy from discharge pressure achieved per unit driver power, penalized for vibration and bearing temperature.",Gas compressor,5 minutes
+SeparatorStability,Separator stability,percent,Proxy from separator level and pressure staying within stable operating bands.,Inlet separator,5 minutes
+RefineryUtilization,Refinery utilization,percent,Crude charge pump flow as a proxy for refinery load against synthetic nameplate.,Refinery complex,5 minutes
+EnergyIntensity,Energy intensity,kg fuel per m3 charge,Fired heater fuel consumption normalized by crude charge flow.,Refinery primary processing,5 minutes
+EmissionsIntensity,Emissions intensity,kg CO2e per m3 charge,Synthetic emissions factor applied to fuel gas flow and normalized by charge flow.,Refinery complex,5 minutes

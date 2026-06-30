@@ -1,0 +1,8 @@
+asset_id,asset_name,asset_class,area,health_score,status,diagnostic_summary,dominant_condition,recommended_action
+OPH-A-W01,Production Well W01,Well,Offshore Production Hub A,100,Normal,Stable producer; monitor tubing pressure and choke-flow relationship.,Normal operations,Continue normal monitoring.
+OPH-A-V101,Inlet Separator V101,StaticEquipment,Inlet Processing,100,Normal,Recovered from level instability; monitor level controller performance.,Separator level instability,Continue normal monitoring.
+OPH-A-K101,Gas Compressor K101,RotatingEquipment,Gas Processing,79.4,Watch,Vibration and bearing temperature trend indicates degradation.,Compressor bearing degradation,Add to watchlist and review trend during next shift handover.
+OPH-A-P101,Oil Export Pump P101,RotatingEquipment,Oil Processing,91.2,Normal,Operating inside expected export envelope.,Normal operations,Continue normal monitoring.
+ORC-B-P101,Crude Charge Pump P101,RotatingEquipment,Crude Receiving,76,Watch,Flow and vibration are within operating envelope.,Normal operations,Add to watchlist and review trend during next shift handover.
+ORC-B-H101,Fired Heater H101,StaticEquipment,Crude Distillation Unit,100,Normal,Fuel demand drift suggests reduced thermal efficiency.,Fired heater efficiency drift,Continue normal monitoring.
+ORC-B-C101,Atmospheric Column C101,StaticEquipment,Crude Distillation Unit,66.2,Degraded,Differential pressure trend indicates developing hydraulic constraint.,Column differential pressure drift,Raise operations review and reliability work order candidate.

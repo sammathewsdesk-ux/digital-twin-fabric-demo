@@ -1,0 +1,585 @@
+timestamp,loop_second,kpi_id,asset_id,value,unit,status
+2026-06-30T08:00:00.000Z,0,AssetHealthScore,Portfolio,90.086,0-100,Normal
+2026-06-30T08:00:00.000Z,0,ProductionThroughput,OPH-A,6629.566,boe/d,Normal
+2026-06-30T08:00:00.000Z,0,GasExportReliability,OPH-A-GAS,95.722,percent,Normal
+2026-06-30T08:00:00.000Z,0,CompressionEfficiency,OPH-A-K101,76.629,percent,Watch
+2026-06-30T08:00:00.000Z,0,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:00:00.000Z,0,RefineryUtilization,ORC-B,56.273,percent,Degraded
+2026-06-30T08:00:00.000Z,0,EnergyIntensity,ORC-B-H101,4.201,kg fuel per m3 charge,Critical
+2026-06-30T08:00:00.000Z,0,EmissionsIntensity,ORC-B,11.552,kg CO2e per m3 charge,Critical
+2026-06-30T08:05:00.000Z,300,AssetHealthScore,Portfolio,89.6,0-100,Normal
+2026-06-30T08:05:00.000Z,300,ProductionThroughput,OPH-A,7088.704,boe/d,Normal
+2026-06-30T08:05:00.000Z,300,GasExportReliability,OPH-A-GAS,96.463,percent,Normal
+2026-06-30T08:05:00.000Z,300,CompressionEfficiency,OPH-A-K101,94.999,percent,Normal
+2026-06-30T08:05:00.000Z,300,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:05:00.000Z,300,RefineryUtilization,ORC-B,58.511,percent,Degraded
+2026-06-30T08:05:00.000Z,300,EnergyIntensity,ORC-B-H101,4.244,kg fuel per m3 charge,Critical
+2026-06-30T08:05:00.000Z,300,EmissionsIntensity,ORC-B,11.671,kg CO2e per m3 charge,Critical
+2026-06-30T08:10:00.000Z,600,AssetHealthScore,Portfolio,89.289,0-100,Normal
+2026-06-30T08:10:00.000Z,600,ProductionThroughput,OPH-A,7339.763,boe/d,Normal
+2026-06-30T08:10:00.000Z,600,GasExportReliability,OPH-A-GAS,96.622,percent,Normal
+2026-06-30T08:10:00.000Z,600,CompressionEfficiency,OPH-A-K101,83.083,percent,Watch
+2026-06-30T08:10:00.000Z,600,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:10:00.000Z,600,RefineryUtilization,ORC-B,60.132,percent,Degraded
+2026-06-30T08:10:00.000Z,600,EnergyIntensity,ORC-B-H101,4.24,kg fuel per m3 charge,Critical
+2026-06-30T08:10:00.000Z,600,EmissionsIntensity,ORC-B,11.66,kg CO2e per m3 charge,Critical
+2026-06-30T08:15:00.000Z,900,AssetHealthScore,Portfolio,89.567,0-100,Normal
+2026-06-30T08:15:00.000Z,900,ProductionThroughput,OPH-A,7720.369,boe/d,Normal
+2026-06-30T08:15:00.000Z,900,GasExportReliability,OPH-A-GAS,96.406,percent,Normal
+2026-06-30T08:15:00.000Z,900,CompressionEfficiency,OPH-A-K101,86.675,percent,Normal
+2026-06-30T08:15:00.000Z,900,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:15:00.000Z,900,RefineryUtilization,ORC-B,60.712,percent,Degraded
+2026-06-30T08:15:00.000Z,900,EnergyIntensity,ORC-B-H101,4.217,kg fuel per m3 charge,Critical
+2026-06-30T08:15:00.000Z,900,EmissionsIntensity,ORC-B,11.596,kg CO2e per m3 charge,Critical
+2026-06-30T08:20:00.000Z,1200,AssetHealthScore,Portfolio,89.922,0-100,Normal
+2026-06-30T08:20:00.000Z,1200,ProductionThroughput,OPH-A,7855.368,boe/d,Normal
+2026-06-30T08:20:00.000Z,1200,GasExportReliability,OPH-A-GAS,96.904,percent,Normal
+2026-06-30T08:20:00.000Z,1200,CompressionEfficiency,OPH-A-K101,84.366,percent,Watch
+2026-06-30T08:20:00.000Z,1200,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:20:00.000Z,1200,RefineryUtilization,ORC-B,60.099,percent,Degraded
+2026-06-30T08:20:00.000Z,1200,EnergyIntensity,ORC-B-H101,4.22,kg fuel per m3 charge,Critical
+2026-06-30T08:20:00.000Z,1200,EmissionsIntensity,ORC-B,11.606,kg CO2e per m3 charge,Critical
+2026-06-30T08:25:00.000Z,1500,AssetHealthScore,Portfolio,90.574,0-100,Normal
+2026-06-30T08:25:00.000Z,1500,ProductionThroughput,OPH-A,7689.58,boe/d,Normal
+2026-06-30T08:25:00.000Z,1500,GasExportReliability,OPH-A-GAS,96.973,percent,Normal
+2026-06-30T08:25:00.000Z,1500,CompressionEfficiency,OPH-A-K101,90.35,percent,Normal
+2026-06-30T08:25:00.000Z,1500,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:25:00.000Z,1500,RefineryUtilization,ORC-B,57.805,percent,Degraded
+2026-06-30T08:25:00.000Z,1500,EnergyIntensity,ORC-B-H101,4.258,kg fuel per m3 charge,Critical
+2026-06-30T08:25:00.000Z,1500,EmissionsIntensity,ORC-B,11.711,kg CO2e per m3 charge,Critical
+2026-06-30T08:30:00.000Z,1800,AssetHealthScore,Portfolio,90.975,0-100,Normal
+2026-06-30T08:30:00.000Z,1800,ProductionThroughput,OPH-A,7450.068,boe/d,Normal
+2026-06-30T08:30:00.000Z,1800,GasExportReliability,OPH-A-GAS,96.082,percent,Normal
+2026-06-30T08:30:00.000Z,1800,CompressionEfficiency,OPH-A-K101,91.096,percent,Normal
+2026-06-30T08:30:00.000Z,1800,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:30:00.000Z,1800,RefineryUtilization,ORC-B,55.551,percent,Degraded
+2026-06-30T08:30:00.000Z,1800,EnergyIntensity,ORC-B-H101,4.184,kg fuel per m3 charge,Critical
+2026-06-30T08:30:00.000Z,1800,EmissionsIntensity,ORC-B,11.506,kg CO2e per m3 charge,Critical
+2026-06-30T08:35:00.000Z,2100,AssetHealthScore,Portfolio,91.077,0-100,Normal
+2026-06-30T08:35:00.000Z,2100,ProductionThroughput,OPH-A,7148.071,boe/d,Normal
+2026-06-30T08:35:00.000Z,2100,GasExportReliability,OPH-A-GAS,97.306,percent,Normal
+2026-06-30T08:35:00.000Z,2100,CompressionEfficiency,OPH-A-K101,88.538,percent,Normal
+2026-06-30T08:35:00.000Z,2100,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:35:00.000Z,2100,RefineryUtilization,ORC-B,53.201,percent,Degraded
+2026-06-30T08:35:00.000Z,2100,EnergyIntensity,ORC-B-H101,4.215,kg fuel per m3 charge,Critical
+2026-06-30T08:35:00.000Z,2100,EmissionsIntensity,ORC-B,11.592,kg CO2e per m3 charge,Critical
+2026-06-30T08:40:00.000Z,2400,AssetHealthScore,Portfolio,91.93,0-100,Normal
+2026-06-30T08:40:00.000Z,2400,ProductionThroughput,OPH-A,6802.9,boe/d,Normal
+2026-06-30T08:40:00.000Z,2400,GasExportReliability,OPH-A-GAS,96.916,percent,Normal
+2026-06-30T08:40:00.000Z,2400,CompressionEfficiency,OPH-A-K101,95.685,percent,Normal
+2026-06-30T08:40:00.000Z,2400,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:40:00.000Z,2400,RefineryUtilization,ORC-B,52.21,percent,Degraded
+2026-06-30T08:40:00.000Z,2400,EnergyIntensity,ORC-B-H101,4.217,kg fuel per m3 charge,Critical
+2026-06-30T08:40:00.000Z,2400,EmissionsIntensity,ORC-B,11.597,kg CO2e per m3 charge,Critical
+2026-06-30T08:45:00.000Z,2700,AssetHealthScore,Portfolio,91.225,0-100,Normal
+2026-06-30T08:45:00.000Z,2700,ProductionThroughput,OPH-A,6298.194,boe/d,Normal
+2026-06-30T08:45:00.000Z,2700,GasExportReliability,OPH-A-GAS,96.34,percent,Normal
+2026-06-30T08:45:00.000Z,2700,CompressionEfficiency,OPH-A-K101,94.273,percent,Normal
+2026-06-30T08:45:00.000Z,2700,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:45:00.000Z,2700,RefineryUtilization,ORC-B,52.548,percent,Degraded
+2026-06-30T08:45:00.000Z,2700,EnergyIntensity,ORC-B-H101,4.212,kg fuel per m3 charge,Critical
+2026-06-30T08:45:00.000Z,2700,EmissionsIntensity,ORC-B,11.584,kg CO2e per m3 charge,Critical
+2026-06-30T08:50:00.000Z,3000,AssetHealthScore,Portfolio,89.901,0-100,Normal
+2026-06-30T08:50:00.000Z,3000,ProductionThroughput,OPH-A,5858.621,boe/d,Normal
+2026-06-30T08:50:00.000Z,3000,GasExportReliability,OPH-A-GAS,96.868,percent,Normal
+2026-06-30T08:50:00.000Z,3000,CompressionEfficiency,OPH-A-K101,89.752,percent,Normal
+2026-06-30T08:50:00.000Z,3000,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:50:00.000Z,3000,RefineryUtilization,ORC-B,54.116,percent,Degraded
+2026-06-30T08:50:00.000Z,3000,EnergyIntensity,ORC-B-H101,4.23,kg fuel per m3 charge,Critical
+2026-06-30T08:50:00.000Z,3000,EmissionsIntensity,ORC-B,11.631,kg CO2e per m3 charge,Critical
+2026-06-30T08:55:00.000Z,3300,AssetHealthScore,Portfolio,90.37,0-100,Normal
+2026-06-30T08:55:00.000Z,3300,ProductionThroughput,OPH-A,5410.69,boe/d,Normal
+2026-06-30T08:55:00.000Z,3300,GasExportReliability,OPH-A-GAS,96.685,percent,Normal
+2026-06-30T08:55:00.000Z,3300,CompressionEfficiency,OPH-A-K101,82.561,percent,Watch
+2026-06-30T08:55:00.000Z,3300,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T08:55:00.000Z,3300,RefineryUtilization,ORC-B,56.452,percent,Degraded
+2026-06-30T08:55:00.000Z,3300,EnergyIntensity,ORC-B-H101,4.213,kg fuel per m3 charge,Critical
+2026-06-30T08:55:00.000Z,3300,EmissionsIntensity,ORC-B,11.586,kg CO2e per m3 charge,Critical
+2026-06-30T09:00:00.000Z,3600,AssetHealthScore,Portfolio,89.764,0-100,Normal
+2026-06-30T09:00:00.000Z,3600,ProductionThroughput,OPH-A,5290.114,boe/d,Normal
+2026-06-30T09:00:00.000Z,3600,GasExportReliability,OPH-A-GAS,96.622,percent,Normal
+2026-06-30T09:00:00.000Z,3600,CompressionEfficiency,OPH-A-K101,77.847,percent,Watch
+2026-06-30T09:00:00.000Z,3600,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:00:00.000Z,3600,RefineryUtilization,ORC-B,59.312,percent,Degraded
+2026-06-30T09:00:00.000Z,3600,EnergyIntensity,ORC-B-H101,4.211,kg fuel per m3 charge,Critical
+2026-06-30T09:00:00.000Z,3600,EmissionsIntensity,ORC-B,11.581,kg CO2e per m3 charge,Critical
+2026-06-30T09:05:00.000Z,3900,AssetHealthScore,Portfolio,89.726,0-100,Normal
+2026-06-30T09:05:00.000Z,3900,ProductionThroughput,OPH-A,5213.642,boe/d,Normal
+2026-06-30T09:05:00.000Z,3900,GasExportReliability,OPH-A-GAS,96.787,percent,Normal
+2026-06-30T09:05:00.000Z,3900,CompressionEfficiency,OPH-A-K101,87.367,percent,Normal
+2026-06-30T09:05:00.000Z,3900,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:05:00.000Z,3900,RefineryUtilization,ORC-B,61.469,percent,Degraded
+2026-06-30T09:05:00.000Z,3900,EnergyIntensity,ORC-B-H101,4.187,kg fuel per m3 charge,Critical
+2026-06-30T09:05:00.000Z,3900,EmissionsIntensity,ORC-B,11.515,kg CO2e per m3 charge,Critical
+2026-06-30T09:10:00.000Z,4200,AssetHealthScore,Portfolio,89.092,0-100,Normal
+2026-06-30T09:10:00.000Z,4200,ProductionThroughput,OPH-A,5436.366,boe/d,Normal
+2026-06-30T09:10:00.000Z,4200,GasExportReliability,OPH-A-GAS,96.994,percent,Normal
+2026-06-30T09:10:00.000Z,4200,CompressionEfficiency,OPH-A-K101,77.315,percent,Watch
+2026-06-30T09:10:00.000Z,4200,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:10:00.000Z,4200,RefineryUtilization,ORC-B,62.771,percent,Degraded
+2026-06-30T09:10:00.000Z,4200,EnergyIntensity,ORC-B-H101,4.255,kg fuel per m3 charge,Critical
+2026-06-30T09:10:00.000Z,4200,EmissionsIntensity,ORC-B,11.702,kg CO2e per m3 charge,Critical
+2026-06-30T09:15:00.000Z,4500,AssetHealthScore,Portfolio,89.454,0-100,Normal
+2026-06-30T09:15:00.000Z,4500,ProductionThroughput,OPH-A,5482.584,boe/d,Normal
+2026-06-30T09:15:00.000Z,4500,GasExportReliability,OPH-A-GAS,96.736,percent,Normal
+2026-06-30T09:15:00.000Z,4500,CompressionEfficiency,OPH-A-K101,82.713,percent,Watch
+2026-06-30T09:15:00.000Z,4500,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:15:00.000Z,4500,RefineryUtilization,ORC-B,62.644,percent,Degraded
+2026-06-30T09:15:00.000Z,4500,EnergyIntensity,ORC-B-H101,4.189,kg fuel per m3 charge,Critical
+2026-06-30T09:15:00.000Z,4500,EmissionsIntensity,ORC-B,11.521,kg CO2e per m3 charge,Critical
+2026-06-30T09:20:00.000Z,4800,AssetHealthScore,Portfolio,89.805,0-100,Normal
+2026-06-30T09:20:00.000Z,4800,ProductionThroughput,OPH-A,5822.073,boe/d,Normal
+2026-06-30T09:20:00.000Z,4800,GasExportReliability,OPH-A-GAS,96.106,percent,Normal
+2026-06-30T09:20:00.000Z,4800,CompressionEfficiency,OPH-A-K101,84.222,percent,Watch
+2026-06-30T09:20:00.000Z,4800,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:20:00.000Z,4800,RefineryUtilization,ORC-B,61.047,percent,Degraded
+2026-06-30T09:20:00.000Z,4800,EnergyIntensity,ORC-B-H101,4.23,kg fuel per m3 charge,Critical
+2026-06-30T09:20:00.000Z,4800,EmissionsIntensity,ORC-B,11.631,kg CO2e per m3 charge,Critical
+2026-06-30T09:25:00.000Z,5100,AssetHealthScore,Portfolio,90.344,0-100,Normal
+2026-06-30T09:25:00.000Z,5100,ProductionThroughput,OPH-A,6227.498,boe/d,Normal
+2026-06-30T09:25:00.000Z,5100,GasExportReliability,OPH-A-GAS,96.925,percent,Normal
+2026-06-30T09:25:00.000Z,5100,CompressionEfficiency,OPH-A-K101,96.083,percent,Normal
+2026-06-30T09:25:00.000Z,5100,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:25:00.000Z,5100,RefineryUtilization,ORC-B,58.179,percent,Degraded
+2026-06-30T09:25:00.000Z,5100,EnergyIntensity,ORC-B-H101,4.231,kg fuel per m3 charge,Critical
+2026-06-30T09:25:00.000Z,5100,EmissionsIntensity,ORC-B,11.635,kg CO2e per m3 charge,Critical
+2026-06-30T09:30:00.000Z,5400,AssetHealthScore,Portfolio,90.917,0-100,Normal
+2026-06-30T09:30:00.000Z,5400,ProductionThroughput,OPH-A,6798.192,boe/d,Normal
+2026-06-30T09:30:00.000Z,5400,GasExportReliability,OPH-A-GAS,96.661,percent,Normal
+2026-06-30T09:30:00.000Z,5400,CompressionEfficiency,OPH-A-K101,92.851,percent,Normal
+2026-06-30T09:30:00.000Z,5400,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:30:00.000Z,5400,RefineryUtilization,ORC-B,55.698,percent,Degraded
+2026-06-30T09:30:00.000Z,5400,EnergyIntensity,ORC-B-H101,4.163,kg fuel per m3 charge,Critical
+2026-06-30T09:30:00.000Z,5400,EmissionsIntensity,ORC-B,11.449,kg CO2e per m3 charge,Critical
+2026-06-30T09:35:00.000Z,5700,AssetHealthScore,Portfolio,91.774,0-100,Normal
+2026-06-30T09:35:00.000Z,5700,ProductionThroughput,OPH-A,7210.058,boe/d,Normal
+2026-06-30T09:35:00.000Z,5700,GasExportReliability,OPH-A-GAS,96.421,percent,Normal
+2026-06-30T09:35:00.000Z,5700,CompressionEfficiency,OPH-A-K101,98.757,percent,Normal
+2026-06-30T09:35:00.000Z,5700,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:35:00.000Z,5700,RefineryUtilization,ORC-B,52.707,percent,Degraded
+2026-06-30T09:35:00.000Z,5700,EnergyIntensity,ORC-B-H101,4.199,kg fuel per m3 charge,Critical
+2026-06-30T09:35:00.000Z,5700,EmissionsIntensity,ORC-B,11.547,kg CO2e per m3 charge,Critical
+2026-06-30T09:40:00.000Z,6000,AssetHealthScore,Portfolio,91.78,0-100,Normal
+2026-06-30T09:40:00.000Z,6000,ProductionThroughput,OPH-A,7540.27,boe/d,Normal
+2026-06-30T09:40:00.000Z,6000,GasExportReliability,OPH-A-GAS,97.654,percent,Normal
+2026-06-30T09:40:00.000Z,6000,CompressionEfficiency,OPH-A-K101,99.185,percent,Normal
+2026-06-30T09:40:00.000Z,6000,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:40:00.000Z,6000,RefineryUtilization,ORC-B,51.012,percent,Degraded
+2026-06-30T09:40:00.000Z,6000,EnergyIntensity,ORC-B-H101,4.22,kg fuel per m3 charge,Critical
+2026-06-30T09:40:00.000Z,6000,EmissionsIntensity,ORC-B,11.605,kg CO2e per m3 charge,Critical
+2026-06-30T09:45:00.000Z,6300,AssetHealthScore,Portfolio,91.58,0-100,Normal
+2026-06-30T09:45:00.000Z,6300,ProductionThroughput,OPH-A,7600.107,boe/d,Normal
+2026-06-30T09:45:00.000Z,6300,GasExportReliability,OPH-A-GAS,96.52,percent,Normal
+2026-06-30T09:45:00.000Z,6300,CompressionEfficiency,OPH-A-K101,95.364,percent,Normal
+2026-06-30T09:45:00.000Z,6300,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:45:00.000Z,6300,RefineryUtilization,ORC-B,50.114,percent,Degraded
+2026-06-30T09:45:00.000Z,6300,EnergyIntensity,ORC-B-H101,4.236,kg fuel per m3 charge,Critical
+2026-06-30T09:45:00.000Z,6300,EmissionsIntensity,ORC-B,11.648,kg CO2e per m3 charge,Critical
+2026-06-30T09:50:00.000Z,6600,AssetHealthScore,Portfolio,90.932,0-100,Normal
+2026-06-30T09:50:00.000Z,6600,ProductionThroughput,OPH-A,7761.012,boe/d,Normal
+2026-06-30T09:50:00.000Z,6600,GasExportReliability,OPH-A-GAS,96.916,percent,Normal
+2026-06-30T09:50:00.000Z,6600,CompressionEfficiency,OPH-A-K101,86.126,percent,Normal
+2026-06-30T09:50:00.000Z,6600,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:50:00.000Z,6600,RefineryUtilization,ORC-B,51.315,percent,Degraded
+2026-06-30T09:50:00.000Z,6600,EnergyIntensity,ORC-B-H101,4.186,kg fuel per m3 charge,Critical
+2026-06-30T09:50:00.000Z,6600,EmissionsIntensity,ORC-B,11.512,kg CO2e per m3 charge,Critical
+2026-06-30T09:55:00.000Z,6900,AssetHealthScore,Portfolio,91.137,0-100,Normal
+2026-06-30T09:55:00.000Z,6900,ProductionThroughput,OPH-A,7835.627,boe/d,Normal
+2026-06-30T09:55:00.000Z,6900,GasExportReliability,OPH-A-GAS,96.955,percent,Normal
+2026-06-30T09:55:00.000Z,6900,CompressionEfficiency,OPH-A-K101,98.869,percent,Normal
+2026-06-30T09:55:00.000Z,6900,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T09:55:00.000Z,6900,RefineryUtilization,ORC-B,52.926,percent,Degraded
+2026-06-30T09:55:00.000Z,6900,EnergyIntensity,ORC-B-H101,4.253,kg fuel per m3 charge,Critical
+2026-06-30T09:55:00.000Z,6900,EmissionsIntensity,ORC-B,11.695,kg CO2e per m3 charge,Critical
+2026-06-30T10:00:00.000Z,7200,AssetHealthScore,Portfolio,90.047,0-100,Normal
+2026-06-30T10:00:00.000Z,7200,ProductionThroughput,OPH-A,7530.572,boe/d,Normal
+2026-06-30T10:00:00.000Z,7200,GasExportReliability,OPH-A-GAS,95.968,percent,Normal
+2026-06-30T10:00:00.000Z,7200,CompressionEfficiency,OPH-A-K101,87.934,percent,Normal
+2026-06-30T10:00:00.000Z,7200,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:00:00.000Z,7200,RefineryUtilization,ORC-B,54.32,percent,Degraded
+2026-06-30T10:00:00.000Z,7200,EnergyIntensity,ORC-B-H101,4.341,kg fuel per m3 charge,Critical
+2026-06-30T10:00:00.000Z,7200,EmissionsIntensity,ORC-B,11.939,kg CO2e per m3 charge,Critical
+2026-06-30T10:05:00.000Z,7500,AssetHealthScore,Portfolio,89.944,0-100,Normal
+2026-06-30T10:05:00.000Z,7500,ProductionThroughput,OPH-A,7190.533,boe/d,Normal
+2026-06-30T10:05:00.000Z,7500,GasExportReliability,OPH-A-GAS,94.81,percent,Normal
+2026-06-30T10:05:00.000Z,7500,CompressionEfficiency,OPH-A-K101,83.775,percent,Watch
+2026-06-30T10:05:00.000Z,7500,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:05:00.000Z,7500,RefineryUtilization,ORC-B,57.369,percent,Degraded
+2026-06-30T10:05:00.000Z,7500,EnergyIntensity,ORC-B-H101,4.201,kg fuel per m3 charge,Critical
+2026-06-30T10:05:00.000Z,7500,EmissionsIntensity,ORC-B,11.553,kg CO2e per m3 charge,Critical
+2026-06-30T10:10:00.000Z,7800,AssetHealthScore,Portfolio,89.978,0-100,Normal
+2026-06-30T10:10:00.000Z,7800,ProductionThroughput,OPH-A,6695.781,boe/d,Normal
+2026-06-30T10:10:00.000Z,7800,GasExportReliability,OPH-A-GAS,94.147,percent,Normal
+2026-06-30T10:10:00.000Z,7800,CompressionEfficiency,OPH-A-K101,79.83,percent,Watch
+2026-06-30T10:10:00.000Z,7800,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:10:00.000Z,7800,RefineryUtilization,ORC-B,58.735,percent,Degraded
+2026-06-30T10:10:00.000Z,7800,EnergyIntensity,ORC-B-H101,4.167,kg fuel per m3 charge,Critical
+2026-06-30T10:10:00.000Z,7800,EmissionsIntensity,ORC-B,11.459,kg CO2e per m3 charge,Critical
+2026-06-30T10:15:00.000Z,8100,AssetHealthScore,Portfolio,89.466,0-100,Normal
+2026-06-30T10:15:00.000Z,8100,ProductionThroughput,OPH-A,6369.187,boe/d,Normal
+2026-06-30T10:15:00.000Z,8100,GasExportReliability,OPH-A-GAS,93.061,percent,Normal
+2026-06-30T10:15:00.000Z,8100,CompressionEfficiency,OPH-A-K101,84.935,percent,Watch
+2026-06-30T10:15:00.000Z,8100,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:15:00.000Z,8100,RefineryUtilization,ORC-B,57.828,percent,Degraded
+2026-06-30T10:15:00.000Z,8100,EnergyIntensity,ORC-B-H101,4.249,kg fuel per m3 charge,Critical
+2026-06-30T10:15:00.000Z,8100,EmissionsIntensity,ORC-B,11.685,kg CO2e per m3 charge,Critical
+2026-06-30T10:20:00.000Z,8400,AssetHealthScore,Portfolio,89.865,0-100,Normal
+2026-06-30T10:20:00.000Z,8400,ProductionThroughput,OPH-A,5637.416,boe/d,Normal
+2026-06-30T10:20:00.000Z,8400,GasExportReliability,OPH-A-GAS,92.158,percent,Normal
+2026-06-30T10:20:00.000Z,8400,CompressionEfficiency,OPH-A-K101,78.17,percent,Watch
+2026-06-30T10:20:00.000Z,8400,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:20:00.000Z,8400,RefineryUtilization,ORC-B,56.067,percent,Degraded
+2026-06-30T10:20:00.000Z,8400,EnergyIntensity,ORC-B-H101,4.232,kg fuel per m3 charge,Critical
+2026-06-30T10:20:00.000Z,8400,EmissionsIntensity,ORC-B,11.639,kg CO2e per m3 charge,Critical
+2026-06-30T10:25:00.000Z,8700,AssetHealthScore,Portfolio,89.767,0-100,Normal
+2026-06-30T10:25:00.000Z,8700,ProductionThroughput,OPH-A,5354.565,boe/d,Normal
+2026-06-30T10:25:00.000Z,8700,GasExportReliability,OPH-A-GAS,90.457,percent,Normal
+2026-06-30T10:25:00.000Z,8700,CompressionEfficiency,OPH-A-K101,75.292,percent,Watch
+2026-06-30T10:25:00.000Z,8700,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:25:00.000Z,8700,RefineryUtilization,ORC-B,53.269,percent,Degraded
+2026-06-30T10:25:00.000Z,8700,EnergyIntensity,ORC-B-H101,4.2,kg fuel per m3 charge,Critical
+2026-06-30T10:25:00.000Z,8700,EmissionsIntensity,ORC-B,11.55,kg CO2e per m3 charge,Critical
+2026-06-30T10:30:00.000Z,9000,AssetHealthScore,Portfolio,90.177,0-100,Normal
+2026-06-30T10:30:00.000Z,9000,ProductionThroughput,OPH-A,5160.198,boe/d,Normal
+2026-06-30T10:30:00.000Z,9000,GasExportReliability,OPH-A-GAS,88.906,percent,Normal
+2026-06-30T10:30:00.000Z,9000,CompressionEfficiency,OPH-A-K101,78.113,percent,Watch
+2026-06-30T10:30:00.000Z,9000,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:30:00.000Z,9000,RefineryUtilization,ORC-B,49.747,percent,Critical
+2026-06-30T10:30:00.000Z,9000,EnergyIntensity,ORC-B-H101,4.251,kg fuel per m3 charge,Critical
+2026-06-30T10:30:00.000Z,9000,EmissionsIntensity,ORC-B,11.691,kg CO2e per m3 charge,Critical
+2026-06-30T10:35:00.000Z,9300,AssetHealthScore,Portfolio,91.15,0-100,Normal
+2026-06-30T10:35:00.000Z,9300,ProductionThroughput,OPH-A,5124.623,boe/d,Normal
+2026-06-30T10:35:00.000Z,9300,GasExportReliability,OPH-A-GAS,89.2,percent,Normal
+2026-06-30T10:35:00.000Z,9300,CompressionEfficiency,OPH-A-K101,81.435,percent,Watch
+2026-06-30T10:35:00.000Z,9300,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:35:00.000Z,9300,RefineryUtilization,ORC-B,46.982,percent,Critical
+2026-06-30T10:35:00.000Z,9300,EnergyIntensity,ORC-B-H101,4.289,kg fuel per m3 charge,Critical
+2026-06-30T10:35:00.000Z,9300,EmissionsIntensity,ORC-B,11.795,kg CO2e per m3 charge,Critical
+2026-06-30T10:40:00.000Z,9600,AssetHealthScore,Portfolio,90.691,0-100,Normal
+2026-06-30T10:40:00.000Z,9600,ProductionThroughput,OPH-A,5234.121,boe/d,Normal
+2026-06-30T10:40:00.000Z,9600,GasExportReliability,OPH-A-GAS,87.577,percent,Normal
+2026-06-30T10:40:00.000Z,9600,CompressionEfficiency,OPH-A-K101,79.334,percent,Watch
+2026-06-30T10:40:00.000Z,9600,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:40:00.000Z,9600,RefineryUtilization,ORC-B,46.228,percent,Critical
+2026-06-30T10:40:00.000Z,9600,EnergyIntensity,ORC-B-H101,4.212,kg fuel per m3 charge,Critical
+2026-06-30T10:40:00.000Z,9600,EmissionsIntensity,ORC-B,11.583,kg CO2e per m3 charge,Critical
+2026-06-30T10:45:00.000Z,9900,AssetHealthScore,Portfolio,89.805,0-100,Normal
+2026-06-30T10:45:00.000Z,9900,ProductionThroughput,OPH-A,5440.623,boe/d,Normal
+2026-06-30T10:45:00.000Z,9900,GasExportReliability,OPH-A-GAS,87.298,percent,Normal
+2026-06-30T10:45:00.000Z,9900,CompressionEfficiency,OPH-A-K101,89.067,percent,Normal
+2026-06-30T10:45:00.000Z,9900,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:45:00.000Z,9900,RefineryUtilization,ORC-B,45.356,percent,Critical
+2026-06-30T10:45:00.000Z,9900,EnergyIntensity,ORC-B-H101,4.308,kg fuel per m3 charge,Critical
+2026-06-30T10:45:00.000Z,9900,EmissionsIntensity,ORC-B,11.846,kg CO2e per m3 charge,Critical
+2026-06-30T10:50:00.000Z,10200,AssetHealthScore,Portfolio,89.664,0-100,Normal
+2026-06-30T10:50:00.000Z,10200,ProductionThroughput,OPH-A,5912.085,boe/d,Normal
+2026-06-30T10:50:00.000Z,10200,GasExportReliability,OPH-A-GAS,86.224,percent,Normal
+2026-06-30T10:50:00.000Z,10200,CompressionEfficiency,OPH-A-K101,70.588,percent,Watch
+2026-06-30T10:50:00.000Z,10200,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:50:00.000Z,10200,RefineryUtilization,ORC-B,46.639,percent,Critical
+2026-06-30T10:50:00.000Z,10200,EnergyIntensity,ORC-B-H101,4.275,kg fuel per m3 charge,Critical
+2026-06-30T10:50:00.000Z,10200,EmissionsIntensity,ORC-B,11.756,kg CO2e per m3 charge,Critical
+2026-06-30T10:55:00.000Z,10500,AssetHealthScore,Portfolio,88.687,0-100,Normal
+2026-06-30T10:55:00.000Z,10500,ProductionThroughput,OPH-A,6216.493,boe/d,Normal
+2026-06-30T10:55:00.000Z,10500,GasExportReliability,OPH-A-GAS,84.541,percent,Watch
+2026-06-30T10:55:00.000Z,10500,CompressionEfficiency,OPH-A-K101,69.376,percent,Degraded
+2026-06-30T10:55:00.000Z,10500,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T10:55:00.000Z,10500,RefineryUtilization,ORC-B,48.733,percent,Critical
+2026-06-30T10:55:00.000Z,10500,EnergyIntensity,ORC-B-H101,4.241,kg fuel per m3 charge,Critical
+2026-06-30T10:55:00.000Z,10500,EmissionsIntensity,ORC-B,11.662,kg CO2e per m3 charge,Critical
+2026-06-30T11:00:00.000Z,10800,AssetHealthScore,Portfolio,88.731,0-100,Normal
+2026-06-30T11:00:00.000Z,10800,ProductionThroughput,OPH-A,6690.5,boe/d,Normal
+2026-06-30T11:00:00.000Z,10800,GasExportReliability,OPH-A-GAS,84.853,percent,Watch
+2026-06-30T11:00:00.000Z,10800,CompressionEfficiency,OPH-A-K101,66.85,percent,Degraded
+2026-06-30T11:00:00.000Z,10800,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:00:00.000Z,10800,RefineryUtilization,ORC-B,51.857,percent,Degraded
+2026-06-30T11:00:00.000Z,10800,EnergyIntensity,ORC-B-H101,4.194,kg fuel per m3 charge,Critical
+2026-06-30T11:00:00.000Z,10800,EmissionsIntensity,ORC-B,11.535,kg CO2e per m3 charge,Critical
+2026-06-30T11:05:00.000Z,11100,AssetHealthScore,Portfolio,87.38,0-100,Normal
+2026-06-30T11:05:00.000Z,11100,ProductionThroughput,OPH-A,7163.826,boe/d,Normal
+2026-06-30T11:05:00.000Z,11100,GasExportReliability,OPH-A-GAS,85.138,percent,Normal
+2026-06-30T11:05:00.000Z,11100,CompressionEfficiency,OPH-A-K101,67.688,percent,Degraded
+2026-06-30T11:05:00.000Z,11100,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:05:00.000Z,11100,RefineryUtilization,ORC-B,54.361,percent,Degraded
+2026-06-30T11:05:00.000Z,11100,EnergyIntensity,ORC-B-H101,4.195,kg fuel per m3 charge,Critical
+2026-06-30T11:05:00.000Z,11100,EmissionsIntensity,ORC-B,11.536,kg CO2e per m3 charge,Critical
+2026-06-30T11:10:00.000Z,11400,AssetHealthScore,Portfolio,87.991,0-100,Normal
+2026-06-30T11:10:00.000Z,11400,ProductionThroughput,OPH-A,7461.106,boe/d,Normal
+2026-06-30T11:10:00.000Z,11400,GasExportReliability,OPH-A-GAS,84.949,percent,Watch
+2026-06-30T11:10:00.000Z,11400,CompressionEfficiency,OPH-A-K101,69.883,percent,Degraded
+2026-06-30T11:10:00.000Z,11400,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:10:00.000Z,11400,RefineryUtilization,ORC-B,55.963,percent,Degraded
+2026-06-30T11:10:00.000Z,11400,EnergyIntensity,ORC-B-H101,4.175,kg fuel per m3 charge,Critical
+2026-06-30T11:10:00.000Z,11400,EmissionsIntensity,ORC-B,11.483,kg CO2e per m3 charge,Critical
+2026-06-30T11:15:00.000Z,11700,AssetHealthScore,Portfolio,87.318,0-100,Normal
+2026-06-30T11:15:00.000Z,11700,ProductionThroughput,OPH-A,7726.381,boe/d,Normal
+2026-06-30T11:15:00.000Z,11700,GasExportReliability,OPH-A-GAS,84.022,percent,Watch
+2026-06-30T11:15:00.000Z,11700,CompressionEfficiency,OPH-A-K101,59.483,percent,Degraded
+2026-06-30T11:15:00.000Z,11700,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:15:00.000Z,11700,RefineryUtilization,ORC-B,55.835,percent,Degraded
+2026-06-30T11:15:00.000Z,11700,EnergyIntensity,ORC-B-H101,4.259,kg fuel per m3 charge,Critical
+2026-06-30T11:15:00.000Z,11700,EmissionsIntensity,ORC-B,11.713,kg CO2e per m3 charge,Critical
+2026-06-30T11:20:00.000Z,12000,AssetHealthScore,Portfolio,87.882,0-100,Normal
+2026-06-30T11:20:00.000Z,12000,ProductionThroughput,OPH-A,7652.739,boe/d,Normal
+2026-06-30T11:20:00.000Z,12000,GasExportReliability,OPH-A-GAS,84.448,percent,Watch
+2026-06-30T11:20:00.000Z,12000,CompressionEfficiency,OPH-A-K101,64.478,percent,Degraded
+2026-06-30T11:20:00.000Z,12000,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:20:00.000Z,12000,RefineryUtilization,ORC-B,55.311,percent,Degraded
+2026-06-30T11:20:00.000Z,12000,EnergyIntensity,ORC-B-H101,4.227,kg fuel per m3 charge,Critical
+2026-06-30T11:20:00.000Z,12000,EmissionsIntensity,ORC-B,11.623,kg CO2e per m3 charge,Critical
+2026-06-30T11:25:00.000Z,12300,AssetHealthScore,Portfolio,88.115,0-100,Normal
+2026-06-30T11:25:00.000Z,12300,ProductionThroughput,OPH-A,7805.461,boe/d,Normal
+2026-06-30T11:25:00.000Z,12300,GasExportReliability,OPH-A-GAS,84.796,percent,Watch
+2026-06-30T11:25:00.000Z,12300,CompressionEfficiency,OPH-A-K101,68.206,percent,Degraded
+2026-06-30T11:25:00.000Z,12300,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:25:00.000Z,12300,RefineryUtilization,ORC-B,52.49,percent,Degraded
+2026-06-30T11:25:00.000Z,12300,EnergyIntensity,ORC-B-H101,4.265,kg fuel per m3 charge,Critical
+2026-06-30T11:25:00.000Z,12300,EmissionsIntensity,ORC-B,11.728,kg CO2e per m3 charge,Critical
+2026-06-30T11:30:00.000Z,12600,AssetHealthScore,Portfolio,89.159,0-100,Normal
+2026-06-30T11:30:00.000Z,12600,ProductionThroughput,OPH-A,7469.253,boe/d,Normal
+2026-06-30T11:30:00.000Z,12600,GasExportReliability,OPH-A-GAS,86.044,percent,Normal
+2026-06-30T11:30:00.000Z,12600,CompressionEfficiency,OPH-A-K101,64.677,percent,Degraded
+2026-06-30T11:30:00.000Z,12600,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:30:00.000Z,12600,RefineryUtilization,ORC-B,49.826,percent,Critical
+2026-06-30T11:30:00.000Z,12600,EnergyIntensity,ORC-B-H101,4.313,kg fuel per m3 charge,Critical
+2026-06-30T11:30:00.000Z,12600,EmissionsIntensity,ORC-B,11.86,kg CO2e per m3 charge,Critical
+2026-06-30T11:35:00.000Z,12900,AssetHealthScore,Portfolio,90.089,0-100,Normal
+2026-06-30T11:35:00.000Z,12900,ProductionThroughput,OPH-A,7084.502,boe/d,Normal
+2026-06-30T11:35:00.000Z,12900,GasExportReliability,OPH-A-GAS,85.693,percent,Normal
+2026-06-30T11:35:00.000Z,12900,CompressionEfficiency,OPH-A-K101,64.188,percent,Degraded
+2026-06-30T11:35:00.000Z,12900,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:35:00.000Z,12900,RefineryUtilization,ORC-B,48.231,percent,Critical
+2026-06-30T11:35:00.000Z,12900,EnergyIntensity,ORC-B-H101,4.246,kg fuel per m3 charge,Critical
+2026-06-30T11:35:00.000Z,12900,EmissionsIntensity,ORC-B,11.678,kg CO2e per m3 charge,Critical
+2026-06-30T11:40:00.000Z,13200,AssetHealthScore,Portfolio,89.623,0-100,Normal
+2026-06-30T11:40:00.000Z,13200,ProductionThroughput,OPH-A,6781.959,boe/d,Normal
+2026-06-30T11:40:00.000Z,13200,GasExportReliability,OPH-A-GAS,85.462,percent,Normal
+2026-06-30T11:40:00.000Z,13200,CompressionEfficiency,OPH-A-K101,73.97,percent,Watch
+2026-06-30T11:40:00.000Z,13200,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:40:00.000Z,13200,RefineryUtilization,ORC-B,47.583,percent,Critical
+2026-06-30T11:40:00.000Z,13200,EnergyIntensity,ORC-B-H101,4.21,kg fuel per m3 charge,Critical
+2026-06-30T11:40:00.000Z,13200,EmissionsIntensity,ORC-B,11.578,kg CO2e per m3 charge,Critical
+2026-06-30T11:45:00.000Z,13500,AssetHealthScore,Portfolio,88.984,0-100,Normal
+2026-06-30T11:45:00.000Z,13500,ProductionThroughput,OPH-A,6381.909,boe/d,Normal
+2026-06-30T11:45:00.000Z,13500,GasExportReliability,OPH-A-GAS,85.117,percent,Normal
+2026-06-30T11:45:00.000Z,13500,CompressionEfficiency,OPH-A-K101,63.284,percent,Degraded
+2026-06-30T11:45:00.000Z,13500,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:45:00.000Z,13500,RefineryUtilization,ORC-B,47.702,percent,Critical
+2026-06-30T11:45:00.000Z,13500,EnergyIntensity,ORC-B-H101,4.251,kg fuel per m3 charge,Critical
+2026-06-30T11:45:00.000Z,13500,EmissionsIntensity,ORC-B,11.689,kg CO2e per m3 charge,Critical
+2026-06-30T11:50:00.000Z,13800,AssetHealthScore,Portfolio,88.93,0-100,Normal
+2026-06-30T11:50:00.000Z,13800,ProductionThroughput,OPH-A,5863.165,boe/d,Normal
+2026-06-30T11:50:00.000Z,13800,GasExportReliability,OPH-A-GAS,85.447,percent,Normal
+2026-06-30T11:50:00.000Z,13800,CompressionEfficiency,OPH-A-K101,60.659,percent,Degraded
+2026-06-30T11:50:00.000Z,13800,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:50:00.000Z,13800,RefineryUtilization,ORC-B,49.751,percent,Critical
+2026-06-30T11:50:00.000Z,13800,EnergyIntensity,ORC-B-H101,4.24,kg fuel per m3 charge,Critical
+2026-06-30T11:50:00.000Z,13800,EmissionsIntensity,ORC-B,11.661,kg CO2e per m3 charge,Critical
+2026-06-30T11:55:00.000Z,14100,AssetHealthScore,Portfolio,88.505,0-100,Normal
+2026-06-30T11:55:00.000Z,14100,ProductionThroughput,OPH-A,5413.33,boe/d,Normal
+2026-06-30T11:55:00.000Z,14100,GasExportReliability,OPH-A-GAS,84.934,percent,Watch
+2026-06-30T11:55:00.000Z,14100,CompressionEfficiency,OPH-A-K101,70.695,percent,Watch
+2026-06-30T11:55:00.000Z,14100,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T11:55:00.000Z,14100,RefineryUtilization,ORC-B,52.613,percent,Degraded
+2026-06-30T11:55:00.000Z,14100,EnergyIntensity,ORC-B-H101,4.213,kg fuel per m3 charge,Critical
+2026-06-30T11:55:00.000Z,14100,EmissionsIntensity,ORC-B,11.585,kg CO2e per m3 charge,Critical
+2026-06-30T12:00:00.000Z,14400,AssetHealthScore,Portfolio,87.42,0-100,Normal
+2026-06-30T12:00:00.000Z,14400,ProductionThroughput,OPH-A,5235.757,boe/d,Normal
+2026-06-30T12:00:00.000Z,14400,GasExportReliability,OPH-A-GAS,85.384,percent,Normal
+2026-06-30T12:00:00.000Z,14400,CompressionEfficiency,OPH-A-K101,61.932,percent,Degraded
+2026-06-30T12:00:00.000Z,14400,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:00:00.000Z,14400,RefineryUtilization,ORC-B,55.678,percent,Degraded
+2026-06-30T12:00:00.000Z,14400,EnergyIntensity,ORC-B-H101,4.222,kg fuel per m3 charge,Critical
+2026-06-30T12:00:00.000Z,14400,EmissionsIntensity,ORC-B,11.611,kg CO2e per m3 charge,Critical
+2026-06-30T12:05:00.000Z,14700,AssetHealthScore,Portfolio,87.459,0-100,Normal
+2026-06-30T12:05:00.000Z,14700,ProductionThroughput,OPH-A,5205.453,boe/d,Normal
+2026-06-30T12:05:00.000Z,14700,GasExportReliability,OPH-A-GAS,85.228,percent,Normal
+2026-06-30T12:05:00.000Z,14700,CompressionEfficiency,OPH-A-K101,56.77,percent,Degraded
+2026-06-30T12:05:00.000Z,14700,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:05:00.000Z,14700,RefineryUtilization,ORC-B,58.457,percent,Degraded
+2026-06-30T12:05:00.000Z,14700,EnergyIntensity,ORC-B-H101,4.245,kg fuel per m3 charge,Critical
+2026-06-30T12:05:00.000Z,14700,EmissionsIntensity,ORC-B,11.674,kg CO2e per m3 charge,Critical
+2026-06-30T12:10:00.000Z,15000,AssetHealthScore,Portfolio,86.893,0-100,Normal
+2026-06-30T12:10:00.000Z,15000,ProductionThroughput,OPH-A,5108.193,boe/d,Normal
+2026-06-30T12:10:00.000Z,15000,GasExportReliability,OPH-A-GAS,84.445,percent,Watch
+2026-06-30T12:10:00.000Z,15000,CompressionEfficiency,OPH-A-K101,57.186,percent,Degraded
+2026-06-30T12:10:00.000Z,15000,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:10:00.000Z,15000,RefineryUtilization,ORC-B,60.327,percent,Degraded
+2026-06-30T12:10:00.000Z,15000,EnergyIntensity,ORC-B-H101,4.222,kg fuel per m3 charge,Critical
+2026-06-30T12:10:00.000Z,15000,EmissionsIntensity,ORC-B,11.61,kg CO2e per m3 charge,Critical
+2026-06-30T12:15:00.000Z,15300,AssetHealthScore,Portfolio,87.262,0-100,Normal
+2026-06-30T12:15:00.000Z,15300,ProductionThroughput,OPH-A,5412.968,boe/d,Normal
+2026-06-30T12:15:00.000Z,15300,GasExportReliability,OPH-A-GAS,84.811,percent,Watch
+2026-06-30T12:15:00.000Z,15300,CompressionEfficiency,OPH-A-K101,55.295,percent,Degraded
+2026-06-30T12:15:00.000Z,15300,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:15:00.000Z,15300,RefineryUtilization,ORC-B,61.246,percent,Degraded
+2026-06-30T12:15:00.000Z,15300,EnergyIntensity,ORC-B-H101,4.201,kg fuel per m3 charge,Critical
+2026-06-30T12:15:00.000Z,15300,EmissionsIntensity,ORC-B,11.552,kg CO2e per m3 charge,Critical
+2026-06-30T12:20:00.000Z,15600,AssetHealthScore,Portfolio,87.405,0-100,Normal
+2026-06-30T12:20:00.000Z,15600,ProductionThroughput,OPH-A,5718.677,boe/d,Normal
+2026-06-30T12:20:00.000Z,15600,GasExportReliability,OPH-A-GAS,85.138,percent,Normal
+2026-06-30T12:20:00.000Z,15600,CompressionEfficiency,OPH-A-K101,65.091,percent,Degraded
+2026-06-30T12:20:00.000Z,15600,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:20:00.000Z,15600,RefineryUtilization,ORC-B,60.212,percent,Degraded
+2026-06-30T12:20:00.000Z,15600,EnergyIntensity,ORC-B-H101,4.197,kg fuel per m3 charge,Critical
+2026-06-30T12:20:00.000Z,15600,EmissionsIntensity,ORC-B,11.541,kg CO2e per m3 charge,Critical
+2026-06-30T12:25:00.000Z,15900,AssetHealthScore,Portfolio,87.32,0-100,Normal
+2026-06-30T12:25:00.000Z,15900,ProductionThroughput,OPH-A,6375.447,boe/d,Normal
+2026-06-30T12:25:00.000Z,15900,GasExportReliability,OPH-A-GAS,85.174,percent,Normal
+2026-06-30T12:25:00.000Z,15900,CompressionEfficiency,OPH-A-K101,61.446,percent,Degraded
+2026-06-30T12:25:00.000Z,15900,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:25:00.000Z,15900,RefineryUtilization,ORC-B,57.991,percent,Degraded
+2026-06-30T12:25:00.000Z,15900,EnergyIntensity,ORC-B-H101,4.315,kg fuel per m3 charge,Critical
+2026-06-30T12:25:00.000Z,15900,EmissionsIntensity,ORC-B,11.867,kg CO2e per m3 charge,Critical
+2026-06-30T12:30:00.000Z,16200,AssetHealthScore,Portfolio,88.193,0-100,Normal
+2026-06-30T12:30:00.000Z,16200,ProductionThroughput,OPH-A,6734.962,boe/d,Normal
+2026-06-30T12:30:00.000Z,16200,GasExportReliability,OPH-A-GAS,84.712,percent,Watch
+2026-06-30T12:30:00.000Z,16200,CompressionEfficiency,OPH-A-K101,66.018,percent,Degraded
+2026-06-30T12:30:00.000Z,16200,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:30:00.000Z,16200,RefineryUtilization,ORC-B,55.811,percent,Degraded
+2026-06-30T12:30:00.000Z,16200,EnergyIntensity,ORC-B-H101,4.358,kg fuel per m3 charge,Critical
+2026-06-30T12:30:00.000Z,16200,EmissionsIntensity,ORC-B,11.984,kg CO2e per m3 charge,Critical
+2026-06-30T12:35:00.000Z,16500,AssetHealthScore,Portfolio,88.078,0-100,Normal
+2026-06-30T12:35:00.000Z,16500,ProductionThroughput,OPH-A,7068.385,boe/d,Normal
+2026-06-30T12:35:00.000Z,16500,GasExportReliability,OPH-A-GAS,85.189,percent,Normal
+2026-06-30T12:35:00.000Z,16500,CompressionEfficiency,OPH-A-K101,65.776,percent,Degraded
+2026-06-30T12:35:00.000Z,16500,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:35:00.000Z,16500,RefineryUtilization,ORC-B,53.418,percent,Degraded
+2026-06-30T12:35:00.000Z,16500,EnergyIntensity,ORC-B-H101,4.464,kg fuel per m3 charge,Critical
+2026-06-30T12:35:00.000Z,16500,EmissionsIntensity,ORC-B,12.275,kg CO2e per m3 charge,Critical
+2026-06-30T12:40:00.000Z,16800,AssetHealthScore,Portfolio,88.016,0-100,Normal
+2026-06-30T12:40:00.000Z,16800,ProductionThroughput,OPH-A,7430.158,boe/d,Normal
+2026-06-30T12:40:00.000Z,16800,GasExportReliability,OPH-A-GAS,84.826,percent,Watch
+2026-06-30T12:40:00.000Z,16800,CompressionEfficiency,OPH-A-K101,68.526,percent,Degraded
+2026-06-30T12:40:00.000Z,16800,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:40:00.000Z,16800,RefineryUtilization,ORC-B,52.156,percent,Degraded
+2026-06-30T12:40:00.000Z,16800,EnergyIntensity,ORC-B-H101,4.54,kg fuel per m3 charge,Critical
+2026-06-30T12:40:00.000Z,16800,EmissionsIntensity,ORC-B,12.485,kg CO2e per m3 charge,Critical
+2026-06-30T12:45:00.000Z,17100,AssetHealthScore,Portfolio,88.325,0-100,Normal
+2026-06-30T12:45:00.000Z,17100,ProductionThroughput,OPH-A,7625.274,boe/d,Normal
+2026-06-30T12:45:00.000Z,17100,GasExportReliability,OPH-A-GAS,85.486,percent,Normal
+2026-06-30T12:45:00.000Z,17100,CompressionEfficiency,OPH-A-K101,69.929,percent,Degraded
+2026-06-30T12:45:00.000Z,17100,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:45:00.000Z,17100,RefineryUtilization,ORC-B,52.308,percent,Degraded
+2026-06-30T12:45:00.000Z,17100,EnergyIntensity,ORC-B-H101,4.631,kg fuel per m3 charge,Critical
+2026-06-30T12:45:00.000Z,17100,EmissionsIntensity,ORC-B,12.734,kg CO2e per m3 charge,Critical
+2026-06-30T12:50:00.000Z,17400,AssetHealthScore,Portfolio,87.636,0-100,Normal
+2026-06-30T12:50:00.000Z,17400,ProductionThroughput,OPH-A,7862.858,boe/d,Normal
+2026-06-30T12:50:00.000Z,17400,GasExportReliability,OPH-A-GAS,85.21,percent,Normal
+2026-06-30T12:50:00.000Z,17400,CompressionEfficiency,OPH-A-K101,69.461,percent,Degraded
+2026-06-30T12:50:00.000Z,17400,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:50:00.000Z,17400,RefineryUtilization,ORC-B,54.121,percent,Degraded
+2026-06-30T12:50:00.000Z,17400,EnergyIntensity,ORC-B-H101,4.65,kg fuel per m3 charge,Critical
+2026-06-30T12:50:00.000Z,17400,EmissionsIntensity,ORC-B,12.788,kg CO2e per m3 charge,Critical
+2026-06-30T12:55:00.000Z,17700,AssetHealthScore,Portfolio,87.083,0-100,Normal
+2026-06-30T12:55:00.000Z,17700,ProductionThroughput,OPH-A,7731.013,boe/d,Normal
+2026-06-30T12:55:00.000Z,17700,GasExportReliability,OPH-A-GAS,85.018,percent,Normal
+2026-06-30T12:55:00.000Z,17700,CompressionEfficiency,OPH-A-K101,65.601,percent,Degraded
+2026-06-30T12:55:00.000Z,17700,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T12:55:00.000Z,17700,RefineryUtilization,ORC-B,56.757,percent,Degraded
+2026-06-30T12:55:00.000Z,17700,EnergyIntensity,ORC-B-H101,4.633,kg fuel per m3 charge,Critical
+2026-06-30T12:55:00.000Z,17700,EmissionsIntensity,ORC-B,12.74,kg CO2e per m3 charge,Critical
+2026-06-30T13:00:00.000Z,18000,AssetHealthScore,Portfolio,86.462,0-100,Normal
+2026-06-30T13:00:00.000Z,18000,ProductionThroughput,OPH-A,7569.979,boe/d,Normal
+2026-06-30T13:00:00.000Z,18000,GasExportReliability,OPH-A-GAS,84.841,percent,Watch
+2026-06-30T13:00:00.000Z,18000,CompressionEfficiency,OPH-A-K101,59.398,percent,Degraded
+2026-06-30T13:00:00.000Z,18000,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:00:00.000Z,18000,RefineryUtilization,ORC-B,59.464,percent,Degraded
+2026-06-30T13:00:00.000Z,18000,EnergyIntensity,ORC-B-H101,4.678,kg fuel per m3 charge,Critical
+2026-06-30T13:00:00.000Z,18000,EmissionsIntensity,ORC-B,12.865,kg CO2e per m3 charge,Critical
+2026-06-30T13:05:00.000Z,18300,AssetHealthScore,Portfolio,86.284,0-100,Normal
+2026-06-30T13:05:00.000Z,18300,ProductionThroughput,OPH-A,7236.205,boe/d,Normal
+2026-06-30T13:05:00.000Z,18300,GasExportReliability,OPH-A-GAS,84.709,percent,Watch
+2026-06-30T13:05:00.000Z,18300,CompressionEfficiency,OPH-A-K101,52.806,percent,Degraded
+2026-06-30T13:05:00.000Z,18300,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:05:00.000Z,18300,RefineryUtilization,ORC-B,61.646,percent,Degraded
+2026-06-30T13:05:00.000Z,18300,EnergyIntensity,ORC-B-H101,4.73,kg fuel per m3 charge,Critical
+2026-06-30T13:05:00.000Z,18300,EmissionsIntensity,ORC-B,13.008,kg CO2e per m3 charge,Critical
+2026-06-30T13:10:00.000Z,18600,AssetHealthScore,Portfolio,85.697,0-100,Normal
+2026-06-30T13:10:00.000Z,18600,ProductionThroughput,OPH-A,6638.902,boe/d,Normal
+2026-06-30T13:10:00.000Z,18600,GasExportReliability,OPH-A-GAS,85.222,percent,Normal
+2026-06-30T13:10:00.000Z,18600,CompressionEfficiency,OPH-A-K101,53.74,percent,Degraded
+2026-06-30T13:10:00.000Z,18600,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:10:00.000Z,18600,RefineryUtilization,ORC-B,63.276,percent,Degraded
+2026-06-30T13:10:00.000Z,18600,EnergyIntensity,ORC-B-H101,4.764,kg fuel per m3 charge,Critical
+2026-06-30T13:10:00.000Z,18600,EmissionsIntensity,ORC-B,13.1,kg CO2e per m3 charge,Critical
+2026-06-30T13:15:00.000Z,18900,AssetHealthScore,Portfolio,85.922,0-100,Normal
+2026-06-30T13:15:00.000Z,18900,ProductionThroughput,OPH-A,6220.907,boe/d,Normal
+2026-06-30T13:15:00.000Z,18900,GasExportReliability,OPH-A-GAS,85.588,percent,Normal
+2026-06-30T13:15:00.000Z,18900,CompressionEfficiency,OPH-A-K101,57.44,percent,Degraded
+2026-06-30T13:15:00.000Z,18900,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:15:00.000Z,18900,RefineryUtilization,ORC-B,62.539,percent,Degraded
+2026-06-30T13:15:00.000Z,18900,EnergyIntensity,ORC-B-H101,4.851,kg fuel per m3 charge,Critical
+2026-06-30T13:15:00.000Z,18900,EmissionsIntensity,ORC-B,13.339,kg CO2e per m3 charge,Critical
+2026-06-30T13:20:00.000Z,19200,AssetHealthScore,Portfolio,86.039,0-100,Normal
+2026-06-30T13:20:00.000Z,19200,ProductionThroughput,OPH-A,5701.002,boe/d,Normal
+2026-06-30T13:20:00.000Z,19200,GasExportReliability,OPH-A-GAS,84.703,percent,Watch
+2026-06-30T13:20:00.000Z,19200,CompressionEfficiency,OPH-A-K101,64.808,percent,Degraded
+2026-06-30T13:20:00.000Z,19200,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:20:00.000Z,19200,RefineryUtilization,ORC-B,61.503,percent,Degraded
+2026-06-30T13:20:00.000Z,19200,EnergyIntensity,ORC-B-H101,4.867,kg fuel per m3 charge,Critical
+2026-06-30T13:20:00.000Z,19200,EmissionsIntensity,ORC-B,13.385,kg CO2e per m3 charge,Critical
+2026-06-30T13:25:00.000Z,19500,AssetHealthScore,Portfolio,86.89,0-100,Normal
+2026-06-30T13:25:00.000Z,19500,ProductionThroughput,OPH-A,5586.366,boe/d,Normal
+2026-06-30T13:25:00.000Z,19500,GasExportReliability,OPH-A-GAS,85.57,percent,Normal
+2026-06-30T13:25:00.000Z,19500,CompressionEfficiency,OPH-A-K101,66.833,percent,Degraded
+2026-06-30T13:25:00.000Z,19500,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:25:00.000Z,19500,RefineryUtilization,ORC-B,58.053,percent,Degraded
+2026-06-30T13:25:00.000Z,19500,EnergyIntensity,ORC-B-H101,5.026,kg fuel per m3 charge,Critical
+2026-06-30T13:25:00.000Z,19500,EmissionsIntensity,ORC-B,13.822,kg CO2e per m3 charge,Critical
+2026-06-30T13:30:00.000Z,19800,AssetHealthScore,Portfolio,86.46,0-100,Normal
+2026-06-30T13:30:00.000Z,19800,ProductionThroughput,OPH-A,5297.463,boe/d,Normal
+2026-06-30T13:30:00.000Z,19800,GasExportReliability,OPH-A-GAS,84.661,percent,Watch
+2026-06-30T13:30:00.000Z,19800,CompressionEfficiency,OPH-A-K101,68.415,percent,Degraded
+2026-06-30T13:30:00.000Z,19800,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:30:00.000Z,19800,RefineryUtilization,ORC-B,55.041,percent,Degraded
+2026-06-30T13:30:00.000Z,19800,EnergyIntensity,ORC-B-H101,5.157,kg fuel per m3 charge,Critical
+2026-06-30T13:30:00.000Z,19800,EmissionsIntensity,ORC-B,14.182,kg CO2e per m3 charge,Critical
+2026-06-30T13:35:00.000Z,20100,AssetHealthScore,Portfolio,87.88,0-100,Normal
+2026-06-30T13:35:00.000Z,20100,ProductionThroughput,OPH-A,5284.609,boe/d,Normal
+2026-06-30T13:35:00.000Z,20100,GasExportReliability,OPH-A-GAS,84.67,percent,Watch
+2026-06-30T13:35:00.000Z,20100,CompressionEfficiency,OPH-A-K101,69.971,percent,Degraded
+2026-06-30T13:35:00.000Z,20100,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:35:00.000Z,20100,RefineryUtilization,ORC-B,52.342,percent,Degraded
+2026-06-30T13:35:00.000Z,20100,EnergyIntensity,ORC-B-H101,5.236,kg fuel per m3 charge,Critical
+2026-06-30T13:35:00.000Z,20100,EmissionsIntensity,ORC-B,14.398,kg CO2e per m3 charge,Critical
+2026-06-30T13:40:00.000Z,20400,AssetHealthScore,Portfolio,87.791,0-100,Normal
+2026-06-30T13:40:00.000Z,20400,ProductionThroughput,OPH-A,5352.564,boe/d,Normal
+2026-06-30T13:40:00.000Z,20400,GasExportReliability,OPH-A-GAS,84.64,percent,Watch
+2026-06-30T13:40:00.000Z,20400,CompressionEfficiency,OPH-A-K101,67.345,percent,Degraded
+2026-06-30T13:40:00.000Z,20400,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:40:00.000Z,20400,RefineryUtilization,ORC-B,50.761,percent,Degraded
+2026-06-30T13:40:00.000Z,20400,EnergyIntensity,ORC-B-H101,5.296,kg fuel per m3 charge,Critical
+2026-06-30T13:40:00.000Z,20400,EmissionsIntensity,ORC-B,14.565,kg CO2e per m3 charge,Critical
+2026-06-30T13:45:00.000Z,20700,AssetHealthScore,Portfolio,87.76,0-100,Normal
+2026-06-30T13:45:00.000Z,20700,ProductionThroughput,OPH-A,5490.985,boe/d,Normal
+2026-06-30T13:45:00.000Z,20700,GasExportReliability,OPH-A-GAS,84.079,percent,Watch
+2026-06-30T13:45:00.000Z,20700,CompressionEfficiency,OPH-A-K101,67.082,percent,Degraded
+2026-06-30T13:45:00.000Z,20700,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:45:00.000Z,20700,RefineryUtilization,ORC-B,50.07,percent,Degraded
+2026-06-30T13:45:00.000Z,20700,EnergyIntensity,ORC-B-H101,5.36,kg fuel per m3 charge,Critical
+2026-06-30T13:45:00.000Z,20700,EmissionsIntensity,ORC-B,14.74,kg CO2e per m3 charge,Critical
+2026-06-30T13:50:00.000Z,21000,AssetHealthScore,Portfolio,87.775,0-100,Normal
+2026-06-30T13:50:00.000Z,21000,ProductionThroughput,OPH-A,5876.67,boe/d,Normal
+2026-06-30T13:50:00.000Z,21000,GasExportReliability,OPH-A-GAS,85.096,percent,Normal
+2026-06-30T13:50:00.000Z,21000,CompressionEfficiency,OPH-A-K101,59.168,percent,Degraded
+2026-06-30T13:50:00.000Z,21000,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:50:00.000Z,21000,RefineryUtilization,ORC-B,51.269,percent,Degraded
+2026-06-30T13:50:00.000Z,21000,EnergyIntensity,ORC-B-H101,5.418,kg fuel per m3 charge,Critical
+2026-06-30T13:50:00.000Z,21000,EmissionsIntensity,ORC-B,14.901,kg CO2e per m3 charge,Critical
+2026-06-30T13:55:00.000Z,21300,AssetHealthScore,Portfolio,86.686,0-100,Normal
+2026-06-30T13:55:00.000Z,21300,ProductionThroughput,OPH-A,6237.469,boe/d,Normal
+2026-06-30T13:55:00.000Z,21300,GasExportReliability,OPH-A-GAS,85.018,percent,Normal
+2026-06-30T13:55:00.000Z,21300,CompressionEfficiency,OPH-A-K101,63.245,percent,Degraded
+2026-06-30T13:55:00.000Z,21300,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T13:55:00.000Z,21300,RefineryUtilization,ORC-B,52.743,percent,Degraded
+2026-06-30T13:55:00.000Z,21300,EnergyIntensity,ORC-B-H101,5.487,kg fuel per m3 charge,Critical
+2026-06-30T13:55:00.000Z,21300,EmissionsIntensity,ORC-B,15.09,kg CO2e per m3 charge,Critical
+2026-06-30T14:00:00.000Z,21600,AssetHealthScore,Portfolio,86.933,0-100,Normal
+2026-06-30T14:00:00.000Z,21600,ProductionThroughput,OPH-A,6286.12,boe/d,Normal
+2026-06-30T14:00:00.000Z,21600,GasExportReliability,OPH-A-GAS,85.144,percent,Normal
+2026-06-30T14:00:00.000Z,21600,CompressionEfficiency,OPH-A-K101,77.072,percent,Watch
+2026-06-30T14:00:00.000Z,21600,SeparatorStability,OPH-A-V101,100,percent,Normal
+2026-06-30T14:00:00.000Z,21600,RefineryUtilization,ORC-B,50.424,percent,Degraded
+2026-06-30T14:00:00.000Z,21600,EnergyIntensity,ORC-B-H101,5.955,kg fuel per m3 charge,Critical
+2026-06-30T14:00:00.000Z,21600,EmissionsIntensity,ORC-B,16.376,kg CO2e per m3 charge,Critical
