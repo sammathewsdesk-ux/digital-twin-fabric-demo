@@ -12,7 +12,8 @@ import {
   type TagState
 } from "./demoData";
 
-type Screen = "control" | "process" | "piCompression" | "piSeparation" | "piRefinery" | "piTrends" | "ontology" | "fabric";
+type Screen = "control" | "digitalTwin" | "process" | "piCompression" | "piSeparation" | "piRefinery" | "piTrends" | "ontology" | "fabric";
+type ThemeMode = "light" | "dark";
 
 const demoSteps = [
   "Set the scene: offshore production and refinery operations are normally fragmented across asset hierarchies, PI tags, events, and business KPIs.",
@@ -634,6 +635,73 @@ function FabricView() {
   );
 }
 
+function DigitalTwinMode({
+  selectedAsset,
+  setSelectedAsset,
+  setScreen,
+  tags
+}: {
+  selectedAsset: string;
+  setSelectedAsset: (assetId: string) => void;
+  setScreen: (screen: Screen) => void;
+  tags: TagState[];
+}) {
+  const byTag = tagMap(tags);
+  const twinAssets = [
+    { id: "OPH-A-W01", label: "Well W01", className: "well", x: 10, y: 58, z: 0, value: `${format(byTag["TAG-OPH-A-W01-FLOW-PV"].value, 0)} boe/d` },
+    { id: "OPH-A-V101", label: "Inlet Separator V101", className: "separator", x: 30, y: 42, z: 1, value: `${format(byTag["TAG-OPH-A-V101-LEVEL-PV"].value, 1)}% level` },
+    { id: "OPH-A-K101", label: "Gas Compressor K101", className: "compressor3d", x: 54, y: 31, z: 2, value: `${format(byTag["TAG-OPH-A-K101-VIB-PV"].value, 1)} mm/s vib` },
+    { id: "ORC-B-H101", label: "Fired Heater H101", className: "heater3d", x: 69, y: 58, z: 3, value: `${format(byTag["TAG-ORC-B-H101-FUEL-PV"].value, 0)} kg/h fuel` },
+    { id: "ORC-B-C101", label: "Atmospheric Column C101", className: "column3d", x: 84, y: 35, z: 4, value: `${format(byTag["TAG-ORC-B-C101-DP-PV"].value, 1)} kPa DP` }
+  ];
+  const selected = twinAssets.find((asset) => asset.id === selectedAsset) ?? twinAssets[2];
+  const selectedHealth = assetHealth.find((asset) => asset.assetId === selected.id);
+
+  return (
+    <section className="digitalTwinMode">
+      <article className="card twinHero">
+        <div className="cardHeader">
+          <span>Digital Twin Mode</span>
+          <small>Clickable 3D-style asset model</small>
+        </div>
+        <div className="twinScene">
+          <div className="twinDeck" />
+          <div className="twinPipeline one" />
+          <div className="twinPipeline two" />
+          <div className="twinPipeline three" />
+          {twinAssets.map((asset) => (
+            <button
+              key={asset.id}
+              className={`twinAsset ${asset.className} ${selected.id === asset.id ? "selected" : ""}`}
+              style={{ left: `${asset.x}%`, top: `${asset.y}%`, ["--z" as string]: asset.z }}
+              onClick={() => setSelectedAsset(asset.id)}
+            >
+              <strong>{asset.label}</strong>
+              <span>{asset.value}</span>
+            </button>
+          ))}
+        </div>
+      </article>
+      <article className="card twinDetail">
+        <div className="cardHeader"><span>{selected.label}</span><small>{selected.id}</small></div>
+        <div className="twinDetailBody">
+          <div className="metricValue">{selectedHealth?.score ?? 82}<span>/100 health</span></div>
+          <p>{assetHealth.find((asset) => asset.assetId === selected.id)?.diagnostic ?? "Asset is connected into the digital twin relationship graph and live telemetry model."}</p>
+          <div className="twinActions">
+            <button onClick={() => setScreen("ontology")}>Open ontology context</button>
+            <button onClick={() => setScreen(selected.id.startsWith("ORC") ? "piRefinery" : selected.id.includes("K101") ? "piCompression" : "process")}>Open PI analysis</button>
+          </div>
+          <div className="chips">
+            {relationships.filter((edge) => edge.source === selected.id || edge.target === selected.id).slice(0, 5).map((edge) => (
+              <span key={`${edge.source}-${edge.type}-${edge.target}`}>{edge.source} {edge.type} {edge.target}</span>
+            ))}
+          </div>
+        </div>
+      </article>
+    </section>
+  );
+}
+
 function DemoGuide({
   step,
   setStep,
@@ -784,6 +852,7 @@ function copilotPrompts(screen: Screen) {
 function screenLabel(screen: Screen) {
   const labels: Record<Screen, string> = {
     control: "Control Room Operations / Control room",
+    digitalTwin: "Control Room Operations / Digital Twin mode",
     process: "PI Vision analysis / Overview",
     piCompression: "PI Vision analysis / Compression",
     piSeparation: "PI Vision analysis / Separation",
@@ -805,7 +874,7 @@ function ScreenNavigation({
   presentationMode: boolean;
 }) {
   const options = [
-    { group: "Control Room Operations", items: [["control", "Control room"]], backend: false },
+    { group: "Control Room Operations", items: [["control", "Control room"], ["digitalTwin", "Digital Twin mode"]], backend: false },
     {
       group: "PI Vision analysis",
       items: [
@@ -842,8 +911,13 @@ export default function App() {
   const [demoStep, setDemoStep] = useState(0);
   const [presentationMode, setPresentationMode] = useState(false);
   const [autoAdvance, setAutoAdvance] = useState(false);
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => (document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light"));
   const tags = useLiveTags(scenario);
-  const isOperationsScreen = screen === "control" || screen === "process" || screen.startsWith("pi");
+  const isOperationsScreen = screen === "control" || screen === "digitalTwin" || screen === "process" || screen.startsWith("pi");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", themeMode);
+  }, [themeMode]);
 
   useEffect(() => {
     if (!presentationMode || !autoAdvance) return;
@@ -906,6 +980,13 @@ export default function App() {
           <ScreenNavigation screen={screen} setScreen={setScreen} presentationMode={presentationMode} />
         </nav>
         <div className="topActions">
+          <label className="themeSwitch">
+            <span>Theme</span>
+            <select value={themeMode} onChange={(event) => setThemeMode(event.target.value as ThemeMode)}>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
           <button className={`presentationToggle ${presentationMode ? "active" : ""}`} onClick={togglePresentationMode}>
             <span>{presentationMode ? "Presenting" : "Present"}</span>
             <small>{presentationMode ? "Customer mode on" : "Customer mode"}</small>
@@ -914,7 +995,7 @@ export default function App() {
         </div>
       </header>
 
-      <DemoGuide step={demoStep} setStep={setDemoStep} presentationMode={presentationMode} autoAdvance={autoAdvance} setAutoAdvance={setAutoAdvance} resetDemo={resetDemo} />
+      {presentationMode && <DemoGuide step={demoStep} setStep={setDemoStep} presentationMode={presentationMode} autoAdvance={autoAdvance} setAutoAdvance={setAutoAdvance} resetDemo={resetDemo} />}
 
       {isOperationsScreen && (
         <section className="scenarioBar">
@@ -938,6 +1019,7 @@ export default function App() {
         <div className="contentWithCopilot">
           <div className="primaryContent">
             {screen === "control" && <ControlRoom tags={tags} scenario={scenario} presentationMode={presentationMode} />}
+            {screen === "digitalTwin" && <DigitalTwinMode selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} setScreen={setScreen} tags={tags} />}
             {screen === "process" && <ProcessMimic tags={tags} />}
             {screen === "piCompression" && <PICompressionScreen tags={tags} />}
             {screen === "piSeparation" && <PISeparationScreen tags={tags} />}

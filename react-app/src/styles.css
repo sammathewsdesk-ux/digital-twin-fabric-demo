@@ -128,6 +128,27 @@ p { margin: 0; color: var(--cp-text-muted); }
   align-items: center;
   gap: 12px;
 }
+.themeSwitch {
+  display: grid;
+  gap: 3px;
+  min-width: 96px;
+}
+.themeSwitch span {
+  color: var(--cp-text-muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.themeSwitch select {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+  color: var(--cp-text);
+  border-radius: 0.625rem;
+  padding: 8px 10px;
+  font: inherit;
+  cursor: pointer;
+}
 .presentationToggle {
   border: 1px solid var(--cp-border);
   background: var(--cp-bg-elevated);
@@ -348,6 +369,98 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .timelineItem p, .talkTrack p { margin-top: 6px; font-size: 12px; }
 .talkTrack { padding: 14px; }
 .processShell, .ontologyLayout, .fabric, .piDashboard { display: grid; gap: 16px; }
+.digitalTwinMode {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 16px;
+}
+.twinHero {
+  min-height: 640px;
+}
+.twinScene {
+  position: relative;
+  height: 590px;
+  overflow: hidden;
+  background: var(--cp-bg-elevated);
+  perspective: 900px;
+}
+.twinDeck {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 33%;
+  height: 46%;
+  border: 1px solid var(--cp-border-strong);
+  background: var(--cp-surface-soft);
+  transform: rotateX(58deg) rotateZ(-8deg);
+  border-radius: 16px;
+  box-shadow: var(--cp-shadow);
+}
+.twinPipeline {
+  position: absolute;
+  height: 10px;
+  border: 1px solid var(--cp-border-strong);
+  background: var(--cp-surface);
+  border-radius: 999px;
+  transform: rotateZ(-8deg);
+}
+.twinPipeline.one { left: 16%; top: 48%; width: 68%; }
+.twinPipeline.two { left: 28%; top: 38%; width: 42%; }
+.twinPipeline.three { left: 42%; top: 62%; width: 38%; }
+.twinAsset {
+  position: absolute;
+  width: 150px;
+  min-height: 84px;
+  border: 1px solid var(--cp-border-strong);
+  border-radius: 16px;
+  background: var(--cp-surface);
+  color: var(--cp-text);
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--cp-shadow);
+  transform: translate(-50%, -50%) translateZ(calc(var(--z) * 12px)) rotateX(0deg);
+}
+.twinAsset strong {
+  font-size: 13px;
+}
+.twinAsset span {
+  color: var(--cp-text-muted);
+  font-family: Consolas, "Courier New", Courier, monospace;
+  font-size: 12px;
+}
+.twinAsset.selected {
+  border-color: var(--cp-accent);
+  outline: 3px solid var(--cp-accent-soft);
+}
+.twinAsset.well { min-height: 72px; }
+.twinAsset.separator { width: 170px; }
+.twinAsset.compressor3d { width: 180px; }
+.twinAsset.heater3d { width: 160px; }
+.twinAsset.column3d { width: 160px; min-height: 120px; }
+.twinDetailBody {
+  padding: 16px;
+  display: grid;
+  gap: 14px;
+}
+.twinDetailBody .metricValue {
+  padding: 0;
+}
+.twinActions {
+  display: grid;
+  gap: 8px;
+}
+.twinActions button {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+  color: var(--cp-text);
+  border-radius: 0.625rem;
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+}
 .piHeader { border-radius: 16px; }
 .piGrid {
   display: grid;
@@ -733,6 +846,12 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .presentation .contentWithCopilot {
   grid-template-columns: minmax(0, 1fr) 390px;
 }
+.presentation .digitalTwinMode {
+  grid-template-columns: minmax(0, 1fr) 390px;
+}
+.presentation .twinScene {
+  height: 720px;
+}
 .presentation .grid {
   gap: 18px;
 }
@@ -783,9 +902,9 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 @media (max-width: 1100px) {
   .topbar, .scenarioBar { display: flex; flex-direction: column; align-items: stretch; }
-  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid { grid-template-columns: 1fr; }
+  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid, .digitalTwinMode { grid-template-columns: 1fr; }
   .menuSelect { min-width: 0; }
-  .topActions { justify-content: start; }
+  .topActions { justify-content: start; flex-wrap: wrap; }
   .wide, .side { grid-column: span 1; }
   .canvas { min-width: 1200px; }
   .copilotPanel { position: static; }
