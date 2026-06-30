@@ -267,6 +267,150 @@ main { padding: 0 20px 24px; }
   align-items: start;
 }
 .primaryContent { min-width: 0; }
+.landing {
+  display: grid;
+  gap: 16px;
+}
+.landingHero {
+  padding: 28px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+}
+.landingHero h2 {
+  margin: 8px 0 10px;
+  font-size: 34px;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+.landingActions {
+  display: grid;
+  gap: 10px;
+  min-width: 220px;
+}
+.landingActions button,
+.proofCard,
+.journeyStep,
+.proofMatrix div {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+  color: var(--cp-text);
+  border-radius: 0.625rem;
+}
+.landingActions button {
+  padding: 11px 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.landingGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.proofCard {
+  padding: 16px;
+}
+.proofCard strong {
+  display: block;
+  margin: 8px 0 6px;
+}
+.valueOverlay {
+  grid-column: span 4;
+}
+.valueGrid {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.valueGrid div {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+  border-radius: 0.625rem;
+  padding: 12px;
+}
+.valueGrid strong,
+.valueGrid span {
+  display: block;
+}
+.valueGrid strong {
+  font-size: 22px;
+}
+.valueGrid span {
+  color: var(--cp-text-muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+.incidentJourney {
+  display: grid;
+  gap: 16px;
+}
+.journeySteps {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.journeyStep {
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+.journeyStep i {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: var(--cp-accent-fg);
+  background: var(--cp-accent);
+  font-style: normal;
+  font-weight: 700;
+}
+.journeyStep p {
+  font-size: 12px;
+}
+.impactGraph {
+  margin: 0 16px 16px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.impactGraph.large {
+  padding: 16px;
+  margin: 0;
+}
+.impactNode {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+  border-radius: 0.625rem;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+.impactNode span {
+  color: var(--cp-text-muted);
+  font-size: 12px;
+}
+.proofMatrix {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.proofMatrix div {
+  padding: 12px;
+}
+.proofMatrix strong,
+.proofMatrix span {
+  display: block;
+}
+.proofMatrix span {
+  color: var(--cp-text-muted);
+  margin-top: 6px;
+  font-size: 12px;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -902,7 +1046,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 @media (max-width: 1100px) {
   .topbar, .scenarioBar { display: flex; flex-direction: column; align-items: stretch; }
-  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid, .digitalTwinMode { grid-template-columns: 1fr; }
+  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid, .digitalTwinMode, .landingHero, .landingGrid, .valueGrid, .journeySteps, .impactGraph, .proofMatrix { grid-template-columns: 1fr; }
   .menuSelect { min-width: 0; }
   .topActions { justify-content: start; flex-wrap: wrap; }
   .wide, .side { grid-column: span 1; }

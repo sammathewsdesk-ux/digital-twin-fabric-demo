@@ -12,8 +12,9 @@ import {
   type TagState
 } from "./demoData";
 
-type Screen = "control" | "digitalTwin" | "process" | "piCompression" | "piSeparation" | "piRefinery" | "piTrends" | "ontology" | "fabric";
+type Screen = "landing" | "control" | "incident" | "digitalTwin" | "process" | "piCompression" | "piSeparation" | "piRefinery" | "piTrends" | "ontology" | "fabric";
 type ThemeMode = "light" | "dark";
+type Persona = "operator" | "reliability" | "production" | "architect";
 
 const demoSteps = [
   "Set the scene: offshore production and refinery operations are normally fragmented across asset hierarchies, PI tags, events, and business KPIs.",
@@ -171,6 +172,7 @@ function ControlRoom({ tags, scenario, presentationMode }: { tags: TagState[]; s
       <MetricCard title="Production throughput" value={throughput} unit="boe/d" status="Normal" description="Well W01 flow translated through digital thread" />
       <MetricCard title="Gas export reliability" value={gasReliability} unit="%" status={gasReliability > 85 ? "Normal" : "Watch"} description="Compressor health impact on export confidence" />
       <MetricCard title="Refinery constraint margin" value={constraintRisk} unit="/100" status={constraintRisk > 70 ? "Watch" : "Degraded"} description="Column differential pressure and heater efficiency risk" />
+      <ValueOverlay throughput={throughput} gasReliability={gasReliability} constraintRisk={constraintRisk} />
 
       <article className="card wide">
         <div className="cardHeader">
@@ -221,6 +223,109 @@ function ControlRoom({ tags, scenario, presentationMode }: { tags: TagState[]; s
           </div>
         </article>
       )}
+    </section>
+  );
+}
+
+function ExecutiveLanding({
+  setScreen,
+  setScenario,
+  setPresentationMode
+}: {
+  setScreen: (screen: Screen) => void;
+  setScenario: (scenario: ScenarioId) => void;
+  setPresentationMode: (enabled: boolean) => void;
+}) {
+  return (
+    <section className="landing">
+      <article className="card landingHero">
+        <div>
+          <small>Fabric semantic digital twin showcase</small>
+          <h2>From live OT signals to asset intelligence, business impact and action</h2>
+          <p>This demo shows how an ontology-led digital spine, PI-style telemetry, event frames, KPIs and Fabric semantic modelling come together as a customer-ready operations experience.</p>
+        </div>
+        <div className="landingActions">
+          <button onClick={() => { setPresentationMode(true); setScenario("compressor"); setScreen("incident"); }}>Start guided incident</button>
+          <button onClick={() => setScreen("digitalTwin")}>Open Digital Twin</button>
+          <button onClick={() => setScreen("fabric")}>Show Fabric proof</button>
+        </div>
+      </article>
+      <div className="landingGrid">
+        <ProofCard title="Digital spine" metric="39" unit="assets" text="Anonymized hierarchy spanning subsurface, wells, offshore production and refinery operations." />
+        <ProofCard title="Live digital thread" metric="97k" unit="rows" text="Loopable PI-style telemetry with re-stamped live replay and scenario behaviour." />
+        <ProofCard title="Semantic intelligence" metric="85" unit="edges" text="Relationships connect tags, assets, process flow, failure modes, KPIs and actions." />
+        <ProofCard title="Fabric-ready" metric="12" unit="tables" text="Lakehouse/Warehouse schema, Eventhouse hot path and semantic model measures." />
+      </div>
+    </section>
+  );
+}
+
+function ProofCard({ title, metric, unit, text }: { title: string; metric: string; unit: string; text: string }) {
+  return (
+    <article className="card proofCard">
+      <div className="metricValue">{metric}<span>{unit}</span></div>
+      <strong>{title}</strong>
+      <p>{text}</p>
+    </article>
+  );
+}
+
+function ValueOverlay({ throughput, gasReliability, constraintRisk }: { throughput: number; gasReliability: number; constraintRisk: number }) {
+  const deferredProduction = Math.max(0, 100 - gasReliability) * 42;
+  const energyCost = Math.max(0, 75 - constraintRisk) * 1800;
+  const maintenancePriority = gasReliability < 82 || constraintRisk < 70 ? "High" : "Medium";
+  return (
+    <article className="card valueOverlay">
+      <div className="cardHeader"><span>Customer value overlay</span><small>Business impact estimate</small></div>
+      <div className="valueGrid">
+        <div><strong>{format(deferredProduction, 0)}</strong><span>boe/d at risk</span></div>
+        <div><strong>{format(energyCost, 0)}</strong><span>synthetic energy cost exposure</span></div>
+        <div><strong>{maintenancePriority}</strong><span>maintenance priority</span></div>
+        <div><strong>{format(throughput, 0)}</strong><span>current production throughput</span></div>
+      </div>
+    </article>
+  );
+}
+
+function IncidentJourney({ tags, setScreen }: { tags: TagState[]; setScreen: (screen: Screen) => void }) {
+  const byTag = tagMap(tags);
+  const steps = [
+    ["Early signal", "K101 vibration begins trending above normal baseline.", `${format(byTag["TAG-OPH-A-K101-VIB-PV"].value, 1)} mm/s`],
+    ["Event frame", "High vibration event is created and linked to compressor K101.", "EVT-OPH-A-K101-VIB-001"],
+    ["Failure mode", "Ontology maps the event to compressor bearing degradation.", "FM-COMP-001"],
+    ["KPI impact", "Gas export reliability and compression efficiency are reduced.", "Reliability watch"],
+    ["Recommended action", "Inspect bearing/lube oil condition and consider load reduction.", "Shift handover"]
+  ];
+  return (
+    <section className="incidentJourney">
+      <article className="card incidentHero">
+        <div className="cardHeader"><span>True incident journey</span><small>Signal to action</small></div>
+        <div className="journeySteps">
+          {steps.map(([title, detail, value], index) => (
+            <div className="journeyStep" key={title}>
+              <i>{index + 1}</i>
+              <strong>{title}</strong>
+              <p>{detail}</p>
+              <span className="mono">{value}</span>
+            </div>
+          ))}
+        </div>
+      </article>
+      <article className="card">
+        <div className="cardHeader"><span>Trace path</span><small>Ontology-driven explainability</small></div>
+        <div className="impactGraph large">
+          {["TAG-OPH-A-K101-VIB-PV", "Gas Compressor K101", "Bearing degradation", "Gas export reliability", "Inspect bearing/lube oil"].map((node, index) => (
+            <div key={node} className="impactNode">
+              <strong>{node}</strong>
+              {index < 4 && <span>flows to</span>}
+            </div>
+          ))}
+        </div>
+        <div className="twinActions">
+          <button onClick={() => setScreen("piCompression")}>Open compressor PI analysis</button>
+          <button onClick={() => setScreen("ontology")}>Open ontology impact graph</button>
+        </div>
+      </article>
     </section>
   );
 }
@@ -582,6 +687,15 @@ function OntologyBrowser({ selected, onSelect }: { selected: string; onSelect: (
           ))}
           {edges.length === 0 && <div className="graphEdge"><span>{selectedAsset.parentId ?? "root"}</span><b>contains</b><span>{selectedAsset.id}</span></div>}
         </div>
+        <h3>Ontology impact graph</h3>
+        <div className="impactGraph">
+          {[tags[0]?.tagId ?? "Telemetry tag", selectedAsset.name, selectedAsset.id.includes("K101") ? "Bearing degradation" : selectedAsset.id.includes("C101") ? "Column constraint" : "Asset condition", selectedAsset.id.includes("C101") ? "Energy intensity" : "Asset health", "Recommended action"].map((node, index) => (
+            <div key={`${node}-${index}`} className="impactNode">
+              <strong>{node}</strong>
+              {index < 4 && <span>drives</span>}
+            </div>
+          ))}
+        </div>
       </article>
     </section>
   );
@@ -629,6 +743,18 @@ function FabricView() {
           {["DimAsset", "DimAssetClass", "BridgeAssetRelationship", "DimTelemetryTag", "FactTelemetry", "FactEventFrame", "DimFailureMode", "DimKPI", "FactKPITimeSeries", "FactAssetHealth", "BridgeEventImpact", "DimRelationshipType"].map((table) => (
             <span key={table}>{table}</span>
           ))}
+        </div>
+      </article>
+      <article className="card backendHero">
+        <div className="cardHeader"><span>Fabric proof mode</span><small>Screen-to-table lineage</small></div>
+        <div className="proofMatrix">
+          {[
+            ["Control room", "FactAssetHealth, FactKPITimeSeries, BridgeEventImpact"],
+            ["Digital Twin mode", "DimAsset, DimAssetClass, BridgeAssetRelationship"],
+            ["PI Vision analysis", "FactTelemetryHot, DimTelemetryTag, FactEventFrame"],
+            ["Incident journey", "FactEventFrame, DimFailureMode, DimKPI"],
+            ["Copilot insights", "Ontology, telemetry, KPI and Fabric context"]
+          ].map(([name, tables]) => <div key={name}><strong>{name}</strong><span>{tables}</span></div>)}
         </div>
       </article>
     </section>
@@ -739,12 +865,18 @@ function CopilotPanel({
   screen,
   scenario,
   selectedAsset,
-  tags
+  tags,
+  setScreen,
+  setScenario,
+  setSelectedAsset
 }: {
   screen: Screen;
   scenario: ScenarioId;
   selectedAsset: string;
   tags: TagState[];
+  setScreen: (screen: Screen) => void;
+  setScenario: (scenario: ScenarioId) => void;
+  setSelectedAsset: (assetId: string) => void;
 }) {
   const [messages, setMessages] = useState([
     {
@@ -796,13 +928,44 @@ function CopilotPanel({
   function ask(prompt: string) {
     const trimmed = prompt.trim();
     if (!trimmed) return;
+    const commandResponse = runCommand(trimmed.toLowerCase());
     const response = answerFor(trimmed);
     setMessages((current) => [
       ...current,
       { role: "user", text: trimmed },
-      { role: "assistant", text: response }
+      { role: "assistant", text: commandResponse ? `${commandResponse}\n\n${response}` : response }
     ].slice(-6));
     setQuestion("");
+  }
+
+  function runCommand(normalized: string) {
+    if (!(normalized.includes("open") || normalized.includes("show") || normalized.includes("navigate") || normalized.includes("take me"))) return "";
+    if (normalized.includes("compressor") || normalized.includes("k101")) {
+      setSelectedAsset("OPH-A-K101");
+      setScenario("compressor");
+      setScreen("piCompression");
+      return "Command executed: opened Gas Compression PI analysis and selected K101.";
+    }
+    if (normalized.includes("refinery") || normalized.includes("cdu") || normalized.includes("heater")) {
+      setSelectedAsset("ORC-B-H101");
+      setScenario("refinery");
+      setScreen("piRefinery");
+      return "Command executed: opened Refinery CDU analysis.";
+    }
+    if (normalized.includes("twin")) {
+      setScreen("digitalTwin");
+      return "Command executed: opened Digital Twin mode.";
+    }
+    if (normalized.includes("incident")) {
+      setScenario("compressor");
+      setScreen("incident");
+      return "Command executed: opened the incident journey.";
+    }
+    if (normalized.includes("fabric")) {
+      setScreen("fabric");
+      return "Command executed: opened Fabric proof mode.";
+    }
+    return "";
   }
 
   function resetChat() {
@@ -843,7 +1006,10 @@ function CopilotPanel({
 }
 
 function copilotPrompts(screen: Screen) {
+  if (screen === "landing") return ["Start customer story", "Show compressor risk", "Explain the value"];
   if (screen === "control") return ["What needs attention?", "Tell me the customer story", "What is the business impact?"];
+  if (screen === "digitalTwin") return ["Open compressor risk", "Explain this asset", "Show ontology impact"];
+  if (screen === "incident") return ["Trace this incident", "What is the KPI impact?", "Open compressor analysis"];
   if (screen === "process" || screen.startsWith("pi")) return ["Explain these tag changes", "What is abnormal?", "Trace this to KPIs"];
   if (screen === "ontology") return ["Explain the relationships", "Why does ontology matter?", "Show impact path"];
   return ["Explain Fabric architecture", "How does real-time flow work?", "What tables power this?"];
@@ -851,7 +1017,9 @@ function copilotPrompts(screen: Screen) {
 
 function screenLabel(screen: Screen) {
   const labels: Record<Screen, string> = {
+    landing: "Executive / Landing",
     control: "Control Room Operations / Control room",
+    incident: "Control Room Operations / Incident journey",
     digitalTwin: "Control Room Operations / Digital Twin mode",
     process: "PI Vision analysis / Overview",
     piCompression: "PI Vision analysis / Compression",
@@ -874,7 +1042,8 @@ function ScreenNavigation({
   presentationMode: boolean;
 }) {
   const options = [
-    { group: "Control Room Operations", items: [["control", "Control room"], ["digitalTwin", "Digital Twin mode"]], backend: false },
+    { group: "Executive", items: [["landing", "Executive landing"]], backend: false },
+    { group: "Control Room Operations", items: [["control", "Control room"], ["incident", "Incident journey"], ["digitalTwin", "Digital Twin mode"]], backend: false },
     {
       group: "PI Vision analysis",
       items: [
@@ -905,13 +1074,15 @@ function ScreenNavigation({
 }
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>("control");
+  const [screen, setScreen] = useState<Screen>("landing");
   const [scenario, setScenario] = useState<ScenarioId>("compressor");
   const [selectedAsset, setSelectedAsset] = useState("OPH-A-K101");
   const [demoStep, setDemoStep] = useState(0);
   const [presentationMode, setPresentationMode] = useState(false);
   const [autoAdvance, setAutoAdvance] = useState(false);
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => (document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light"));
+  const [persona, setPersona] = useState<Persona>("operator");
+  const [replaySpeed, setReplaySpeed] = useState("60x");
   const tags = useLiveTags(scenario);
   const isOperationsScreen = screen === "control" || screen === "digitalTwin" || screen === "process" || screen.startsWith("pi");
 
@@ -987,6 +1158,15 @@ export default function App() {
               <option value="dark">Dark</option>
             </select>
           </label>
+          <label className="themeSwitch">
+            <span>Persona</span>
+            <select value={persona} onChange={(event) => setPersona(event.target.value as Persona)}>
+              <option value="operator">Operator</option>
+              <option value="reliability">Reliability</option>
+              <option value="production">Production</option>
+              <option value="architect">Data architect</option>
+            </select>
+          </label>
           <button className={`presentationToggle ${presentationMode ? "active" : ""}`} onClick={togglePresentationMode}>
             <span>{presentationMode ? "Presenting" : "Present"}</span>
             <small>{presentationMode ? "Customer mode on" : "Customer mode"}</small>
@@ -1001,13 +1181,22 @@ export default function App() {
         <section className="scenarioBar">
           <div>
             <strong>Scenario: {scenarios[scenario].name}</strong>
-            <p>{scenarios[scenario].description}</p>
+            <p>{scenarios[scenario].description} Active persona: {persona}. Replay speed: {replaySpeed}.</p>
           </div>
           <div className="scenarioButtons">
             <label className="menuSelect compact">
               <span>Operating scenario</span>
               <select value={scenario} onChange={(event) => setScenario(event.target.value as ScenarioId)}>
                 {(Object.keys(scenarios) as ScenarioId[]).map((id) => <option key={id} value={id}>{scenarios[id].name}</option>)}
+              </select>
+            </label>
+            <label className="menuSelect compact">
+              <span>Replay speed</span>
+              <select value={replaySpeed} onChange={(event) => setReplaySpeed(event.target.value)}>
+                <option value="1x">1x live</option>
+                <option value="10x">10x</option>
+                <option value="60x">60x</option>
+                <option value="300x">300x demo</option>
               </select>
             </label>
             <button className="secondaryAction" onClick={resetDemo}>Reset demo</button>
@@ -1018,7 +1207,9 @@ export default function App() {
       <main>
         <div className="contentWithCopilot">
           <div className="primaryContent">
+            {screen === "landing" && <ExecutiveLanding setScreen={setScreen} setScenario={setScenario} setPresentationMode={setPresentationMode} />}
             {screen === "control" && <ControlRoom tags={tags} scenario={scenario} presentationMode={presentationMode} />}
+            {screen === "incident" && <IncidentJourney tags={tags} setScreen={setScreen} />}
             {screen === "digitalTwin" && <DigitalTwinMode selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} setScreen={setScreen} tags={tags} />}
             {screen === "process" && <ProcessMimic tags={tags} />}
             {screen === "piCompression" && <PICompressionScreen tags={tags} />}
@@ -1028,7 +1219,7 @@ export default function App() {
             {screen === "ontology" && <OntologyBrowser selected={selectedAsset} onSelect={setSelectedAsset} />}
             {screen === "fabric" && <FabricView />}
           </div>
-          <CopilotPanel screen={screen} scenario={scenario} selectedAsset={selectedAsset} tags={tags} />
+          <CopilotPanel screen={screen} scenario={scenario} selectedAsset={selectedAsset} tags={tags} setScreen={setScreen} setScenario={setScenario} setSelectedAsset={setSelectedAsset} />
         </div>
       </main>
     </div>
