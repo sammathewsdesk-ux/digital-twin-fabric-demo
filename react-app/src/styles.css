@@ -89,7 +89,7 @@ p { margin: 0; color: var(--cp-text-muted); }
 .topbar nav, .scenarioButtons { display: flex; flex-wrap: wrap; gap: 8px; }
 .navGroups {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(3, auto);
   gap: 12px;
   align-items: end;
 }
@@ -288,7 +288,78 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .timelineItem.degraded i, .timelineItem.critical i { background: var(--cp-danger); }
 .timelineItem p, .talkTrack p { margin-top: 6px; font-size: 12px; }
 .talkTrack { padding: 14px; }
-.processShell, .ontologyLayout, .fabric { display: grid; gap: 16px; }
+.processShell, .ontologyLayout, .fabric, .piDashboard { display: grid; gap: 16px; }
+.piHeader { border-radius: 16px; }
+.piGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(380px, .9fr);
+  gap: 16px;
+}
+.piMimicCard { overflow: auto; }
+.miniMimic {
+  position: relative;
+  height: 360px;
+  min-width: 820px;
+  background: var(--cp-surface-soft);
+  border-top: 1px solid var(--cp-border);
+}
+.miniMimic .pipe { height: 4px; }
+.piStatusPanel table { font-size: 12px; }
+.piFooter p {
+  padding: 16px;
+  color: var(--cp-text);
+}
+.trendGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.trendCard { padding-bottom: 14px; }
+.trendValue {
+  padding: 16px 16px 4px;
+  font-size: 24px;
+  font-weight: 750;
+}
+.trendPlot {
+  height: 150px;
+  display: flex;
+  align-items: end;
+  gap: 5px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--cp-border);
+  border-bottom: 1px solid var(--cp-border);
+  background: var(--cp-surface-soft);
+}
+.trendPlot i {
+  flex: 1;
+  min-width: 5px;
+  border-radius: 999px 999px 0 0;
+  background: var(--cp-success);
+}
+.trendCard.watch .trendPlot i { background: var(--cp-warning); }
+.trendCard.degraded .trendPlot i,
+.trendCard.critical .trendPlot i { background: var(--cp-danger); }
+.trendCard p {
+  padding: 10px 16px 0;
+  font-family: Consolas, "Courier New", Courier, monospace;
+  font-size: 12px;
+}
+.correlationGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+.correlationGrid div {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-soft);
+  border-radius: 0.625rem;
+  padding: 12px;
+}
+.correlationGrid p {
+  margin-top: 6px;
+  font-size: 13px;
+}
 .visionBar {
   background: var(--cp-surface);
   border: 1px solid var(--cp-border);
@@ -546,7 +617,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
   display: none;
 }
 .presentation .navGroups {
-  grid-template-columns: auto;
+  grid-template-columns: repeat(2, auto);
 }
 .presentation .brand h1 {
   font-size: 22px;
@@ -610,9 +681,21 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .presentation .visionBar {
   font-size: 16px;
 }
+.presentation .piGrid {
+  grid-template-columns: minmax(0, 1fr);
+}
+.presentation .miniMimic {
+  height: 430px;
+}
+.presentation .trendGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.presentation .trendValue {
+  font-size: 32px;
+}
 @media (max-width: 1100px) {
   .topbar, .scenarioBar { display: flex; flex-direction: column; align-items: stretch; }
-  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace { grid-template-columns: 1fr; }
+  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid { grid-template-columns: 1fr; }
   .navGroups { grid-template-columns: 1fr; }
   .wide, .side { grid-column: span 1; }
   .canvas { min-width: 1200px; }

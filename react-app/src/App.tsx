@@ -12,7 +12,7 @@ import {
   type TagState
 } from "./demoData";
 
-type Screen = "control" | "process" | "ontology" | "fabric";
+type Screen = "control" | "process" | "piCompression" | "piSeparation" | "piRefinery" | "piTrends" | "ontology" | "fabric";
 
 const demoSteps = [
   "Set the scene: offshore production and refinery operations are normally fragmented across asset hierarchies, PI tags, events, and business KPIs.",
@@ -274,6 +274,197 @@ function ProcessMimic({ tags }: { tags: TagState[] }) {
   );
 }
 
+function PICompressionScreen({ tags }: { tags: TagState[] }) {
+  const byTag = tagMap(tags);
+  return (
+    <section className="piDashboard">
+      <PIHeader title="Gas Compression Train K101" subtitle="Driver, compressor, lube oil, vibration, discharge pressure and reliability context" />
+      <div className="piGrid">
+        <article className="card piMimicCard">
+          <div className="cardHeader"><span>K101 compressor train mimic</span><small>Live PI analysis</small></div>
+          <div className="miniMimic compression">
+            <Pipe x={70} y={150} w={210} variant="normal" />
+            <Pipe x={280} y={150} w={230} variant="watch" />
+            <Pipe x={510} y={150} w={210} variant="normal" />
+            <Unit kind="vessel" x={70} y={126} label="SUCTION SCRUBBER" />
+            <Unit kind="compressor" x={300} y={124} label="K101 COMPRESSOR" />
+            <Unit kind="compressor" x={430} y={124} label="M101 DRIVER" />
+            <Unit kind="vessel" x={640} y={126} label="EXPORT METER" />
+            <TagBox x={250} y={58} tag={byTag["TAG-OPH-A-K101-VIB-PV"]} />
+            <TagBox x={360} y={206} tag={byTag["TAG-OPH-A-K101-TEMP-PV"]} />
+            <TagBox x={520} y={58} tag={byTag["TAG-OPH-A-K101-DP-PV"]} />
+            <TagBox x={430} y={206} tag={byTag["TAG-OPH-A-M101-POWER-PV"]} />
+          </div>
+        </article>
+        <PIStatusPanel title="Compressor operating envelope" rows={[
+          ["Vibration velocity", byTag["TAG-OPH-A-K101-VIB-PV"], "Watch", "Bearing or alignment degradation indicator"],
+          ["Bearing temperature", byTag["TAG-OPH-A-K101-TEMP-PV"], "Watch", "Correlates with vibration and lube oil risk"],
+          ["Discharge pressure", byTag["TAG-OPH-A-K101-DP-PV"], "Normal", "Export pressure delivery"],
+          ["Driver power", byTag["TAG-OPH-A-M101-POWER-PV"], "Normal", "Load and energy intensity proxy"]
+        ]} />
+      </div>
+      <PIAnalysisFooter insight="Semantic insight: K101 is linked through hasTelemetry and hasKPI relationships to CompressionEfficiency, GasExportReliability, and ProductionThroughput." />
+    </section>
+  );
+}
+
+function PISeparationScreen({ tags }: { tags: TagState[] }) {
+  const byTag = tagMap(tags);
+  return (
+    <section className="piDashboard">
+      <PIHeader title="Inlet Separation and Wellstream Handling" subtitle="Production well, choke, inlet separator pressure/level and carryover risk" />
+      <div className="piGrid">
+        <article className="card piMimicCard">
+          <div className="cardHeader"><span>Wellstream to separator mimic</span><small>Slugging and control stability</small></div>
+          <div className="miniMimic separation">
+            <Pipe x={65} y={150} w={230} variant="normal" />
+            <Pipe x={295} y={150} w={230} variant="watch" />
+            <Pipe x={525} y={115} w={170} variant="normal" />
+            <Pipe x={525} y={185} w={170} variant="normal" />
+            <Unit kind="vessel" x={65} y={126} label="W01 WELLHEAD" />
+            <Unit kind="pump" x={205} y={132} label="CHOKE" />
+            <Unit kind="vessel" x={390} y={126} label="V101 INLET SEP" />
+            <Unit kind="compressor" x={650} y={92} label="GAS OUT" />
+            <Unit kind="pump" x={650} y={168} label="LIQUID OUT" />
+            <TagBox x={75} y={60} tag={byTag["TAG-OPH-A-W01-THP-PV"]} />
+            <TagBox x={190} y={205} tag={byTag["TAG-OPH-A-W01-CHOKE-POS"]} />
+            <TagBox x={320} y={60} tag={byTag["TAG-OPH-A-V101-PRESS-PV"]} />
+            <TagBox x={450} y={205} tag={byTag["TAG-OPH-A-V101-LEVEL-PV"]} />
+            <TagBox x={520} y={60} tag={byTag["TAG-OPH-A-W01-FLOW-PV"]} />
+          </div>
+        </article>
+        <PIStatusPanel title="Separator control indicators" rows={[
+          ["Wellhead pressure", byTag["TAG-OPH-A-W01-THP-PV"], "Normal", "Reservoir-to-surface drawdown context"],
+          ["Choke position", byTag["TAG-OPH-A-W01-CHOKE-POS"], "Normal", "Primary production control point"],
+          ["Separator pressure", byTag["TAG-OPH-A-V101-PRESS-PV"], "Normal", "Gas/liquid separation pressure envelope"],
+          ["Separator level", byTag["TAG-OPH-A-V101-LEVEL-PV"], "Watch", "Carryover and downstream upset indicator"]
+        ]} />
+      </div>
+      <PIAnalysisFooter insight="Semantic insight: V101 level instability is not just a tag excursion; it maps to carryover risk, gas compression stability, and production throughput." />
+    </section>
+  );
+}
+
+function PIRefineryScreen({ tags }: { tags: TagState[] }) {
+  const byTag = tagMap(tags);
+  return (
+    <section className="piDashboard">
+      <PIHeader title="Refinery Crude Unit and Heater Performance" subtitle="Crude charge, fired heater outlet, atmospheric column and energy intensity context" />
+      <div className="piGrid">
+        <article className="card piMimicCard">
+          <div className="cardHeader"><span>CDU H101 / C101 process mimic</span><small>Primary processing analysis</small></div>
+          <div className="miniMimic refinery">
+            <Pipe x={70} y={170} w={200} variant="normal" />
+            <Pipe x={270} y={170} w={220} variant="watch" />
+            <Pipe x={490} y={170} w={220} variant="alarm" />
+            <Unit kind="tank" x={70} y={120} label="T101 CRUDE" />
+            <Unit kind="pump" x={220} y={152} label="P101 CHARGE" />
+            <Unit kind="heater" x={420} y={138} label="H101 HEATER" />
+            <Unit kind="column" x={650} y={76} label="C101 ATM COLUMN" />
+            <TagBox x={60} y={50} tag={byTag["TAG-ORC-B-T101-LEVEL-PV"]} />
+            <TagBox x={210} y={220} tag={byTag["TAG-ORC-B-P101-FLOW-PV"]} />
+            <TagBox x={390} y={62} tag={byTag["TAG-ORC-B-H101-FUEL-PV"]} />
+            <TagBox x={480} y={220} tag={byTag["TAG-ORC-B-H101-TEMP-PV"]} />
+            <TagBox x={650} y={40} tag={byTag["TAG-ORC-B-C101-DP-PV"]} />
+            <TagBox x={720} y={230} tag={byTag["TAG-ORC-B-C101-TOP-TEMP"]} />
+          </div>
+        </article>
+        <PIStatusPanel title="CDU performance indicators" rows={[
+          ["Crude charge flow", byTag["TAG-ORC-B-P101-FLOW-PV"], "Normal", "Refinery utilization proxy"],
+          ["Fired heater fuel", byTag["TAG-ORC-B-H101-FUEL-PV"], "Watch", "Energy intensity and combustion efficiency"],
+          ["Heater outlet temp", byTag["TAG-ORC-B-H101-TEMP-PV"], "Normal", "Thermal delivery to column"],
+          ["Column differential pressure", byTag["TAG-ORC-B-C101-DP-PV"], "Degraded", "Flooding, fouling or hydraulic constraint indicator"]
+        ]} />
+      </div>
+      <PIAnalysisFooter insight="Semantic insight: H101 fuel drift and C101 differential pressure combine into an energy intensity and utilization story, not just isolated refinery tags." />
+    </section>
+  );
+}
+
+function PITrendsScreen({ tags }: { tags: TagState[] }) {
+  const selected = [
+    "TAG-OPH-A-K101-VIB-PV",
+    "TAG-OPH-A-V101-LEVEL-PV",
+    "TAG-ORC-B-H101-FUEL-PV",
+    "TAG-ORC-B-C101-DP-PV"
+  ];
+  const byTag = tagMap(tags);
+  return (
+    <section className="piDashboard">
+      <PIHeader title="PI Vision Trend and Diagnostics" subtitle="Multi-asset tag trends, alarm bands, scenario comparison and operator diagnostics" />
+      <div className="trendGrid">
+        {selected.map((tagId, index) => <TrendCard key={tagId} tag={byTag[tagId]} index={index} />)}
+      </div>
+      <article className="card">
+        <div className="cardHeader"><span>Cross-asset diagnostic correlation</span><small>Ontology-aware PI trend interpretation</small></div>
+        <div className="correlationGrid">
+          <div><strong>K101 vibration + bearing temperature</strong><p>Likely compressor bearing degradation; impacts gas export reliability.</p></div>
+          <div><strong>V101 level + pressure oscillation</strong><p>Possible inlet slugging or level loop instability; impacts separation quality.</p></div>
+          <div><strong>H101 fuel + C101 differential pressure</strong><p>Potential heater fouling or column hydraulic constraint; impacts energy intensity.</p></div>
+        </div>
+      </article>
+    </section>
+  );
+}
+
+function PIHeader({ title, subtitle }: { title: string; subtitle: string }) {
+  return (
+    <div className="visionBar piHeader">
+      <strong>{title}</strong>
+      <span>{subtitle}</span>
+    </div>
+  );
+}
+
+function PIStatusPanel({ title, rows }: { title: string; rows: [string, TagState, Status, string][] }) {
+  return (
+    <article className="card piStatusPanel">
+      <div className="cardHeader"><span>{title}</span><small>Tag detail</small></div>
+      <table>
+        <thead><tr><th>Signal</th><th>Value</th><th>Status</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          {rows.map(([label, tag, status, interpretation]) => (
+            <tr key={tag.tagId} className={statusClass(status)}>
+              <td><strong>{label}</strong><br /><small>{tag.tagId}</small></td>
+              <td className="mono">{format(tag.value, tag.precision)} {tag.unit}</td>
+              <td><StatusPill status={status} /></td>
+              <td>{interpretation}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </article>
+  );
+}
+
+function PIAnalysisFooter({ insight }: { insight: string }) {
+  return (
+    <article className="card piFooter">
+      <div className="cardHeader"><span>Analysis note</span><small>PI Vision + ontology</small></div>
+      <p>{insight}</p>
+    </article>
+  );
+}
+
+function TrendCard({ tag, index }: { tag: TagState; index: number }) {
+  const points = Array.from({ length: 18 }, (_, i) => {
+    const wave = Math.sin(i / 2 + index) * 18 + Math.cos(i / 3 + index) * 8;
+    const base = 48 + wave + (tag.value > tag.normalMax ? 18 : 0);
+    return Math.max(8, Math.min(92, base));
+  });
+  const status = tag.value > tag.normalMax || tag.value < tag.normalMin ? "Degraded" : tag.value > tag.normalMax * 0.9 ? "Watch" : "Normal";
+  return (
+    <article className={`card trendCard ${statusClass(status)}`}>
+      <div className="cardHeader"><span>{tag.label}</span><StatusPill status={status as Status} /></div>
+      <div className="trendValue mono">{format(tag.value, tag.precision)} {tag.unit}</div>
+      <div className="trendPlot">
+        {points.map((point, i) => <i key={i} style={{ height: `${point}%` }} />)}
+      </div>
+      <p>{tag.tagId}</p>
+    </article>
+  );
+}
+
 function Pipe({ x, y, w, variant }: { x: number; y: number; w: number; variant: string }) {
   return <div className={`pipe ${variant}`} style={{ left: x, top: y, width: w }} />;
 }
@@ -489,7 +680,7 @@ function CopilotPanel({
 
 function copilotPrompts(screen: Screen) {
   if (screen === "control") return ["What needs attention?", "Tell me the customer story", "What is the business impact?"];
-  if (screen === "process") return ["Explain these tag changes", "What is abnormal?", "Trace this to KPIs"];
+  if (screen === "process" || screen.startsWith("pi")) return ["Explain these tag changes", "What is abnormal?", "Trace this to KPIs"];
   if (screen === "ontology") return ["Explain the relationships", "Why does ontology matter?", "Show impact path"];
   return ["Explain Fabric architecture", "How does real-time flow work?", "What tables power this?"];
 }
@@ -502,7 +693,7 @@ export default function App() {
   const [presentationMode, setPresentationMode] = useState(false);
   const [autoAdvance, setAutoAdvance] = useState(false);
   const tags = useLiveTags(scenario);
-  const isOperationsScreen = screen === "control" || screen === "process";
+  const isOperationsScreen = screen === "control" || screen === "process" || screen.startsWith("pi");
 
   useEffect(() => {
     if (!presentationMode || !autoAdvance) return;
@@ -563,8 +754,20 @@ export default function App() {
         </div>
         <nav className="navGroups">
           <div>
-            <small>Operations</small>
-            {[["control", "Control room"], ["process", "PI Vision-style"]].map(([id, label]) => (
+            <small>Control Room Operations</small>
+            {[["control", "Control room"]].map(([id, label]) => (
+              <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
+            ))}
+          </div>
+          <div>
+            <small>PI Vision analysis</small>
+            {[
+              ["process", "Overview"],
+              ["piCompression", "Compression"],
+              ["piSeparation", "Separation"],
+              ["piRefinery", "Refinery CDU"],
+              ["piTrends", "Trends"]
+            ].map(([id, label]) => (
               <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
             ))}
           </div>
@@ -601,6 +804,10 @@ export default function App() {
           <div className="primaryContent">
             {screen === "control" && <ControlRoom tags={tags} scenario={scenario} />}
             {screen === "process" && <ProcessMimic tags={tags} />}
+            {screen === "piCompression" && <PICompressionScreen tags={tags} />}
+            {screen === "piSeparation" && <PISeparationScreen tags={tags} />}
+            {screen === "piRefinery" && <PIRefineryScreen tags={tags} />}
+            {screen === "piTrends" && <PITrendsScreen tags={tags} />}
             {screen === "ontology" && <OntologyBrowser selected={selectedAsset} onSelect={setSelectedAsset} />}
             {screen === "fabric" && <FabricView />}
           </div>
