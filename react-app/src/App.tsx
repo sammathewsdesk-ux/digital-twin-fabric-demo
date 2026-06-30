@@ -14,6 +14,14 @@ import {
 
 type Screen = "control" | "process" | "ontology" | "fabric";
 
+const demoSteps = [
+  "Set the scene: offshore production and refinery operations are normally fragmented across asset hierarchies, PI tags, events, and business KPIs.",
+  "Show the control room: operators see health, reliability, throughput, alerts, and recommended action in one place.",
+  "Open PI Vision-style view: live tag movement feels familiar to operations teams, but the semantic context explains why it matters.",
+  "Switch scenario: compressor, separator, or refinery issues change telemetry, health, and business impact immediately.",
+  "Open backend: super users inspect ontology relationships and Fabric data model mapping."
+];
+
 function statusClass(status: Status) {
   return status.toLowerCase();
 }
@@ -141,6 +149,28 @@ function ControlRoom({ tags, scenario }: { tags: TagState[]; scenario: ScenarioI
           <EventCard severity="Medium" title="Heater H101 efficiency drift" detail="Higher fuel cost and emissions per unit of refinery throughput." />
         </div>
       </article>
+
+      <article className="card wide">
+        <div className="cardHeader">
+          <span>Alert timeline and shift handover</span>
+          <small>Live demo polish</small>
+        </div>
+        <div className="timeline">
+          <TimelineItem time="10:02" severity="Normal" title="Stable production baseline" detail="Well W01, inlet separator, and crude charge all inside expected range." />
+          <TimelineItem time="10:07" severity="Watch" title="K101 vibration trend" detail="Vibration and bearing temperature begin to correlate with reduced compression efficiency." />
+          <TimelineItem time="10:14" severity="Degraded" title="Semantic impact raised" detail="Ontology maps K101 to gas export reliability and production throughput risk." />
+          <TimelineItem time="10:21" severity="Watch" title="Recommended action" detail="Add compressor reliability check to shift handover and inspect lube oil/bearing condition." />
+        </div>
+      </article>
+
+      <article className="card side">
+        <div className="cardHeader"><span>Demo talk track</span></div>
+        <div className="talkTrack">
+          <strong>Message to customer</strong>
+          <p>Fabric is not just storing time-series data; the ontology turns raw tags into asset, process, reliability, and business context.</p>
+          <p>That means the same live signal can drive operator action, reliability prioritization, and executive KPI impact.</p>
+        </div>
+      </article>
     </section>
   );
 }
@@ -173,6 +203,19 @@ function EventCard({ severity, title, detail }: { severity: Status | "High" | "M
     <div className={`event ${status}`}>
       <div><strong>{title}</strong><span>{severity}</span></div>
       <p>{detail}</p>
+    </div>
+  );
+}
+
+function TimelineItem({ time, severity, title, detail }: { time: string; severity: Status; title: string; detail: string }) {
+  return (
+    <div className={`timelineItem ${statusClass(severity)}`}>
+      <span className="mono">{time}</span>
+      <i />
+      <div>
+        <strong>{title}</strong>
+        <p>{detail}</p>
+      </div>
     </div>
   );
 }
@@ -282,6 +325,22 @@ function OntologyBrowser({ selected, onSelect }: { selected: string; onSelect: (
           {tags.map((tag) => <span key={tag.tagId}>{tag.tagId} ({tag.unit})</span>)}
           {tags.length === 0 && <span>No direct telemetry tags on this node</span>}
         </div>
+        <h3>Impact trace</h3>
+        <div className="impactTrace">
+          <div><strong>Raw signal</strong><span>{tags[0]?.tagId ?? "No direct tag"}</span></div>
+          <div><strong>Asset context</strong><span>{selectedAsset.name}</span></div>
+          <div><strong>Semantic relationship</strong><span>{edges[0]?.type ?? "contains / isPartOf"}</span></div>
+          <div><strong>Business meaning</strong><span>{selectedAsset.id.includes("K101") ? "Gas export reliability and compression efficiency risk" : selectedAsset.id.includes("C101") ? "Refinery utilization and energy intensity risk" : "Operational health and hierarchy context"}</span></div>
+        </div>
+        <h3>Relationship graph</h3>
+        <div className="graphStrip">
+          {edges.slice(0, 5).map((edge) => (
+            <div className="graphEdge" key={`${edge.source}-${edge.type}-${edge.target}`}>
+              <span>{edge.source}</span><b>{edge.type}</b><span>{edge.target}</span>
+            </div>
+          ))}
+          {edges.length === 0 && <div className="graphEdge"><span>{selectedAsset.parentId ?? "root"}</span><b>contains</b><span>{selectedAsset.id}</span></div>}
+        </div>
       </article>
     </section>
   );
@@ -304,6 +363,13 @@ function Info({ label, value }: { label: string; value: string }) {
 function FabricView() {
   return (
     <section className="fabric">
+      <article className="card backendHero">
+        <div className="cardHeader"><span>Backend and super-user section</span><small>Fabric implementation view</small></div>
+        <div className="backendBody">
+          <strong>This section is intentionally separated from the operator journey.</strong>
+          <p>Control room and PI Vision-style screens are for normal users. Ontology and Fabric screens are for super users, architects, data engineers, and reliability specialists who need to understand how semantic context is built and governed.</p>
+        </div>
+      </article>
       <article className="card">
         <div className="cardHeader"><span>Fabric data model mapping</span><small>Medallion + real-time path</small></div>
         <div className="flow">
@@ -328,14 +394,92 @@ function FabricView() {
   );
 }
 
+function DemoGuide({ step, setStep }: { step: number; setStep: (step: number) => void }) {
+  return (
+    <section className="demoGuide">
+      <div>
+        <strong>Guided customer demo</strong>
+        <p>{demoSteps[step]}</p>
+      </div>
+      <div className="guideControls">
+        <button onClick={() => setStep(Math.max(0, step - 1))}>Back</button>
+        <span>{step + 1} / {demoSteps.length}</span>
+        <button onClick={() => setStep(Math.min(demoSteps.length - 1, step + 1))}>Next</button>
+      </div>
+    </section>
+  );
+}
+
+function CopilotPanel({
+  screen,
+  scenario,
+  selectedAsset,
+  tags
+}: {
+  screen: Screen;
+  scenario: ScenarioId;
+  selectedAsset: string;
+  tags: TagState[];
+}) {
+  const [answer, setAnswer] = useState("Ask a question or use a suggested prompt. I will explain the live demo data, ontology relationships, and Fabric impact.");
+  const [question, setQuestion] = useState("");
+  const prompts = copilotPrompts(screen);
+
+  function ask(prompt: string) {
+    const byTag = tagMap(tags);
+    const vib = byTag["TAG-OPH-A-K101-VIB-PV"].value;
+    const dp = byTag["TAG-ORC-B-C101-DP-PV"].value;
+    const selected = assets.find((asset) => asset.id === selectedAsset);
+    const normalized = prompt.toLowerCase();
+
+    if (normalized.includes("risk") || normalized.includes("attention")) {
+      setAnswer(`The highest current risk is ${scenario === "refinery" ? "the refinery CDU constraint: C101 differential pressure is around " + format(dp, 1) + " kPa and heater fuel demand is elevated." : "gas compressor K101: vibration is around " + format(vib, 1) + " mm/s and is mapped to gas export reliability through the ontology."}`);
+    } else if (normalized.includes("relationship") || normalized.includes("ontology")) {
+      setAnswer(`${selected?.name ?? "The selected asset"} sits in the digital spine as ${selected?.classId ?? "an asset"}. Its relationships connect raw telemetry to process flow, failure modes, and KPIs, which is why the app can explain business impact rather than only showing tag values.`);
+    } else if (normalized.includes("fabric")) {
+      setAnswer("Fabric implementation path: Eventstream ingests the live PI-style replay, Eventhouse serves hot telemetry, Lakehouse stores ontology and historical facts, and the Direct Lake semantic model exposes health, reliability, throughput, energy, and emissions measures.");
+    } else if (normalized.includes("customer") || normalized.includes("tell")) {
+      setAnswer("Customer storyline: start with fragmented OT/IT data, introduce the ontology as the digital spine, show live telemetry as the digital thread, then demonstrate how Fabric converts an abnormal tag into asset health, KPI impact, and recommended action.");
+    } else {
+      setAnswer(`For ${scenarios[scenario].name}, the important insight is that telemetry, asset hierarchy, and KPI semantics are linked. This lets a user move from live tag behaviour to cause, impact, and action in one workflow.`);
+    }
+  }
+
+  return (
+    <aside className="copilotPanel">
+      <div className="cardHeader"><span>Copilot insights</span><small>Demo assistant</small></div>
+      <div className="copilotBody">
+        <div className="promptGrid">
+          {prompts.map((prompt) => <button key={prompt} onClick={() => ask(prompt)}>{prompt}</button>)}
+        </div>
+        <div className="copilotAnswer">{answer}</div>
+        <form onSubmit={(event) => { event.preventDefault(); ask(question); }}>
+          <input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about risk, ontology, Fabric, or customer story..." />
+          <button type="submit">Ask</button>
+        </form>
+      </div>
+    </aside>
+  );
+}
+
+function copilotPrompts(screen: Screen) {
+  if (screen === "control") return ["What needs attention?", "Tell me the customer story", "What is the business impact?"];
+  if (screen === "process") return ["Explain these tag changes", "What is abnormal?", "Trace this to KPIs"];
+  if (screen === "ontology") return ["Explain the relationships", "Why does ontology matter?", "Show impact path"];
+  return ["Explain Fabric architecture", "How does real-time flow work?", "What tables power this?"];
+}
+
 export default function App() {
   const [screen, setScreen] = useState<Screen>("control");
   const [scenario, setScenario] = useState<ScenarioId>("compressor");
   const [selectedAsset, setSelectedAsset] = useState("OPH-A-K101");
+  const [demoStep, setDemoStep] = useState(0);
+  const [presentationMode, setPresentationMode] = useState(false);
   const tags = useLiveTags(scenario);
+  const isOperationsScreen = screen === "control" || screen === "process";
 
   return (
-    <div className="app">
+    <div className={`app ${presentationMode ? "presentation" : ""}`}>
       <header className="topbar">
         <div className="brand">
           <div className="mark">DT</div>
@@ -344,36 +488,51 @@ export default function App() {
             <p>Ontology-driven Fabric semantic model with live PI-style telemetry replay</p>
           </div>
         </div>
-        <nav>
-          {[
-            ["control", "Control room"],
-            ["process", "PI Vision-style"],
-            ["ontology", "Ontology browser"],
-            ["fabric", "Fabric model"]
-          ].map(([id, label]) => (
-            <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
-          ))}
+        <nav className="navGroups">
+          <div>
+            <small>Operations</small>
+            {[["control", "Control room"], ["process", "PI Vision-style"]].map(([id, label]) => (
+              <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
+            ))}
+          </div>
+          <div>
+            <small>Backend / super users</small>
+            {[["ontology", "Ontology browser"], ["fabric", "Fabric model"]].map(([id, label]) => (
+              <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
+            ))}
+          </div>
         </nav>
         <div className="live"><span /> LIVE {new Date().toLocaleTimeString()}</div>
       </header>
 
-      <section className="scenarioBar">
-        <div>
-          <strong>{scenarios[scenario].name}</strong>
-          <p>{scenarios[scenario].description}</p>
-        </div>
-        <div className="scenarioButtons">
-          {(Object.keys(scenarios) as ScenarioId[]).map((id) => (
-            <button key={id} className={scenario === id ? "active" : ""} onClick={() => setScenario(id)}>{scenarios[id].name}</button>
-          ))}
-        </div>
-      </section>
+      <DemoGuide step={demoStep} setStep={setDemoStep} />
+
+      {isOperationsScreen && (
+        <section className="scenarioBar">
+          <div>
+            <strong>{scenarios[scenario].name}</strong>
+            <p>{scenarios[scenario].description}</p>
+          </div>
+          <div className="scenarioButtons">
+            {(Object.keys(scenarios) as ScenarioId[]).map((id) => (
+              <button key={id} className={scenario === id ? "active" : ""} onClick={() => setScenario(id)}>{scenarios[id].name}</button>
+            ))}
+            <button onClick={() => setScenario("normal")}>Reset</button>
+            <button className={presentationMode ? "active" : ""} onClick={() => setPresentationMode(!presentationMode)}>Presentation mode</button>
+          </div>
+        </section>
+      )}
 
       <main>
-        {screen === "control" && <ControlRoom tags={tags} scenario={scenario} />}
-        {screen === "process" && <ProcessMimic tags={tags} />}
-        {screen === "ontology" && <OntologyBrowser selected={selectedAsset} onSelect={setSelectedAsset} />}
-        {screen === "fabric" && <FabricView />}
+        <div className="contentWithCopilot">
+          <div className="primaryContent">
+            {screen === "control" && <ControlRoom tags={tags} scenario={scenario} />}
+            {screen === "process" && <ProcessMimic tags={tags} />}
+            {screen === "ontology" && <OntologyBrowser selected={selectedAsset} onSelect={setSelectedAsset} />}
+            {screen === "fabric" && <FabricView />}
+          </div>
+          <CopilotPanel screen={screen} scenario={scenario} selectedAsset={selectedAsset} tags={tags} />
+        </div>
       </main>
     </div>
   );
