@@ -62,7 +62,7 @@ button { font: inherit; }
 .app { min-height: 100vh; }
 .topbar {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(520px, auto) 180px;
+  grid-template-columns: minmax(320px, 1fr) minmax(340px, 440px) auto;
   gap: 16px;
   align-items: center;
   padding: 14px 20px;
@@ -88,23 +88,69 @@ h1 { margin: 0; font-size: 18px; }
 p { margin: 0; color: var(--cp-text-muted); }
 .topbar nav, .scenarioButtons { display: flex; flex-wrap: wrap; gap: 8px; }
 .navGroups {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 12px;
-  align-items: end;
+  display: block;
 }
-.navGroups div {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  padding: 6px;
+.menuSelect {
+  display: grid;
+  gap: 4px;
+  min-width: 300px;
+}
+.menuSelect span {
+  color: var(--cp-text-muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.menuSelect select {
+  width: 100%;
   border: 1px solid var(--cp-border);
   border-radius: 0.625rem;
   background: var(--cp-surface);
+  color: var(--cp-text);
+  padding: 9px 36px 9px 12px;
+  font: inherit;
+  cursor: pointer;
 }
-.navGroups small {
-  padding: 0 4px;
-  white-space: nowrap;
+.menuSelect small {
+  color: var(--cp-text-muted);
+  font-size: 11px;
+}
+.menuSelect.compact {
+  min-width: 260px;
+}
+.topActions {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 12px;
+}
+.presentationToggle {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface);
+  color: var(--cp-text);
+  border-radius: 16px;
+  padding: 8px 12px;
+  display: grid;
+  gap: 2px;
+  min-width: 128px;
+  text-align: left;
+  cursor: pointer;
+}
+.presentationToggle span {
+  font-weight: 700;
+}
+.presentationToggle small {
+  font-size: 11px;
+  color: var(--cp-text-muted);
+}
+.presentationToggle.active {
+  background: var(--cp-accent);
+  color: var(--cp-accent-fg);
+  border-color: var(--cp-accent);
+}
+.presentationToggle.active small {
+  color: var(--cp-accent-fg);
 }
 .topbar button, .scenarioButtons button {
   border: 1px solid var(--cp-border);
@@ -143,6 +189,7 @@ p { margin: 0; color: var(--cp-text-muted); }
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  align-items: center;
 }
 .demoGuide {
   margin: 20px 20px 0;
@@ -179,6 +226,14 @@ p { margin: 0; color: var(--cp-text-muted); }
   color: var(--cp-accent-fg);
   background: var(--cp-accent);
   border-color: var(--cp-accent);
+}
+.secondaryAction {
+  border: 1px solid var(--cp-border);
+  border-radius: 0.625rem;
+  background: var(--cp-surface);
+  color: var(--cp-text);
+  padding: 9px 12px;
+  cursor: pointer;
 }
 main { padding: 0 20px 24px; }
 .contentWithCopilot {
@@ -581,14 +636,35 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .promptGrid button:hover, .copilotBody form button:hover {
   background: var(--cp-accent-soft);
 }
-.copilotAnswer {
+.copilotChat {
+  display: grid;
+  gap: 10px;
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 2px;
+}
+.chatMessage {
   border: 1px solid var(--cp-border);
-  background: var(--cp-accent-soft);
   border-radius: 0.625rem;
-  padding: 12px;
+  padding: 10px 12px;
   color: var(--cp-text);
   font-size: 13px;
   line-height: 1.45;
+}
+.chatMessage.assistant {
+  background: var(--cp-accent-soft);
+}
+.chatMessage.user {
+  background: var(--cp-surface-soft);
+}
+.chatMessage strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: var(--cp-text);
+}
+.chatMessage p {
+  color: var(--cp-text);
 }
 .copilotBody form {
   display: grid;
@@ -616,9 +692,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .presentation .backendNav {
   display: none;
 }
-.presentation .navGroups {
-  grid-template-columns: repeat(2, auto);
-}
+.presentation .menuSelect small { display: none; }
 .presentation .brand h1 {
   font-size: 22px;
 }
@@ -665,7 +739,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 .presentation .copilotPanel .cardHeader {
   font-size: 16px;
 }
-.presentation .copilotAnswer {
+.presentation .copilotChat {
   font-size: 15px;
 }
 .presentation .promptGrid button {
@@ -696,7 +770,8 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 @media (max-width: 1100px) {
   .topbar, .scenarioBar { display: flex; flex-direction: column; align-items: stretch; }
   .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid { grid-template-columns: 1fr; }
-  .navGroups { grid-template-columns: 1fr; }
+  .menuSelect { min-width: 0; }
+  .topActions { justify-content: start; }
   .wide, .side { grid-column: span 1; }
   .canvas { min-width: 1200px; }
   .copilotPanel { position: static; }

@@ -637,28 +637,51 @@ function CopilotPanel({
   selectedAsset: string;
   tags: TagState[];
 }) {
-  const [answer, setAnswer] = useState("Ask a question or use a suggested prompt. I will explain the live demo data, ontology relationships, and Fabric impact.");
+  const [messages, setMessages] = useState([
+    {
+      role: "assistant",
+      text: "I can analyse the current screen, scenario, live tags, ontology relationships, and Fabric model. Try a suggested prompt or type your own question."
+    }
+  ]);
   const [question, setQuestion] = useState("");
   const prompts = copilotPrompts(screen);
 
-  function ask(prompt: string) {
+  function answerFor(prompt: string) {
     const byTag = tagMap(tags);
     const vib = byTag["TAG-OPH-A-K101-VIB-PV"].value;
     const dp = byTag["TAG-ORC-B-C101-DP-PV"].value;
+    const sepLevel = byTag["TAG-OPH-A-V101-LEVEL-PV"].value;
+    const heaterFuel = byTag["TAG-ORC-B-H101-FUEL-PV"].value;
     const selected = assets.find((asset) => asset.id === selectedAsset);
     const normalized = prompt.toLowerCase();
 
     if (normalized.includes("risk") || normalized.includes("attention")) {
-      setAnswer(`The highest current risk is ${scenario === "refinery" ? "the refinery CDU constraint: C101 differential pressure is around " + format(dp, 1) + " kPa and heater fuel demand is elevated." : "gas compressor K101: vibration is around " + format(vib, 1) + " mm/s and is mapped to gas export reliability through the ontology."}`);
+      return `Highest current risk: ${scenario === "refinery" ? "refinery CDU constraint. C101 differential pressure is around " + format(dp, 1) + " kPa and H101 fuel is around " + format(heaterFuel, 0) + " kg/h, indicating energy intensity and utilization risk." : scenario === "separator" ? "inlet separation instability. V101 level is around " + format(sepLevel, 1) + "% and should be watched for carryover risk." : "gas compressor K101. Vibration is around " + format(vib, 1) + " mm/s and maps to gas export reliability through the ontology."}`;
     } else if (normalized.includes("relationship") || normalized.includes("ontology")) {
-      setAnswer(`${selected?.name ?? "The selected asset"} sits in the digital spine as ${selected?.classId ?? "an asset"}. Its relationships connect raw telemetry to process flow, failure modes, and KPIs, which is why the app can explain business impact rather than only showing tag values.`);
+      return `${selected?.name ?? "The selected asset"} sits in the digital spine as ${selected?.classId ?? "an asset"}. The model links tags to assets via hasTelemetry, assets to process context via contains/flowsTo, and assets to business outcomes via hasKPI. That is what turns raw PI-style points into explainable operational impact.`;
     } else if (normalized.includes("fabric")) {
-      setAnswer("Fabric implementation path: Eventstream ingests the live PI-style replay, Eventhouse serves hot telemetry, Lakehouse stores ontology and historical facts, and the Direct Lake semantic model exposes health, reliability, throughput, energy, and emissions measures.");
+      return "Fabric path: Eventstream ingests the live PI-style replay; Eventhouse serves hot telemetry; Lakehouse stores the ontology, relationship graph, telemetry history, events, health and KPI facts; Direct Lake/Power BI exposes measures; the React app consumes the semantic context.";
     } else if (normalized.includes("customer") || normalized.includes("tell")) {
-      setAnswer("Customer storyline: start with fragmented OT/IT data, introduce the ontology as the digital spine, show live telemetry as the digital thread, then demonstrate how Fabric converts an abnormal tag into asset health, KPI impact, and recommended action.");
+      return "Customer storyline: start with fragmented OT and IT data, introduce the ontology as the digital spine, show live telemetry as the digital thread, then demonstrate how Fabric converts an abnormal tag into asset health, KPI impact, and recommended action.";
+    } else if (normalized.includes("abnormal") || normalized.includes("tag")) {
+      return `Current abnormal indicators: K101 vibration around ${format(vib, 1)} mm/s, V101 level around ${format(sepLevel, 1)}%, H101 fuel around ${format(heaterFuel, 0)} kg/h, and C101 DP around ${format(dp, 1)} kPa. The app uses these to drive health, event and KPI interpretation.`;
+    } else if (normalized.includes("kpi") || normalized.includes("impact")) {
+      return "KPI impact is inferred through the semantic model: compressor degradation affects compression efficiency and gas export reliability; separator instability affects production throughput and downstream stability; CDU drift affects energy intensity, emissions intensity and refinery utilization.";
     } else {
-      setAnswer(`For ${scenarios[scenario].name}, the important insight is that telemetry, asset hierarchy, and KPI semantics are linked. This lets a user move from live tag behaviour to cause, impact, and action in one workflow.`);
+      return `For ${scenarios[scenario].name}, the important insight is that telemetry, asset hierarchy, and KPI semantics are linked. This lets a user move from live tag behaviour to cause, impact, and action in one workflow.`;
     }
+  }
+
+  function ask(prompt: string) {
+    const trimmed = prompt.trim();
+    if (!trimmed) return;
+    const response = answerFor(trimmed);
+    setMessages((current) => [
+      ...current,
+      { role: "user", text: trimmed },
+      { role: "assistant", text: response }
+    ].slice(-6));
+    setQuestion("");
   }
 
   return (
@@ -668,10 +691,17 @@ function CopilotPanel({
         <div className="promptGrid">
           {prompts.map((prompt) => <button key={prompt} onClick={() => ask(prompt)}>{prompt}</button>)}
         </div>
-        <div className="copilotAnswer">{answer}</div>
+        <div className="copilotChat" aria-live="polite">
+          {messages.map((message, index) => (
+            <div key={`${message.role}-${index}`} className={`chatMessage ${message.role}`}>
+              <strong>{message.role === "assistant" ? "Copilot" : "You"}</strong>
+              <p>{message.text}</p>
+            </div>
+          ))}
+        </div>
         <form onSubmit={(event) => { event.preventDefault(); ask(question); }}>
           <input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about risk, ontology, Fabric, or customer story..." />
-          <button type="submit">Ask</button>
+          <button type="submit">Send</button>
         </form>
       </div>
     </aside>
@@ -683,6 +713,60 @@ function copilotPrompts(screen: Screen) {
   if (screen === "process" || screen.startsWith("pi")) return ["Explain these tag changes", "What is abnormal?", "Trace this to KPIs"];
   if (screen === "ontology") return ["Explain the relationships", "Why does ontology matter?", "Show impact path"];
   return ["Explain Fabric architecture", "How does real-time flow work?", "What tables power this?"];
+}
+
+function screenLabel(screen: Screen) {
+  const labels: Record<Screen, string> = {
+    control: "Control Room Operations / Control room",
+    process: "PI Vision analysis / Overview",
+    piCompression: "PI Vision analysis / Compression",
+    piSeparation: "PI Vision analysis / Separation",
+    piRefinery: "PI Vision analysis / Refinery CDU",
+    piTrends: "PI Vision analysis / Trends",
+    ontology: "Backend / Ontology browser",
+    fabric: "Backend / Fabric model"
+  };
+  return labels[screen];
+}
+
+function ScreenNavigation({
+  screen,
+  setScreen,
+  presentationMode
+}: {
+  screen: Screen;
+  setScreen: (screen: Screen) => void;
+  presentationMode: boolean;
+}) {
+  const options = [
+    { group: "Control Room Operations", items: [["control", "Control room"]], backend: false },
+    {
+      group: "PI Vision analysis",
+      items: [
+        ["process", "Process overview"],
+        ["piCompression", "Gas compression"],
+        ["piSeparation", "Inlet separation"],
+        ["piRefinery", "Refinery CDU"],
+        ["piTrends", "Trends and diagnostics"]
+      ],
+      backend: false
+    },
+    { group: "Backend / super users", items: [["ontology", "Ontology browser"], ["fabric", "Fabric model"]], backend: true }
+  ] as const;
+
+  return (
+    <label className="menuSelect">
+      <span>Workspace</span>
+      <select value={screen} onChange={(event) => setScreen(event.target.value as Screen)}>
+        {options.filter((option) => !presentationMode || !option.backend).map((option) => (
+          <optgroup key={option.group} label={option.group}>
+            {option.items.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+          </optgroup>
+        ))}
+      </select>
+      <small>{screenLabel(screen)}</small>
+    </label>
+  );
 }
 
 export default function App() {
@@ -753,32 +837,15 @@ export default function App() {
           </div>
         </div>
         <nav className="navGroups">
-          <div>
-            <small>Control Room Operations</small>
-            {[["control", "Control room"]].map(([id, label]) => (
-              <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
-            ))}
-          </div>
-          <div>
-            <small>PI Vision analysis</small>
-            {[
-              ["process", "Overview"],
-              ["piCompression", "Compression"],
-              ["piSeparation", "Separation"],
-              ["piRefinery", "Refinery CDU"],
-              ["piTrends", "Trends"]
-            ].map(([id, label]) => (
-              <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
-            ))}
-          </div>
-          <div className="backendNav">
-            <small>Backend / super users</small>
-            {[["ontology", "Ontology browser"], ["fabric", "Fabric model"]].map(([id, label]) => (
-              <button key={id} className={screen === id ? "active" : ""} onClick={() => setScreen(id as Screen)}>{label}</button>
-            ))}
-          </div>
+          <ScreenNavigation screen={screen} setScreen={setScreen} presentationMode={presentationMode} />
         </nav>
-        <div className="live"><span /> LIVE {new Date().toLocaleTimeString()}</div>
+        <div className="topActions">
+          <button className={`presentationToggle ${presentationMode ? "active" : ""}`} onClick={togglePresentationMode}>
+            <span>{presentationMode ? "Presenting" : "Present"}</span>
+            <small>{presentationMode ? "Customer mode on" : "Customer mode"}</small>
+          </button>
+          <div className="live"><span /> LIVE {new Date().toLocaleTimeString()}</div>
+        </div>
       </header>
 
       <DemoGuide step={demoStep} setStep={setDemoStep} presentationMode={presentationMode} autoAdvance={autoAdvance} setAutoAdvance={setAutoAdvance} resetDemo={resetDemo} />
@@ -786,15 +853,17 @@ export default function App() {
       {isOperationsScreen && (
         <section className="scenarioBar">
           <div>
-            <strong>{scenarios[scenario].name}</strong>
+            <strong>Scenario: {scenarios[scenario].name}</strong>
             <p>{scenarios[scenario].description}</p>
           </div>
           <div className="scenarioButtons">
-            {(Object.keys(scenarios) as ScenarioId[]).map((id) => (
-              <button key={id} className={scenario === id ? "active" : ""} onClick={() => setScenario(id)}>{scenarios[id].name}</button>
-            ))}
-            <button onClick={resetDemo}>Reset</button>
-            <button className={presentationMode ? "active" : ""} onClick={togglePresentationMode}>{presentationMode ? "Exit presentation" : "Presentation mode"}</button>
+            <label className="menuSelect compact">
+              <span>Operating scenario</span>
+              <select value={scenario} onChange={(event) => setScenario(event.target.value as ScenarioId)}>
+                {(Object.keys(scenarios) as ScenarioId[]).map((id) => <option key={id} value={id}>{scenarios[id].name}</option>)}
+              </select>
+            </label>
+            <button className="secondaryAction" onClick={resetDemo}>Reset demo</button>
           </div>
         </section>
       )}
