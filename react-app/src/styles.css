@@ -665,6 +665,16 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 .chatMessage p {
   color: var(--cp-text);
+  white-space: pre-line;
+}
+.copilotReset {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-surface-soft);
+  color: var(--cp-text);
+  border-radius: 999px;
+  padding: 5px 9px;
+  cursor: pointer;
+  font-size: 12px;
 }
 .copilotBody form {
   display: grid;

@@ -30,6 +30,45 @@ const presenterNotes = [
   "Only move to backend screens if the audience asks how the model is implemented in Fabric."
 ];
 
+const copilotKnowledge = [
+  {
+    id: "asset-k101",
+    title: "Gas Compressor K101",
+    terms: ["k101", "compressor", "gas export", "vibration", "bearing", "compression"],
+    content: "Gas Compressor K101 is a rotating equipment asset in Gas Processing. It has telemetry for vibration, bearing temperature and discharge pressure. It contributes to CompressionEfficiency, GasExportReliability and ProductionThroughput. The main failure mode in the demo is compressor bearing degradation."
+  },
+  {
+    id: "asset-v101",
+    title: "Inlet Separator V101",
+    terms: ["v101", "separator", "separation", "level", "carryover", "slugging"],
+    content: "Inlet Separator V101 receives produced fluids from Production Well W01. Its pressure and level telemetry indicate separation stability. Level instability can create liquid carryover risk and downstream gas compression upset."
+  },
+  {
+    id: "asset-h101-c101",
+    title: "Refinery CDU H101 and C101",
+    terms: ["h101", "c101", "heater", "column", "refinery", "cdu", "fuel", "differential pressure", "energy"],
+    content: "Fired Heater H101 and Atmospheric Column C101 represent the refinery crude unit. H101 fuel flow and outlet temperature combine with C101 top temperature and differential pressure to indicate energy intensity, emissions intensity and refinery utilization risk."
+  },
+  {
+    id: "ontology",
+    title: "Ontology and digital spine",
+    terms: ["ontology", "semantic", "relationship", "digital spine", "asset hierarchy", "graph"],
+    content: "The ontology defines asset classes, instances and relationships such as contains, flowsTo, hasTelemetry, hasFailureMode and hasKPI. This lets the demo trace from a raw PI-style tag to an asset, process unit, failure mode, KPI and recommended action."
+  },
+  {
+    id: "fabric",
+    title: "Fabric implementation",
+    terms: ["fabric", "eventstream", "eventhouse", "lakehouse", "semantic model", "direct lake", "power bi"],
+    content: "The Fabric architecture maps synthetic PI replay to Eventstream and Eventhouse for hot telemetry, Lakehouse tables for ontology and history, and a Direct Lake/Power BI semantic model for KPIs, health, reliability and business impact."
+  },
+  {
+    id: "kpis",
+    title: "KPI and health layer",
+    terms: ["kpi", "health", "availability", "reliability", "throughput", "emissions", "business impact"],
+    content: "The KPI layer includes asset health, production throughput, gas export reliability, compression efficiency, separator stability, refinery utilization, energy intensity and emissions intensity. These KPIs are derived from telemetry and semantic asset context."
+  }
+];
+
 function statusClass(status: Status) {
   return status.toLowerCase();
 }
@@ -116,7 +155,7 @@ function StatusPill({ status }: { status: Status }) {
   );
 }
 
-function ControlRoom({ tags, scenario }: { tags: TagState[]; scenario: ScenarioId }) {
+function ControlRoom({ tags, scenario, presentationMode }: { tags: TagState[]; scenario: ScenarioId; presentationMode: boolean }) {
   const byTag = tagMap(tags);
   const vib = byTag["TAG-OPH-A-K101-VIB-PV"].value;
   const dp = byTag["TAG-ORC-B-C101-DP-PV"].value;
@@ -171,14 +210,16 @@ function ControlRoom({ tags, scenario }: { tags: TagState[]; scenario: ScenarioI
         </div>
       </article>
 
-      <article className="card side">
-        <div className="cardHeader"><span>Demo talk track</span></div>
-        <div className="talkTrack">
-          <strong>Message to customer</strong>
-          <p>Fabric is not just storing time-series data; the ontology turns raw tags into asset, process, reliability, and business context.</p>
-          <p>That means the same live signal can drive operator action, reliability prioritization, and executive KPI impact.</p>
-        </div>
-      </article>
+      {presentationMode && (
+        <article className="card side">
+          <div className="cardHeader"><span>Demo talk track</span></div>
+          <div className="talkTrack">
+            <strong>Message to customer</strong>
+            <p>Fabric is not just storing time-series data; the ontology turns raw tags into asset, process, reliability, and business context.</p>
+            <p>That means the same live signal can drive operator action, reliability prioritization, and executive KPI impact.</p>
+          </div>
+        </article>
+      )}
     </section>
   );
 }
@@ -640,7 +681,7 @@ function CopilotPanel({
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      text: "I can analyse the current screen, scenario, live tags, ontology relationships, and Fabric model. Try a suggested prompt or type your own question."
+      text: "Ask me anything about the demo data. I can reason over assets, tags, KPIs, events, failure modes, relationships and the Fabric architecture."
     }
   ]);
   const [question, setQuestion] = useState("");
@@ -654,22 +695,34 @@ function CopilotPanel({
     const heaterFuel = byTag["TAG-ORC-B-H101-FUEL-PV"].value;
     const selected = assets.find((asset) => asset.id === selectedAsset);
     const normalized = prompt.toLowerCase();
+    const facts = retrieveFacts(normalized);
+    const factText = facts.map((fact) => `- ${fact.title}: ${fact.content}`).join("\n");
+    const liveContext = `Live context: scenario=${scenarios[scenario].name}; screen=${screenLabel(screen)}; K101 vibration=${format(vib, 1)} mm/s; V101 level=${format(sepLevel, 1)}%; H101 fuel=${format(heaterFuel, 0)} kg/h; C101 DP=${format(dp, 1)} kPa.`;
 
     if (normalized.includes("risk") || normalized.includes("attention")) {
-      return `Highest current risk: ${scenario === "refinery" ? "refinery CDU constraint. C101 differential pressure is around " + format(dp, 1) + " kPa and H101 fuel is around " + format(heaterFuel, 0) + " kg/h, indicating energy intensity and utilization risk." : scenario === "separator" ? "inlet separation instability. V101 level is around " + format(sepLevel, 1) + "% and should be watched for carryover risk." : "gas compressor K101. Vibration is around " + format(vib, 1) + " mm/s and maps to gas export reliability through the ontology."}`;
+      return `${liveContext}\n\nHighest current risk: ${scenario === "refinery" ? "refinery CDU constraint. C101 differential pressure and H101 fuel demand indicate energy intensity and utilization risk." : scenario === "separator" ? "inlet separation instability. V101 level should be watched for carryover risk." : "gas compressor K101. Vibration maps to gas export reliability through the ontology."}\n\nRecommended action: use the ontology trace to move from tag -> asset -> failure mode -> KPI impact -> operating action.\n\nRelevant retrieved context:\n${factText}`;
     } else if (normalized.includes("relationship") || normalized.includes("ontology")) {
-      return `${selected?.name ?? "The selected asset"} sits in the digital spine as ${selected?.classId ?? "an asset"}. The model links tags to assets via hasTelemetry, assets to process context via contains/flowsTo, and assets to business outcomes via hasKPI. That is what turns raw PI-style points into explainable operational impact.`;
+      return `${selected?.name ?? "The selected asset"} sits in the digital spine as ${selected?.classId ?? "an asset"}.\n\nThe model links tags to assets via hasTelemetry, assets to process context via contains/flowsTo, and assets to business outcomes via hasKPI. That is what turns raw PI-style points into explainable operational impact.\n\nRetrieved context:\n${factText}`;
     } else if (normalized.includes("fabric")) {
-      return "Fabric path: Eventstream ingests the live PI-style replay; Eventhouse serves hot telemetry; Lakehouse stores the ontology, relationship graph, telemetry history, events, health and KPI facts; Direct Lake/Power BI exposes measures; the React app consumes the semantic context.";
+      return `Fabric path: Eventstream ingests the live PI-style replay; Eventhouse serves hot telemetry; Lakehouse stores the ontology, relationship graph, telemetry history, events, health and KPI facts; Direct Lake/Power BI exposes measures; the React app consumes the semantic context.\n\nRetrieved context:\n${factText}`;
     } else if (normalized.includes("customer") || normalized.includes("tell")) {
-      return "Customer storyline: start with fragmented OT and IT data, introduce the ontology as the digital spine, show live telemetry as the digital thread, then demonstrate how Fabric converts an abnormal tag into asset health, KPI impact, and recommended action.";
+      return `Customer storyline: start with fragmented OT and IT data, introduce the ontology as the digital spine, show live telemetry as the digital thread, then demonstrate how Fabric converts an abnormal tag into asset health, KPI impact, and recommended action.\n\nUse this sequence: Control Room Operations -> PI Vision analysis -> Copilot explanation -> Backend/Super-user view if asked.`;
     } else if (normalized.includes("abnormal") || normalized.includes("tag")) {
-      return `Current abnormal indicators: K101 vibration around ${format(vib, 1)} mm/s, V101 level around ${format(sepLevel, 1)}%, H101 fuel around ${format(heaterFuel, 0)} kg/h, and C101 DP around ${format(dp, 1)} kPa. The app uses these to drive health, event and KPI interpretation.`;
+      return `${liveContext}\n\nCurrent abnormal indicators depend on scenario. Compressor degradation is visible through K101 vibration and bearing temperature. Separator instability is visible through V101 level/pressure. Refinery drift is visible through H101 fuel and C101 differential pressure.\n\nRetrieved context:\n${factText}`;
     } else if (normalized.includes("kpi") || normalized.includes("impact")) {
-      return "KPI impact is inferred through the semantic model: compressor degradation affects compression efficiency and gas export reliability; separator instability affects production throughput and downstream stability; CDU drift affects energy intensity, emissions intensity and refinery utilization.";
+      return `KPI impact is inferred through the semantic model: compressor degradation affects compression efficiency and gas export reliability; separator instability affects production throughput and downstream stability; CDU drift affects energy intensity, emissions intensity and refinery utilization.\n\nRetrieved context:\n${factText}`;
     } else {
-      return `For ${scenarios[scenario].name}, the important insight is that telemetry, asset hierarchy, and KPI semantics are linked. This lets a user move from live tag behaviour to cause, impact, and action in one workflow.`;
+      return `${liveContext}\n\nI found the most relevant demo context below and used it to answer your question:\n${factText}\n\nAnswer: the key point is that telemetry, asset hierarchy, events and KPI semantics are linked, so a user can move from live tag behaviour to cause, impact and action in one workflow.`;
     }
+  }
+
+  function retrieveFacts(normalizedPrompt: string) {
+    const scored = copilotKnowledge.map((fact) => {
+      const score = fact.terms.reduce((total, term) => total + (normalizedPrompt.includes(term) ? 1 : 0), 0);
+      return { ...fact, score };
+    }).sort((a, b) => b.score - a.score);
+    const matched = scored.filter((fact) => fact.score > 0).slice(0, 3);
+    return matched.length ? matched : scored.slice(0, 3);
   }
 
   function ask(prompt: string) {
@@ -684,9 +737,22 @@ function CopilotPanel({
     setQuestion("");
   }
 
+  function resetChat() {
+    setMessages([
+      {
+        role: "assistant",
+        text: "New Copilot session started. Ask me about assets, PI tags, events, KPIs, ontology relationships, failure modes or Fabric architecture."
+      }
+    ]);
+    setQuestion("");
+  }
+
   return (
     <aside className="copilotPanel">
-      <div className="cardHeader"><span>Copilot insights</span><small>Demo assistant</small></div>
+      <div className="cardHeader">
+        <span>Copilot insights</span>
+        <button className="copilotReset" onClick={resetChat}>Reset</button>
+      </div>
       <div className="copilotBody">
         <div className="promptGrid">
           {prompts.map((prompt) => <button key={prompt} onClick={() => ask(prompt)}>{prompt}</button>)}
@@ -871,7 +937,7 @@ export default function App() {
       <main>
         <div className="contentWithCopilot">
           <div className="primaryContent">
-            {screen === "control" && <ControlRoom tags={tags} scenario={scenario} />}
+            {screen === "control" && <ControlRoom tags={tags} scenario={scenario} presentationMode={presentationMode} />}
             {screen === "process" && <ProcessMimic tags={tags} />}
             {screen === "piCompression" && <PICompressionScreen tags={tags} />}
             {screen === "piSeparation" && <PISeparationScreen tags={tags} />}
