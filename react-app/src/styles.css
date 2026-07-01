@@ -319,8 +319,8 @@ main { padding: 0 20px 24px; }
 .onboardingOverlay {
   position: fixed;
   inset: 0;
-  z-index: 40;
-  background: var(--cp-overlay);
+  z-index: 80;
+  background: transparent;
   pointer-events: none;
   padding: 24px;
 }
@@ -335,41 +335,50 @@ main { padding: 0 20px 24px; }
   display: grid;
   gap: 18px;
   pointer-events: auto;
-  position: absolute;
-  z-index: 70;
+  position: fixed;
+  z-index: 90;
 }
 .spotlightPanel {
-  top: 112px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 24px;
+  right: auto;
+  bottom: 24px;
+  top: auto;
+  transform: none;
 }
 .onboardingOverlay.step1 .spotlightPanel {
-  top: 112px;
-  left: 50%;
+  left: 24px;
+  right: auto;
+  bottom: 24px;
+  top: auto;
+  transform: none;
 }
 .onboardingOverlay.step2 .spotlightPanel {
-  top: 112px;
-  right: 220px;
-  left: auto;
+  left: 24px;
+  right: auto;
+  bottom: 24px;
+  top: auto;
   transform: none;
 }
 .onboardingOverlay.step3 .spotlightPanel {
-  top: 210px;
-  right: 44px;
-  left: auto;
+  left: 24px;
+  right: auto;
+  bottom: 24px;
+  top: auto;
   transform: none;
 }
 .onboardingOverlay.step4 .spotlightPanel {
-  top: 156px;
-  left: 28px;
+  left: 24px;
   right: auto;
+  bottom: 24px;
+  top: auto;
   transform: none;
-  width: min(360px, calc(100% - 56px));
+  width: min(420px, calc(100% - 48px));
 }
 .tourHighlight {
   position: relative;
-  z-index: 65;
+  z-index: 85;
   outline: 3px solid var(--cp-accent);
+  outline-offset: 4px;
   box-shadow: var(--cp-shadow);
 }
 .onboardingIntro h2 {
