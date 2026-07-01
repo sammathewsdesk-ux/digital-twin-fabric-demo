@@ -284,6 +284,38 @@ main { padding: 0 20px 24px; }
   line-height: 1.08;
   letter-spacing: -0.03em;
 }
+.execSummaryGrid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.execSummaryGrid div,
+.takeawayGrid div {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+  border-radius: 0.625rem;
+  padding: 12px;
+}
+.execSummaryGrid strong,
+.execSummaryGrid span {
+  display: block;
+}
+.execSummaryGrid span {
+  color: var(--cp-text-muted);
+  margin-top: 6px;
+  font-size: 13px;
+}
+.takeawayGrid {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.takeawayGrid p {
+  margin-top: 6px;
+  font-size: 13px;
+}
 .landingActions {
   display: grid;
   gap: 10px;
@@ -1046,7 +1078,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 @media (max-width: 1100px) {
   .topbar, .scenarioBar { display: flex; flex-direction: column; align-items: stretch; }
-  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid, .digitalTwinMode, .landingHero, .landingGrid, .valueGrid, .journeySteps, .impactGraph, .proofMatrix { grid-template-columns: 1fr; }
+  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid, .digitalTwinMode, .landingHero, .landingGrid, .valueGrid, .journeySteps, .impactGraph, .proofMatrix, .execSummaryGrid, .takeawayGrid { grid-template-columns: 1fr; }
   .menuSelect { min-width: 0; }
   .topActions { justify-content: start; flex-wrap: wrap; }
   .wide, .side { grid-column: span 1; }

@@ -240,14 +240,28 @@ function ExecutiveLanding({
     <section className="landing">
       <article className="card landingHero">
         <div>
-          <small>Fabric semantic digital twin showcase</small>
-          <h2>From live OT signals to asset intelligence, business impact and action</h2>
-          <p>This demo shows how an ontology-led digital spine, PI-style telemetry, event frames, KPIs and Fabric semantic modelling come together as a customer-ready operations experience.</p>
+          <small>Executive summary</small>
+          <h2>Fabric-powered Digital Twin for intelligent energy operations</h2>
+          <p>This showcase demonstrates how Microsoft Fabric can become the semantic intelligence layer for industrial operations: connecting live OT telemetry, asset hierarchy, events, failure modes and business KPIs into one explainable operational twin.</p>
+          <div className="execSummaryGrid">
+            <div><strong>What it is</strong><span>An ontology-led Digital Twin spanning offshore production and refinery operations.</span></div>
+            <div><strong>What it proves</strong><span>Fabric can turn fragmented PI-style tags and enterprise data into trusted asset intelligence.</span></div>
+            <div><strong>Why it matters</strong><span>Leaders can see operational risk, business impact and recommended action in the same experience.</span></div>
+          </div>
         </div>
         <div className="landingActions">
           <button onClick={() => { setPresentationMode(true); setScenario("compressor"); setScreen("incident"); }}>Start guided incident</button>
           <button onClick={() => setScreen("digitalTwin")}>Open Digital Twin</button>
           <button onClick={() => setScreen("fabric")}>Show Fabric proof</button>
+        </div>
+      </article>
+      <article className="card execTakeaways">
+        <div className="cardHeader"><span>Leadership takeaways</span><small>What to look for in the demo</small></div>
+        <div className="takeawayGrid">
+          <div><strong>1. Digital spine</strong><p>A semantic asset model links wells, equipment, telemetry, events and KPIs.</p></div>
+          <div><strong>2. Live digital thread</strong><p>PI-style telemetry replay creates realistic operational behaviour, not static dashboard data.</p></div>
+          <div><strong>3. Explainable decisions</strong><p>Every alert can be traced from tag to asset, failure mode, KPI impact and action.</p></div>
+          <div><strong>4. Fabric proof</strong><p>The experience maps directly to Eventstream, Eventhouse, Lakehouse and semantic model patterns.</p></div>
         </div>
       </article>
       <div className="landingGrid">
