@@ -360,10 +360,11 @@ main { padding: 0 20px 24px; }
   transform: none;
 }
 .onboardingOverlay.step4 .spotlightPanel {
-  top: 170px;
-  right: 28px;
-  left: auto;
+  top: 156px;
+  left: 28px;
+  right: auto;
   transform: none;
+  width: min(360px, calc(100% - 56px));
 }
 .tourHighlight {
   position: relative;
