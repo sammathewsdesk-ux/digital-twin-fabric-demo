@@ -1089,10 +1089,10 @@ function ScreenNavigation({
 
 function OnboardingCoach({
   dismiss,
-  startIncident
+  openDigitalTwin
 }: {
   dismiss: () => void;
-  startIncident: () => void;
+  openDigitalTwin: () => void;
 }) {
   return (
     <div className="onboardingOverlay" role="dialog" aria-modal="true" aria-label="Demo quick start">
@@ -1100,16 +1100,16 @@ function OnboardingCoach({
         <div className="onboardingIntro">
           <small>Quick start</small>
           <h2>Four controls to understand before you start</h2>
-          <p>This guided entry explains how to navigate the demo, tailor the lens, run the customer incident story, and use Copilot to interrogate the data.</p>
+          <p>This guided entry explains how to navigate the demo, tailor the lens, enter the Digital Twin experience, and use Copilot to interrogate the data.</p>
         </div>
         <div className="onboardingGrid">
           <div><i>1</i><strong>Workspace</strong><p>Use this dropdown to move between executive summary, control room operations, PI Vision analysis, Digital Twin mode, and backend Fabric proof.</p></div>
           <div><i>2</i><strong>Persona</strong><p>Switch the audience lens. Production, operator, reliability and architect personas change the context and how you position the same data.</p></div>
-          <div><i>3</i><strong>Start guided incident</strong><p>Launches a curated customer storyline: early compressor signal, event, failure mode, KPI impact and recommended action.</p></div>
+          <div><i>3</i><strong>Open Digital Twin</strong><p>Opens the clickable 3D-style asset model where users can select assets, inspect health context, and drill into ontology or PI analysis.</p></div>
           <div><i>4</i><strong>Copilot insights</strong><p>Ask questions or commands such as “show compressor risk” or “explain Fabric architecture” to navigate and interpret the demo.</p></div>
         </div>
         <div className="onboardingActions">
-          <button onClick={startIncident}>Start guided incident</button>
+          <button onClick={openDigitalTwin}>Open Digital Twin</button>
           <button onClick={dismiss}>Explore myself</button>
         </div>
       </div>
@@ -1182,12 +1182,12 @@ export default function App() {
     }
   }
 
-  function startGuidedIncident() {
+  function openDigitalTwinFromOnboarding() {
     setShowOnboarding(false);
-    setPresentationMode(true);
-    setScenario("compressor");
-    setScreen("incident");
-    setDemoStep(0);
+    setPresentationMode(false);
+    setScenario("normal");
+    setSelectedAsset("OPH-A-K101");
+    setScreen("digitalTwin");
   }
 
   return (
@@ -1229,7 +1229,7 @@ export default function App() {
       </header>
 
       {presentationMode && <DemoGuide step={demoStep} setStep={setDemoStep} presentationMode={presentationMode} autoAdvance={autoAdvance} setAutoAdvance={setAutoAdvance} resetDemo={resetDemo} />}
-      {showOnboarding && <OnboardingCoach dismiss={() => setShowOnboarding(false)} startIncident={startGuidedIncident} />}
+      {showOnboarding && <OnboardingCoach dismiss={() => setShowOnboarding(false)} openDigitalTwin={openDigitalTwinFromOnboarding} />}
 
       {isOperationsScreen && (
         <section className="scenarioBar">
