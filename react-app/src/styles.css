@@ -75,6 +75,9 @@ button { font: inherit; }
   top: 0;
   z-index: 5;
 }
+.topbar:has(.tourHighlight) {
+  z-index: 86;
+}
 .brand { display: flex; gap: 12px; align-items: center; }
 .mark {
   width: 36px;
@@ -320,7 +323,9 @@ main { padding: 0 20px 24px; }
   position: fixed;
   inset: 0;
   z-index: 80;
-  background: transparent;
+  background: var(--cp-overlay);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   pointer-events: none;
   padding: 24px;
 }
@@ -380,6 +385,7 @@ main { padding: 0 20px 24px; }
   outline: 3px solid var(--cp-accent);
   outline-offset: 4px;
   box-shadow: var(--cp-shadow);
+  background: var(--cp-surface);
 }
 .onboardingIntro h2 {
   margin: 6px 0 8px;

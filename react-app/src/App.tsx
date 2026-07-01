@@ -1095,12 +1095,10 @@ function ScreenNavigation({
 
 function OnboardingCoach({
   dismiss,
-  openDigitalTwin,
   step,
   setStep
 }: {
   dismiss: () => void;
-  openDigitalTwin: () => void;
   step: number;
   setStep: (step: number) => void;
 }) {
@@ -1136,7 +1134,6 @@ function OnboardingCoach({
         <div className="onboardingActions">
           {step > 0 && <button onClick={() => setStep(step - 1)}>Back</button>}
           {!isLast && <button onClick={() => setStep(step + 1)}>Next</button>}
-          {isLast && <button onClick={openDigitalTwin}>Open Digital Twin</button>}
           <button onClick={dismiss}>Explore myself</button>
         </div>
       </div>
@@ -1210,14 +1207,6 @@ export default function App() {
     }
   }
 
-  function openDigitalTwinFromOnboarding() {
-    setShowOnboarding(false);
-    setPresentationMode(false);
-    setScenario("normal");
-    setSelectedAsset("OPH-A-K101");
-    setScreen("digitalTwin");
-  }
-
   return (
     <div className={`app ${presentationMode ? "presentation" : ""}`}>
       <header className="topbar">
@@ -1257,7 +1246,7 @@ export default function App() {
       </header>
 
       {presentationMode && <DemoGuide step={demoStep} setStep={setDemoStep} presentationMode={presentationMode} autoAdvance={autoAdvance} setAutoAdvance={setAutoAdvance} resetDemo={resetDemo} />}
-      {showOnboarding && <OnboardingCoach dismiss={() => setShowOnboarding(false)} openDigitalTwin={openDigitalTwinFromOnboarding} step={onboardingStep} setStep={setOnboardingStep} />}
+      {showOnboarding && <OnboardingCoach dismiss={() => setShowOnboarding(false)} step={onboardingStep} setStep={setOnboardingStep} />}
 
       {isOperationsScreen && (
         <section className="scenarioBar">
