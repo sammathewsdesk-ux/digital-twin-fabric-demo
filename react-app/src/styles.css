@@ -316,6 +316,82 @@ main { padding: 0 20px 24px; }
   margin-top: 6px;
   font-size: 13px;
 }
+.onboardingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--cp-overlay);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.onboardingPanel {
+  width: min(980px, 100%);
+  background: var(--cp-surface);
+  color: var(--cp-text);
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  box-shadow: var(--cp-shadow);
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+}
+.onboardingIntro h2 {
+  margin: 6px 0 8px;
+  font-size: 28px;
+  line-height: 1.1;
+}
+.onboardingIntro small {
+  color: var(--cp-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 700;
+}
+.onboardingGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.onboardingGrid div {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+  border-radius: 0.625rem;
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+.onboardingGrid i {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--cp-accent);
+  color: var(--cp-accent-fg);
+  font-style: normal;
+  font-weight: 700;
+}
+.onboardingGrid p {
+  font-size: 13px;
+}
+.onboardingActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.onboardingActions button {
+  border: 1px solid var(--cp-border);
+  background: var(--cp-bg-elevated);
+  color: var(--cp-text);
+  border-radius: 0.625rem;
+  padding: 10px 13px;
+  cursor: pointer;
+}
+.onboardingActions button:first-child {
+  background: var(--cp-accent);
+  color: var(--cp-accent-fg);
+  border-color: var(--cp-accent);
+}
 .landingActions {
   display: grid;
   gap: 10px;
@@ -1078,7 +1154,7 @@ th { color: var(--cp-text-muted); font-size: 11px; text-transform: uppercase; le
 }
 @media (max-width: 1100px) {
   .topbar, .scenarioBar { display: flex; flex-direction: column; align-items: stretch; }
-  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid, .digitalTwinMode, .landingHero, .landingGrid, .valueGrid, .journeySteps, .impactGraph, .proofMatrix, .execSummaryGrid, .takeawayGrid { grid-template-columns: 1fr; }
+  .grid, .ontologyLayout, .fabric, .contentWithCopilot, .impactTrace, .piGrid, .trendGrid, .correlationGrid, .digitalTwinMode, .landingHero, .landingGrid, .valueGrid, .journeySteps, .impactGraph, .proofMatrix, .execSummaryGrid, .takeawayGrid, .onboardingGrid { grid-template-columns: 1fr; }
   .menuSelect { min-width: 0; }
   .topActions { justify-content: start; flex-wrap: wrap; }
   .wide, .side { grid-column: span 1; }

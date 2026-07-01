@@ -250,7 +250,7 @@ function ExecutiveLanding({
           </div>
         </div>
         <div className="landingActions">
-          <button onClick={() => { setPresentationMode(true); setScenario("compressor"); setScreen("incident"); }}>Start guided incident</button>
+          <button className="guidedIncidentAction" onClick={() => { setPresentationMode(true); setScenario("compressor"); setScreen("incident"); }}>Start guided incident</button>
           <button onClick={() => setScreen("digitalTwin")}>Open Digital Twin</button>
           <button onClick={() => setScreen("fabric")}>Show Fabric proof</button>
         </div>
@@ -1087,16 +1087,47 @@ function ScreenNavigation({
   );
 }
 
+function OnboardingCoach({
+  dismiss,
+  startIncident
+}: {
+  dismiss: () => void;
+  startIncident: () => void;
+}) {
+  return (
+    <div className="onboardingOverlay" role="dialog" aria-modal="true" aria-label="Demo quick start">
+      <div className="onboardingPanel">
+        <div className="onboardingIntro">
+          <small>Quick start</small>
+          <h2>Four controls to understand before you start</h2>
+          <p>This guided entry explains how to navigate the demo, tailor the lens, run the customer incident story, and use Copilot to interrogate the data.</p>
+        </div>
+        <div className="onboardingGrid">
+          <div><i>1</i><strong>Workspace</strong><p>Use this dropdown to move between executive summary, control room operations, PI Vision analysis, Digital Twin mode, and backend Fabric proof.</p></div>
+          <div><i>2</i><strong>Persona</strong><p>Switch the audience lens. Production, operator, reliability and architect personas change the context and how you position the same data.</p></div>
+          <div><i>3</i><strong>Start guided incident</strong><p>Launches a curated customer storyline: early compressor signal, event, failure mode, KPI impact and recommended action.</p></div>
+          <div><i>4</i><strong>Copilot insights</strong><p>Ask questions or commands such as “show compressor risk” or “explain Fabric architecture” to navigate and interpret the demo.</p></div>
+        </div>
+        <div className="onboardingActions">
+          <button onClick={startIncident}>Start guided incident</button>
+          <button onClick={dismiss}>Explore myself</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [screen, setScreen] = useState<Screen>("landing");
-  const [scenario, setScenario] = useState<ScenarioId>("compressor");
+  const [scenario, setScenario] = useState<ScenarioId>("normal");
   const [selectedAsset, setSelectedAsset] = useState("OPH-A-K101");
   const [demoStep, setDemoStep] = useState(0);
   const [presentationMode, setPresentationMode] = useState(false);
   const [autoAdvance, setAutoAdvance] = useState(false);
-  const [themeMode, setThemeMode] = useState<ThemeMode>(() => (document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light"));
-  const [persona, setPersona] = useState<Persona>("operator");
+  const [themeMode, setThemeMode] = useState<ThemeMode>("dark");
+  const [persona, setPersona] = useState<Persona>("production");
   const [replaySpeed, setReplaySpeed] = useState("60x");
+  const [showOnboarding, setShowOnboarding] = useState(true);
   const tags = useLiveTags(scenario);
   const isOperationsScreen = screen === "control" || screen === "digitalTwin" || screen === "process" || screen.startsWith("pi");
 
@@ -1151,6 +1182,14 @@ export default function App() {
     }
   }
 
+  function startGuidedIncident() {
+    setShowOnboarding(false);
+    setPresentationMode(true);
+    setScenario("compressor");
+    setScreen("incident");
+    setDemoStep(0);
+  }
+
   return (
     <div className={`app ${presentationMode ? "presentation" : ""}`}>
       <header className="topbar">
@@ -1190,6 +1229,7 @@ export default function App() {
       </header>
 
       {presentationMode && <DemoGuide step={demoStep} setStep={setDemoStep} presentationMode={presentationMode} autoAdvance={autoAdvance} setAutoAdvance={setAutoAdvance} resetDemo={resetDemo} />}
+      {showOnboarding && <OnboardingCoach dismiss={() => setShowOnboarding(false)} startIncident={startGuidedIncident} />}
 
       {isOperationsScreen && (
         <section className="scenarioBar">
