@@ -230,11 +230,13 @@ function ControlRoom({ tags, scenario, presentationMode }: { tags: TagState[]; s
 function ExecutiveLanding({
   setScreen,
   setScenario,
-  setPresentationMode
+  setPresentationMode,
+  highlightDigitalTwin
 }: {
   setScreen: (screen: Screen) => void;
   setScenario: (scenario: ScenarioId) => void;
   setPresentationMode: (enabled: boolean) => void;
+  highlightDigitalTwin: boolean;
 }) {
   return (
     <section className="landing">
@@ -251,7 +253,7 @@ function ExecutiveLanding({
         </div>
         <div className="landingActions">
           <button className="guidedIncidentAction" onClick={() => { setPresentationMode(true); setScenario("compressor"); setScreen("incident"); }}>Start guided incident</button>
-          <button onClick={() => setScreen("digitalTwin")}>Open Digital Twin</button>
+          <button className={highlightDigitalTwin ? "tourHighlight" : ""} onClick={() => setScreen("digitalTwin")}>Open Digital Twin</button>
           <button onClick={() => setScreen("fabric")}>Show Fabric proof</button>
         </div>
       </article>
@@ -882,7 +884,8 @@ function CopilotPanel({
   tags,
   setScreen,
   setScenario,
-  setSelectedAsset
+  setSelectedAsset,
+  highlight
 }: {
   screen: Screen;
   scenario: ScenarioId;
@@ -891,6 +894,7 @@ function CopilotPanel({
   setScreen: (screen: Screen) => void;
   setScenario: (scenario: ScenarioId) => void;
   setSelectedAsset: (assetId: string) => void;
+  highlight: boolean;
 }) {
   const [messages, setMessages] = useState([
     {
@@ -993,7 +997,7 @@ function CopilotPanel({
   }
 
   return (
-    <aside className="copilotPanel">
+    <aside className={`copilotPanel ${highlight ? "tourHighlight" : ""}`}>
       <div className="cardHeader">
         <span>Copilot insights</span>
         <button className="copilotReset" onClick={resetChat}>Reset</button>
@@ -1049,11 +1053,13 @@ function screenLabel(screen: Screen) {
 function ScreenNavigation({
   screen,
   setScreen,
-  presentationMode
+  presentationMode,
+  highlight
 }: {
   screen: Screen;
   setScreen: (screen: Screen) => void;
   presentationMode: boolean;
+  highlight: boolean;
 }) {
   const options = [
     { group: "Executive", items: [["landing", "Executive landing"]], backend: false },
@@ -1073,7 +1079,7 @@ function ScreenNavigation({
   ] as const;
 
   return (
-    <label className="menuSelect">
+    <label className={`menuSelect ${highlight ? "tourHighlight" : ""}`}>
       <span>Workspace</span>
       <select value={screen} onChange={(event) => setScreen(event.target.value as Screen)}>
         {options.filter((option) => !presentationMode || !option.backend).map((option) => (
@@ -1089,27 +1095,48 @@ function ScreenNavigation({
 
 function OnboardingCoach({
   dismiss,
-  openDigitalTwin
+  openDigitalTwin,
+  step,
+  setStep
 }: {
   dismiss: () => void;
   openDigitalTwin: () => void;
+  step: number;
+  setStep: (step: number) => void;
 }) {
+  const steps = [
+    {
+      title: "Workspace",
+      text: "Use the Workspace dropdown to move between the executive summary, control room, Digital Twin mode, PI Vision analysis, and backend Fabric proof."
+    },
+    {
+      title: "Persona",
+      text: "Use Persona to frame the same operational data for an operator, reliability engineer, production leader, or data architect."
+    },
+    {
+      title: "Open Digital Twin",
+      text: "This opens the clickable 3D-style asset model so users can select an asset, inspect health context, and drill into ontology or PI analysis."
+    },
+    {
+      title: "Copilot insights",
+      text: "Copilot answers questions and commands across the demo, such as showing compressor risk, explaining Fabric architecture, or tracing KPI impact."
+    }
+  ];
+  const current = steps[step];
+  const isLast = step === steps.length - 1;
+
   return (
-    <div className="onboardingOverlay" role="dialog" aria-modal="true" aria-label="Demo quick start">
-      <div className="onboardingPanel">
+    <div className={`onboardingOverlay step${step + 1}`} role="dialog" aria-modal="true" aria-label="Demo quick start">
+      <div className="onboardingPanel spotlightPanel">
         <div className="onboardingIntro">
-          <small>Quick start</small>
-          <h2>Four controls to understand before you start</h2>
-          <p>This guided entry explains how to navigate the demo, tailor the lens, enter the Digital Twin experience, and use Copilot to interrogate the data.</p>
-        </div>
-        <div className="onboardingGrid">
-          <div><i>1</i><strong>Workspace</strong><p>Use this dropdown to move between executive summary, control room operations, PI Vision analysis, Digital Twin mode, and backend Fabric proof.</p></div>
-          <div><i>2</i><strong>Persona</strong><p>Switch the audience lens. Production, operator, reliability and architect personas change the context and how you position the same data.</p></div>
-          <div><i>3</i><strong>Open Digital Twin</strong><p>Opens the clickable 3D-style asset model where users can select assets, inspect health context, and drill into ontology or PI analysis.</p></div>
-          <div><i>4</i><strong>Copilot insights</strong><p>Ask questions or commands such as “show compressor risk” or “explain Fabric architecture” to navigate and interpret the demo.</p></div>
+          <small>Quick start · {step + 1} of {steps.length}</small>
+          <h2>{current.title}</h2>
+          <p>{current.text}</p>
         </div>
         <div className="onboardingActions">
-          <button onClick={openDigitalTwin}>Open Digital Twin</button>
+          {step > 0 && <button onClick={() => setStep(step - 1)}>Back</button>}
+          {!isLast && <button onClick={() => setStep(step + 1)}>Next</button>}
+          {isLast && <button onClick={openDigitalTwin}>Open Digital Twin</button>}
           <button onClick={dismiss}>Explore myself</button>
         </div>
       </div>
@@ -1128,6 +1155,7 @@ export default function App() {
   const [persona, setPersona] = useState<Persona>("production");
   const [replaySpeed, setReplaySpeed] = useState("60x");
   const [showOnboarding, setShowOnboarding] = useState(true);
+  const [onboardingStep, setOnboardingStep] = useState(0);
   const tags = useLiveTags(scenario);
   const isOperationsScreen = screen === "control" || screen === "digitalTwin" || screen === "process" || screen.startsWith("pi");
 
@@ -1201,7 +1229,7 @@ export default function App() {
           </div>
         </div>
         <nav className="navGroups">
-          <ScreenNavigation screen={screen} setScreen={setScreen} presentationMode={presentationMode} />
+          <ScreenNavigation screen={screen} setScreen={setScreen} presentationMode={presentationMode} highlight={showOnboarding && onboardingStep === 0} />
         </nav>
         <div className="topActions">
           <label className="themeSwitch">
@@ -1211,7 +1239,7 @@ export default function App() {
               <option value="dark">Dark</option>
             </select>
           </label>
-          <label className="themeSwitch">
+          <label className={`themeSwitch ${showOnboarding && onboardingStep === 1 ? "tourHighlight" : ""}`}>
             <span>Persona</span>
             <select value={persona} onChange={(event) => setPersona(event.target.value as Persona)}>
               <option value="operator">Operator</option>
@@ -1229,7 +1257,7 @@ export default function App() {
       </header>
 
       {presentationMode && <DemoGuide step={demoStep} setStep={setDemoStep} presentationMode={presentationMode} autoAdvance={autoAdvance} setAutoAdvance={setAutoAdvance} resetDemo={resetDemo} />}
-      {showOnboarding && <OnboardingCoach dismiss={() => setShowOnboarding(false)} openDigitalTwin={openDigitalTwinFromOnboarding} />}
+      {showOnboarding && <OnboardingCoach dismiss={() => setShowOnboarding(false)} openDigitalTwin={openDigitalTwinFromOnboarding} step={onboardingStep} setStep={setOnboardingStep} />}
 
       {isOperationsScreen && (
         <section className="scenarioBar">
@@ -1261,7 +1289,7 @@ export default function App() {
       <main>
         <div className="contentWithCopilot">
           <div className="primaryContent">
-            {screen === "landing" && <ExecutiveLanding setScreen={setScreen} setScenario={setScenario} setPresentationMode={setPresentationMode} />}
+            {screen === "landing" && <ExecutiveLanding setScreen={setScreen} setScenario={setScenario} setPresentationMode={setPresentationMode} highlightDigitalTwin={showOnboarding && onboardingStep === 2} />}
             {screen === "control" && <ControlRoom tags={tags} scenario={scenario} presentationMode={presentationMode} />}
             {screen === "incident" && <IncidentJourney tags={tags} setScreen={setScreen} />}
             {screen === "digitalTwin" && <DigitalTwinMode selectedAsset={selectedAsset} setSelectedAsset={setSelectedAsset} setScreen={setScreen} tags={tags} />}
@@ -1273,7 +1301,7 @@ export default function App() {
             {screen === "ontology" && <OntologyBrowser selected={selectedAsset} onSelect={setSelectedAsset} />}
             {screen === "fabric" && <FabricView />}
           </div>
-          <CopilotPanel screen={screen} scenario={scenario} selectedAsset={selectedAsset} tags={tags} setScreen={setScreen} setScenario={setScenario} setSelectedAsset={setSelectedAsset} />
+          <CopilotPanel screen={screen} scenario={scenario} selectedAsset={selectedAsset} tags={tags} setScreen={setScreen} setScenario={setScenario} setSelectedAsset={setSelectedAsset} highlight={showOnboarding && onboardingStep === 3} />
         </div>
       </main>
     </div>
